@@ -1,6 +1,13 @@
 package es.udc.hotelapp.backend.model.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Room {
+	
 	private Long id;
 	private Long number;
 	private Status status;
@@ -20,6 +27,8 @@ public class Room {
 		this.reservation = reservation;
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

@@ -2,27 +2,33 @@ package es.udc.hotelapp.backend.model.entities;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Reservation {
+	
 	private Long id;
-	private Long idUser;
-	private Long idRoom;
+	private User user;
 	private LocalDate inbound;
 	private LocalDate outbound;
 	
-	public Reservation() {
+	public Reservation() {	}
 
-	}
-
-	public Reservation(Long id, Long idUser, Long idRoom, LocalDate inbound, LocalDate outbound) {
-		super();
-		this.id = id;
-		this.idUser = idUser;
-		this.idRoom = idRoom;
+	public Reservation(User user, LocalDate inbound, LocalDate outbound) {
+		this.user = user;
 		this.inbound = inbound;
 		this.outbound = outbound;
 	}
 
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
@@ -31,21 +37,18 @@ public class Reservation {
 		this.id = id;
 	}
 
-	public Long getIdUser() {
-		return idUser;
+	
+	@ManyToOne(optional=false, fetch=FetchType.LAZY)
+	@JoinColumn(name="userId")
+	public User getUser() {
+		return user;
 	}
 
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Long getIdRoom() {
-		return idRoom;
-	}
-
-	public void setIdRoom(Long idRoom) {
-		this.idRoom = idRoom;
-	}
 
 	public LocalDate getInbound() {
 		return inbound;
