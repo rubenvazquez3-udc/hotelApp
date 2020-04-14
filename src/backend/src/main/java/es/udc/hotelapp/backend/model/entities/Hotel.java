@@ -1,30 +1,24 @@
 package es.udc.hotelapp.backend.model.entities;
 
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
-public class Product {
-	
+public class Hotel {
 	private Long id;
 	private String name;
-	private String description;
-	private Double price;
-	
-	
-	public Product() {	}
+	private String manager;
+	private String address;
 
-
-	public Product(String name, String description, Double price) {
+	public Hotel(String name, String manager, String address) {
 		this.name = name;
-		this.description = description;
-		this.price = price;
+		this.manager = manager;
+		this.address = address;
 	}
+
+	public Hotel() {}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,41 +26,32 @@ public class Product {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getName() {
 		return name;
 	}
 
-
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-	public String getDescription() {
-		return description;
+	public String getManager() {
+		return manager;
 	}
 
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setManager(String manager) {
+		this.manager = manager;
 	}
 
-
-	public Double getPrice() {
-		return price;
+	public String getAddress() {
+		return address;
 	}
 
-
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-	
-	
 
 }

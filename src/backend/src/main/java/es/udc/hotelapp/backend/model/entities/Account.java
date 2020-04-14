@@ -1,5 +1,6 @@
 package es.udc.hotelapp.backend.model.entities;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Account {
@@ -68,4 +70,9 @@ public class Account {
 		this.outbound = outbound;
 	}
 
+	@Transient
+	public BigDecimal getTotalPrice() {
+		return items.stream().map(i -> i.getTotalPrice()).reduce(new BigDecimal(0), (a,b) -> a.add(b));
+	}
+	
 }

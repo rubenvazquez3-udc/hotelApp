@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -40,6 +41,7 @@ public class AccountItem {
 	
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
 	@JoinColumn(name="accountId")
+	
 	public Account getAccount() {
 		return account;
 	}
@@ -59,6 +61,11 @@ public class AccountItem {
 		this.itemPrice = itemPrice;
 	}
 	
+	
+	@Transient
+	public BigDecimal getTotalPrice() {
+		return this.getItemPrice().multiply(new BigDecimal(this.getQuantity()));
+	}
 	
 
 }

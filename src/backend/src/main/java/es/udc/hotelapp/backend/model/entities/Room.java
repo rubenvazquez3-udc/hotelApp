@@ -1,9 +1,12 @@
 package es.udc.hotelapp.backend.model.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Room {
@@ -11,21 +14,19 @@ public class Room {
 	private Long id;
 	private Long number;
 	private Status status;
-	private tRoom type;
-	private Reservation reservation;
+	private RoomType type;
+	private Hotel hotel;
 
-	public Room() {
+	public Room() { }
 
-	}
-
-	public Room(Long id, Long number, Status status, tRoom type, Reservation reservation) {
+	public Room(Long number, RoomType type, Hotel hotel) {
 		super();
-		this.id = id;
 		this.number = number;
-		this.status = status;
+		this.status = Status.LIBRE;
 		this.type = type;
-		this.reservation = reservation;
+		this.hotel = hotel;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,20 +54,26 @@ public class Room {
 		this.status = status;
 	}
 
-	public tRoom getType() {
+	@ManyToOne(optional=false, fetch=FetchType.LAZY)
+	@JoinColumn(name="roomType")
+	public RoomType getType() {
 		return type;
 	}
 
-	public void setType(tRoom type) {
+	public void setType(RoomType type) {
 		this.type = type;
 	}
 
-	public Reservation getReservation() {
-		return reservation;
+
+	public Hotel getHotel() {
+		return hotel;
 	}
 
-	public void setReservation(Reservation reservation) {
-		this.reservation = reservation;
+
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
+
 
 }

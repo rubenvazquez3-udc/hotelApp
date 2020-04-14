@@ -3,6 +3,8 @@ package es.udc.hotelapp.backend.model.entities;
 import java.math.BigDecimal;
 import java.util.Set;
 
+
+
 public class ProductItem extends AccountItem{
 	
 	private Set<Product> products;
