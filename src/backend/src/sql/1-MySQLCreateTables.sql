@@ -79,9 +79,9 @@ CREATE TABLE AccountItem (
     itemPrice DECIMAL (11,2),
     productId BIGINT NOT NULL,
     CONSTRAINT AccountITemPK PRIMARY KEY (id),
-    CONSTRAINT AccountItemAccountFK FOREIGN KEY
+    CONSTRAINT AccountItemAccountFK FOREIGN KEY (accountId)
         REFERENCES Account(id),
-    CONSTRAINT AccountItemProductFK FOREIGN KEY
+    CONSTRAINT AccountItemProductFK FOREIGN KEY (productId)
         REFERENCES Product(id)
 ) ENGINE = InnoDB;
 
@@ -102,7 +102,7 @@ CREATE TABLE Service (
     price DECIMAL (11,2) NOT NULL,
     hotelId BIGINT NOT NULL,
     CONSTRAINT ServicePK PRIMARY KEY (id),
-    CONSTRAINT ServiceHotelFK FOREIGN KEY
+    CONSTRAINT ServiceHotelFK FOREIGN KEY (hotelId)
         REFERENCES Hotel (id)
 ) ENGINE = InnoDB;
 
@@ -125,9 +125,9 @@ CREATE TABLE RoomService (
     userId BIGINT NOT NULL,
     roomId BIGINT NOT NULL,
     CONSTRAINT RoomServicePK PRIMARY KEY (id),
-    CONSTRAINT RoomServiceUserFK FOREIGN KEY
+    CONSTRAINT RoomServiceUserFK FOREIGN KEY (userId)
         REFERENCES User(id),
-    CONSTRAINT RoomServiceRoomIdFK FOREIGN KEY
+    CONSTRAINT RoomServiceRoomIdFK FOREIGN KEY (roomId)
         REFERENCES Room(id)
 ) ENGINE = InnoDB;
 
@@ -149,9 +149,9 @@ CREATE TABLE GuestReservation(
     reservationId BIGINT NOT NULL,
     guestId BIGINT NOT NULL,
     CONSTRAINT GuestReservationPK PRIMARY KEY (id),
-    CONSTRAINT GuestReservationFK FOREIGN KEY
+    CONSTRAINT GuestReservationFK FOREIGN KEY (reservationId)
         REFERENCES Reservation(id),
-    CONSTRAINT GuestReservationGuestFK FOREIGN KEY
+    CONSTRAINT GuestReservationGuestFK FOREIGN KEY (guestId)
         REFERENCES Guest(id)
 ) ENGINE = InnoDB;
 
@@ -162,9 +162,9 @@ CREATE TABLE Room(
     typeId BIGINT NOT NULL,
     hotelId BIGINT NOT NULL,
     CONSTRAINT RoomPK PRIMARY KEY (id),
-    CONSTRAINT RoomHotelFK FOREIGN KEY
+    CONSTRAINT RoomHotelFK FOREIGN KEY (hotelId)
         REFERENCES Hotel(id),
-    CONSTRAINT RoomTypeFK FOREIGN KEY
+    CONSTRAINT RoomTypeFK FOREIGN KEY (typeId)
         REFERENCES RoomType (id),
     CONSTRAINT RoomNumberUniqueKey UNIQUE (number)
 ) ENGINE = InnoDB;
@@ -183,9 +183,9 @@ CREATE TABLE RoomReservation (
     beginDate DATETIME NOT NULL,
     endDate DATETIME NOT NULL,
     CONSTRAINT RoomReservationPK PRIMARY KEY (id),
-    CONSTRAINT RoomReservationRoomFK FOREIGN KEY
+    CONSTRAINT RoomReservationRoomFK FOREIGN KEY (roomId)
         REFERENCES Room(id),
-    CONSTRAINT RoomReservationReservationFK FOREIGN KEY
+    CONSTRAINT RoomReservationReservationFK FOREIGN KEY (reservationId)
         REFERENCES Reservation(id)
 ) ENGINE = InnoDB;
 
@@ -195,8 +195,8 @@ CREATE TABLE RoomTypeReservation (
     reservationId BIGINT NOT NULL,
     rooms SMALLINT NOT NULL,
     CONSTRAINT RoomTypeReservationPK PRIMARY KEY (id),
-    CONSTRAINT RoomTypeReservationTypeFK FOREIGN KEY
+    CONSTRAINT RoomTypeReservationTypeFK FOREIGN KEY (typeId)
         REFERENCES RoomType(id),
-    CONSTRAINT RoomTypeReservationReservationFK FOREIGN KEY
+    CONSTRAINT RoomTypeReservationReservationFK FOREIGN KEY (reservationId)
         REFERENCES Reservation(id)
 ) ENGINE = InnoDB;
