@@ -6,10 +6,7 @@ public class GuestReservation {
 	private Reservation reservation;
 	private Guest guest;
 	
-	public GuestReservation() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public GuestReservation() {	}
 	
 	
 	public GuestReservation(Reservation reservation, Guest guest) {
