@@ -1,4 +1,4 @@
-# PA Shop
+# Hotel App
 
 ## Requirements
 
