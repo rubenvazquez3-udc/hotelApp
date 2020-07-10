@@ -26,7 +26,7 @@ public class UserServiceTest {
 	private UserService userService;
 	
 	private User createUser(String userName) {
-		return new User(userName, "password", "firstName", "lastName", userName + "@" + userName + ".com");
+		return new User(userName, "password", "firstName", "lastName", userName + "@" + userName + ".com", "C/ La Locura 20, España");
 	}
 	
 	@Test
@@ -101,7 +101,7 @@ public class UserServiceTest {
 		user.setEmail('X' + user.getEmail());
 		
 		userService.updateProfile(user.getId(), 'X' + user.getFirstName(), 'X' + user.getLastName(),
-			'X' + user.getEmail());
+			'X' + user.getEmail(),'X' + user.getAddress());
 		
 		User updatedUser = userService.loginFromId(user.getId());
 		
@@ -112,7 +112,7 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateProfileWithNonExistentId() {
 		assertThrows(InstanceNotFoundException.class, () ->
-			userService.updateProfile(NON_EXISTENT_ID, "X", "X", "X"));
+			userService.updateProfile(NON_EXISTENT_ID, "X", "X", "X", "X"));
 	}
 	
 	@Test

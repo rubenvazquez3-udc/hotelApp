@@ -20,7 +20,7 @@ export default {
     'project.global.fields.lastName': 'Last name',
     'project.global.fields.name': 'Name',
     'project.global.fields.password': 'Password',
-    'project.global.fields.postalAddress': 'Postal address',
+    'project.global.fields.address': 'Address',
     'project.global.fields.postalCode': 'Postal code',
     'project.global.fields.userName': 'Username',
     'project.global.validator.email': 'Provide a correct e-mail address',

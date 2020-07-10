@@ -55,7 +55,7 @@ public class Room {
 	}
 
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
-	@JoinColumn(name="roomType")
+	@JoinColumn(name="typeId")
 	public RoomType getType() {
 		return type;
 	}
@@ -64,7 +64,8 @@ public class Room {
 		this.type = type;
 	}
 
-
+	@ManyToOne(optional=false, fetch=FetchType.LAZY)
+	@JoinColumn(name="hotelId")
 	public Hotel getHotel() {
 		return hotel;
 	}

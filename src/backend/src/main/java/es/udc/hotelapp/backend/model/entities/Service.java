@@ -1,5 +1,14 @@
 package es.udc.hotelapp.backend.model.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Service {
 	
 	private Long id;
@@ -16,6 +25,9 @@ public class Service {
 		this.price = price;
 		this.hotel = hotel;
 	}
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}
@@ -40,6 +52,8 @@ public class Service {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
+	@ManyToOne(optional=false, fetch= FetchType.LAZY)
+	@JoinColumn(name="hotelId")
 	public Hotel getHotel() {
 		return hotel;
 	}

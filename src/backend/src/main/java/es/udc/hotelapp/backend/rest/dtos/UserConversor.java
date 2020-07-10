@@ -8,13 +8,13 @@ public class UserConversor {
 	
 	public final static UserDto toUserDto(User user) {
 		return new UserDto(user.getId(), user.getUserName(), user.getFirstName(), user.getLastName(), user.getEmail(),
-			user.getRole().toString());
+			user.getRole().toString(),user.getAddress());
 	}
 	
 	public final static User toUser(UserDto userDto) {
 		
 		return new User(userDto.getUserName(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(),
-			userDto.getEmail());
+			userDto.getEmail(),userDto.getAddress());
 	}
 	
 	public final static AuthenticatedUserDto toAuthenticatedUserDto(String serviceToken, User user) {

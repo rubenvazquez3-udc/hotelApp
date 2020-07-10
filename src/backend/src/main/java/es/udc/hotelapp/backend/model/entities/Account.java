@@ -6,10 +6,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 @Entity
@@ -36,7 +39,8 @@ public class Account {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	@OneToOne(optional=false, fetch= FetchType.LAZY)
+	@JoinColumn(name="reservationId")
 	public Reservation getReservation() {
 		return reservation;
 	}

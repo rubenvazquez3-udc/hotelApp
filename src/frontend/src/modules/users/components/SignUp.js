@@ -16,6 +16,7 @@ const SignUp = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail]  = useState('');
+    const [address, setAddress] = useState('');
     const [backendErrors, setBackendErrors] = useState(null);
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
     let form;
@@ -170,6 +171,20 @@ const SignUp = () => {
                                     required/>
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.email'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label htmlFor="address" className="col-md-3 col-form-label">
+                                <FormattedMessage id="project.global.fields.address"/>
+                            </label>
+                            <div className="col-md-4">
+                                <input type="text" id="address" className="form-control"
+                                    value={address}
+                                    onChange={e => setAddress(e.target.value)}
+                                    required/>
+                                <div className="invalid-feedback">
+                                    <FormattedMessage id='project.global.validator.required'/>
                                 </div>
                             </div>
                         </div>

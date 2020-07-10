@@ -19,18 +19,19 @@ public class User {
 	private String lastName;
 	private String email;
 	private RoleType role;
-	private Address address;
+	private String address;
 
 	public User() {
 	}
 
-	public User(String userName, String password, String firstName, String lastName, String email) {
+	public User(String userName, String password, String firstName, String lastName, String email, String address) {
 
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.address = address;
 	}
 
 	@Id
@@ -91,11 +92,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Address getAddress() {
+	public String getAddress() {
 		return address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 }

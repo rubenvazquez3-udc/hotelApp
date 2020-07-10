@@ -1,5 +1,11 @@
 package es.udc.hotelapp.backend.model.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Guest {
 	private Long id;
 	private String name;
@@ -18,6 +24,8 @@ public class Guest {
 		this.address = address;
 	}
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
 	}

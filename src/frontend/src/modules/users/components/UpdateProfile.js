@@ -15,6 +15,7 @@ const UpdateProfile = () => {
     const [firstName, setFirstName] = useState(user.firstName);
     const [lastName, setLastName] = useState(user.lastName);
     const [email, setEmail]  = useState(user.email);
+    const [address, setAddress] = useState(user.address);
     const [backendErrors, setBackendErrors] = useState(null);
     let form;
 
@@ -28,7 +29,8 @@ const UpdateProfile = () => {
                 {id: user.id,
                 firstName: firstName.trim(),
                 lastName: lastName.trim(),
-                email: email.trim()},
+                email: email.trim(),
+                address: address.trim()},
                 () => history.push('/'),
                 errors => setBackendErrors(errors)));
 
@@ -91,6 +93,20 @@ const UpdateProfile = () => {
                                     required/>
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.email'/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label htmlFor="address" className="col-md-3 col-form-label">
+                                <FormattedMessage id="project.global.fields.address"/>
+                            </label>
+                            <div className="col-md-4">
+                                <input type="text" id="address" className="form-control"
+                                    value={address}
+                                    onChange={e => setAddress(e.target.value)}
+                                    required/>
+                                <div className="invalid-feedback">
+                                    <FormattedMessage id='project.global.validator.address'/>
                                 </div>
                             </div>
                         </div>
