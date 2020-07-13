@@ -100,6 +100,7 @@ public class UserDto {
 		this.role = role;
 	}
 
+
 	public String getAddress() {
 		return address;
 	}

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.hotelapp.backend.model.entities.Hotel;
-import es.udc.hotelapp.backend.model.entities.HotelDao;
 import es.udc.hotelapp.backend.model.entities.Reservation;
 import es.udc.hotelapp.backend.model.entities.ReservationDao;
 import es.udc.hotelapp.backend.model.entities.Room;
@@ -23,7 +22,6 @@ import es.udc.hotelapp.backend.model.entities.RoomTypeDao;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservationDao;
 import es.udc.hotelapp.backend.model.entities.Status;
-import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 
 @Service
@@ -40,8 +38,7 @@ public class AdministrationServiceImpl implements administrationService{
 	private RoomReservationDao roomReservationDao;
 	@Autowired
 	private RoomTypeDao roomTypeDao;
-	@Autowired
-	private HotelDao hotelDao;
+	
 	
 
 	@Override
@@ -260,24 +257,6 @@ public class AdministrationServiceImpl implements administrationService{
 		return id;
 	}
 
-	@Override
-	public Long createHotel(String name, String manager, String address) throws HotelAlreadyExistsException {
-		Long id = null;
-		Iterable<Hotel> hotels = hotelDao.findAll();
-		if(hotels != null) {
-			for (Hotel h : hotels) {
-				if (h.getName() == name && h.getAddress() == address && h.getManager() == manager) {
-					id = h.getId();
-					throw new HotelAlreadyExistsException(h.getName());
-				}	
-			}
-		} else {
-			Hotel hotel = new Hotel (name, manager, address);
-			hotelDao.save(hotel);
-			id = hotel.getId();
-		}
-		
-		return id;
-	}
+	
 
 }

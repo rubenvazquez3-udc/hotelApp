@@ -27,6 +27,5 @@ public interface administrationService {
 	public Long addReservation (Reservation r1, RoomType rt1, int quantity);
 	public Long addRoomReservation (Reservation r1, Room r2);
 	public Long createRoomType ( String name);
-	public Long createHotel(String name, String manager, String address) throws HotelAlreadyExistsException;
 	
 }

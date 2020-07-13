@@ -33,7 +33,8 @@ const SignUp = () => {
                 password: password,
                 firstName: firstName.trim(),
                 lastName: lastName.trim(),
-                email: email.trim()},
+                email: email.trim(),
+                address: address.trim()},
                 () => history.push('/'),
                 errors => setBackendErrors(errors),
                 () => {
