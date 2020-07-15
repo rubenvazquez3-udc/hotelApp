@@ -149,8 +149,7 @@ CREATE TABLE Room(
     CONSTRAINT RoomHotelFK FOREIGN KEY (hotelId)
         REFERENCES Hotel (id),
     CONSTRAINT RoomTypeFK FOREIGN KEY (typeId)
-        REFERENCES RoomType (id),
-    CONSTRAINT RoomNumberUniqueKey UNIQUE (number)
+        REFERENCES RoomType (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE RoomReservation (

@@ -3,13 +3,13 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>es.udc.paproject</groupId>
-    <artifactId>pa-project-backend</artifactId>
+    <groupId>es.udc.hotelappproject</groupId>
+    <artifactId>hotel-app-backend</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     
-    <name>PA Project Backend</name>
-	<description>PA Project Backend</description>
+    <name>Hotel App Backend</name>
+	<description>Hotel App Backend</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>

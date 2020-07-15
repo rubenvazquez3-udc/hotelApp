@@ -12,14 +12,14 @@ import javax.persistence.ManyToOne;
 public class Room {
 	
 	private Long id;
-	private Long number;
+	private int number;
 	private Status status;
 	private RoomType type;
 	private Hotel hotel;
 
 	public Room() { }
 
-	public Room(Long number, RoomType type, Hotel hotel) {
+	public Room(int number, RoomType type, Hotel hotel) {
 		super();
 		this.number = number;
 		this.status = Status.LIBRE;
@@ -38,11 +38,11 @@ public class Room {
 		this.id = id;
 	}
 
-	public Long getNumber() {
+	public int getNumber() {
 		return number;
 	}
 
-	public void setNumber(Long number) {
+	public void setNumber(int number) {
 		this.number = number;
 	}
 
