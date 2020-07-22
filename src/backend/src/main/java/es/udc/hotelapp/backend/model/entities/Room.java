@@ -26,7 +26,14 @@ public class Room {
 		this.type = type;
 		this.hotel = hotel;
 	}
+	
 
+	public Room(int number, Status status, RoomType type, Hotel hotel) {
+		this.number = number;
+		this.status = status;
+		this.type = type;
+		this.hotel = hotel;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -100,7 +100,8 @@ public class UserDto {
 		this.role = role;
 	}
 
-
+	@NotNull(groups={AllValidations.class, UpdateValidations.class})
+	@Size(min=1, max=60, groups={AllValidations.class, UpdateValidations.class})
 	public String getAddress() {
 		return address;
 	}

@@ -5,11 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
 @Entity
 public class User {
 
 	public enum RoleType {
-		USER
+		USER,ADMIN, HOTEL
 	};
 
 	private Long id;
@@ -99,4 +100,7 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	
+	
 }

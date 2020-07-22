@@ -7,7 +7,6 @@ DROP TABLE RoomReservation;
 DROP TABLE Room;
 DROP TABLE RoomTypeReservation;
 DROP TABLE RoomType;
-DROP TABLE Address;
 DROP TABLE GuestReservation;
 DROP TABLE Reservation;
 DROP TABLE Service;
@@ -15,20 +14,12 @@ DROP TABLE User;
 DROP TABLE Product;
 DROP TABLE Hotel;
 DROP TABLE Guest;
-DROP TABLE Country;
 
-CREATE TABLE Country(
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(75) NOT NULL,
-    CONSTRAINT CountryPK PRIMARY KEY (id),
-    CONSTRAINT CountryNameUniqueKey UNIQUE (name)
-) ENGINE = InnoDB;
 
 CREATE TABLE Guest (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(60) NOT NULL,
     surname VARCHAR(65) NOT NULL,
-    identifier VARCHAR(4) NOT NULL,
     address VARCHAR(75) NOT NULL,
     dni VARCHAR(10) NOT NULL,
     CONSTRAINT GuestPK PRIMARY KEY (id),
@@ -106,20 +97,6 @@ CREATE TABLE GuestReservation(
         REFERENCES Guest (id)
 ) ENGINE = InnoDB;
 
- CREATE TABLE Address (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    state VARCHAR(30),
-    road VARCHAR(60),
-    city VARCHAR(45),
-    countryId BIGINT,
-    userId BIGINT NOT NULL,
-    CONSTRAINT AddressPK PRIMARY KEY(id),
-    CONSTRAINT UserAddressFK FOREIGN KEY(userId)
-        REFERENCES User (id),
-    CONSTRAINT CountryAddressFK FOREIGN KEY(countryId)
-        REFERENCES Country (id)
-) ENGINE = InnoDB;
-
 CREATE TABLE RoomType (
     id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR(10) NOT NULL,
@@ -131,12 +108,15 @@ CREATE TABLE RoomTypeReservation (
     id BIGINT NOT NULL AUTO_INCREMENT,
     typeId BIGINT NOT NULL,
     reservationId BIGINT NOT NULL,
+    hotelId BIGINT NOT NULL,
     rooms SMALLINT NOT NULL,
     CONSTRAINT RoomTypeReservationPK PRIMARY KEY (id),
     CONSTRAINT RoomTypeReservationTypeFK FOREIGN KEY (typeId)
         REFERENCES RoomType (id),
     CONSTRAINT RoomTypeReservationReservationFK FOREIGN KEY (reservationId)
-        REFERENCES Reservation (id)
+        REFERENCES Reservation (id),
+    CONSTRAINT RoomTypeReservationHotelFK FOREIGN KEY (hotelId)
+    	REFERENCES Hotel(id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE Room(
@@ -156,8 +136,8 @@ CREATE TABLE RoomReservation (
     id BIGINT NOT NULL AUTO_INCREMENT,
     roomId BIGINT NOT NULL,
     reservationId BIGINT NOT NULL,
-    beginDate DATETIME NOT NULL,
-    endDate DATETIME NOT NULL,
+    begin DATETIME NOT NULL,
+    end DATETIME NOT NULL,
     CONSTRAINT RoomReservationPK PRIMARY KEY (id),
     CONSTRAINT RoomReservationRoomFK FOREIGN KEY (roomId)
         REFERENCES Room (id),

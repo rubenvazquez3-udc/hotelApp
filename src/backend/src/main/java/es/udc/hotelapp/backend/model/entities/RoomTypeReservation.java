@@ -15,13 +15,15 @@ public class RoomTypeReservation {
 	private Reservation reservation;
 	private int rooms;
 	private RoomType roomtype;
+	private Hotel hotel;
 	
 	public RoomTypeReservation() {	}
 
-	public RoomTypeReservation(Reservation reservation, int rooms, RoomType roomtype) {
+	public RoomTypeReservation(Reservation reservation, int rooms, RoomType roomtype, Hotel hotel) {
 		this.reservation = reservation;
 		this.rooms = rooms;
 		this.roomtype = roomtype;
+		this.hotel = hotel;
 	}
 
 	@Id
@@ -58,6 +60,16 @@ public class RoomTypeReservation {
 
 	public void setRoomtype(RoomType roomtype) {
 		this.roomtype = roomtype;
+	}
+
+	@ManyToOne(optional=false, fetch= FetchType.LAZY)
+	@JoinColumn(name="hotelId")
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
 	
 	
