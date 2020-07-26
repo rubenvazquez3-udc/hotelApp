@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import es.udc.hotelapp.backend.model.entities.HotelDao;
 import es.udc.hotelapp.backend.model.entities.Room;
 import es.udc.hotelapp.backend.model.entities.RoomDao;
+import es.udc.hotelapp.backend.model.entities.RoomType;
 import es.udc.hotelapp.backend.model.entities.RoomTypeDao;
+import es.udc.hotelapp.backend.model.entities.Status;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.exceptions.RoomAlreadyExistsException;
 
@@ -31,6 +33,7 @@ public class RoomServiceImpl implements RoomService {
 	public Long addRoom(Room room) throws RoomAlreadyExistsException, InstanceNotFoundException {
 		Optional<Room> roomfound = roomDao.findByNumber(room.getNumber());
 		boolean type = typeDao.existsByName(room.getType().getName());
+		Optional<RoomType> typeRoom = typeDao.findByName(room.getType().getName());
 		boolean hotel = hotelDao.existsByName(room.getHotel().getName());
 		if (roomfound.isPresent() && roomfound.get().getHotel() == room.getHotel()) {
 			throw new RoomAlreadyExistsException(room.getId());
@@ -40,6 +43,8 @@ public class RoomServiceImpl implements RoomService {
 		}
 		if (!type) {
 			typeDao.save(room.getType());
+		} else {
+		room.setType(typeRoom.get());
 		}
 		roomDao.save(room);
 		return room.getId();
@@ -72,14 +77,14 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public List<Room> findRooms(String status, Long hotelid) {
+	public List<Room> findRooms(Status status, Long hotelid) {
 		List<Room> result = new ArrayList<>();
 		Iterable<Room> roomsfound = roomDao.findAll();
 		if (roomsfound != null) {
 			Iterator<Room> iter = roomsfound.iterator();
 			while (iter.hasNext()) {
 				Room room = iter.next();
-				if (room.getStatus().toString() == status && room.getHotel().getId() == hotelid)
+				if (room.getStatus() == status && room.getHotel().getId() == hotelid)
 					result.add(room);
 			}
 		}

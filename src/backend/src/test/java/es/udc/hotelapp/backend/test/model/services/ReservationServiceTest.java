@@ -146,4 +146,16 @@ public class ReservationServiceTest {
 		
 		assertEquals(gr1, reservationService.findGuestReservationById(gr1.getId()));
 	}
+	
+	@Test
+	public void testFindReservationsHotel() throws InstanceNotFoundException {
+		List<RoomTypeReservation> list = new ArrayList<>();
+		RoomTypeReservation rt1 = create("username","DOUBLE");
+		
+		reservationService.addReservation(rt1);
+		list.add(rt1);
+		
+		assertEquals(list, reservationService.findReservationsHotel(rt1.getHotel().getId()));
+		
+	}
 }

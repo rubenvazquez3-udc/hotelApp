@@ -54,4 +54,6 @@ public class Hotel {
 		this.address = address;
 	}
 
+
+	
 }

@@ -15,6 +15,8 @@ public interface ReservationService {
 	
 	public List<RoomTypeReservation> findReservations(String username);
 	
+	public List<RoomTypeReservation> findReservationsHotel(Long id);
+	
 	public void updateReservation (RoomTypeReservation rt2) throws IncorrectHotelException;
 	
 	public Long assignReservation( RoomReservation rr1) throws InstanceNotFoundException;

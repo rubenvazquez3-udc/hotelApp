@@ -35,7 +35,7 @@ public class RoomType {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	
 
 }

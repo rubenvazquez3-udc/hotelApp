@@ -1,5 +1,6 @@
 package es.udc.hotelapp.backend.model.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,6 +142,11 @@ public class HotelServiceImpl implements HotelService {
 			throw new InstanceNotFoundException("project.entities.service", serviceId);
 		}
 		serviceDao.delete(servicefound.get());
+	}
+
+	@Override
+	public List<Hotel> findHotels() {
+		return (List<Hotel>) hotelDao.findAll();
 	}
 
 }

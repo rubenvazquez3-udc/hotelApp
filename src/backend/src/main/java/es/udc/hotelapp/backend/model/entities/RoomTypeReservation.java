@@ -71,7 +71,8 @@ public class RoomTypeReservation {
 	public void setHotel(Hotel hotel) {
 		this.hotel = hotel;
 	}
-	
+
+
 	
 
 }

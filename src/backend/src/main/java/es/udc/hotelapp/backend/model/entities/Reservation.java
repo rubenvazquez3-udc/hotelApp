@@ -66,5 +66,7 @@ public class Reservation {
 		this.outbound = outbound;
 	}
 
+	
+
 
 }

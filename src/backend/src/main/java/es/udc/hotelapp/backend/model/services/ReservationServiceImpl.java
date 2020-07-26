@@ -65,7 +65,7 @@ public class ReservationServiceImpl implements ReservationService {
 		List<RoomTypeReservation> result = new ArrayList<>();
 		Iterable<RoomTypeReservation> reservations = roomtypereservationDao.findAll();
 		for (RoomTypeReservation r : reservations) {
-			if (r.getReservation().getUser().getFirstName() == username) {
+			if (r.getReservation().getUser().getFirstName().equalsIgnoreCase(username)) {
 				result.add(r);
 			}
 		}
@@ -154,5 +154,16 @@ public class ReservationServiceImpl implements ReservationService {
 		return guestreservation.get();
 	}
 
+	@Override
+	public List<RoomTypeReservation> findReservationsHotel(Long id) {
+		List<RoomTypeReservation> result = new ArrayList<>();
+		Iterable<RoomTypeReservation> reservations = roomtypereservationDao.findAll();
+		for (RoomTypeReservation r : reservations) {
+			if (r.getHotel().getId() == id) {
+				result.add(r);
+			}
+		}
+		return result;
+	}
 
-}
+	}

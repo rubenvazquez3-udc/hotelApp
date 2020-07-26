@@ -50,7 +50,6 @@ public class RoomTypeReservationDto {
 
 	public RoomTypeReservationDto(Long id, ReservationDto reservation, int rooms, RoomTypeDto roomtype,
 			HotelDto hotel) {
-		super();
 		this.id = id;
 		this.reservation = reservation;
 		this.rooms = rooms;

@@ -1,5 +1,7 @@
 package es.udc.hotelapp.backend.model.services;
 
+import java.util.List;
+
 import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.Service;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
@@ -25,6 +27,8 @@ public interface HotelService {
 	public void removeHotel(Long hotelid) throws InstanceNotFoundException;
 	
 	public void removeService(Long serviceId) throws InstanceNotFoundException;
+	
+	public List<Hotel> findHotels();
 	
 
 }
