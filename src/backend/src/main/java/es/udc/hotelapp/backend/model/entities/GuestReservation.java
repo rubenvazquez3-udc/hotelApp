@@ -13,13 +13,13 @@ import javax.persistence.ManyToOne;
 public class GuestReservation {
 	
 	private Long id;
-	private Reservation reservation;
+	private RoomTypeReservation reservation;
 	private Guest guest;
 	
 	public GuestReservation() {	}
 	
 	
-	public GuestReservation(Reservation reservation, Guest guest) {
+	public GuestReservation(RoomTypeReservation reservation, Guest guest) {
 
 		this.reservation = reservation;
 		this.guest = guest;
@@ -36,10 +36,10 @@ public class GuestReservation {
 	}
 	@ManyToOne(optional=false, fetch= FetchType.LAZY)
 	@JoinColumn(name="reservationId")
-	public Reservation getReservation() {
+	public RoomTypeReservation getReservation() {
 		return reservation;
 	}
-	public void setReservation(Reservation reservation) {
+	public void setReservation(RoomTypeReservation reservation) {
 		this.reservation = reservation;
 	}
 	@ManyToOne(optional=false, fetch= FetchType.LAZY)

@@ -23,7 +23,6 @@ import es.udc.hotelapp.backend.model.entities.RoomTypeDao;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservationDao;
 import es.udc.hotelapp.backend.model.entities.Status;
-import es.udc.hotelapp.backend.model.exceptions.IncorrectHotelException;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 
@@ -48,7 +47,7 @@ public class ReservationServiceImpl implements ReservationService {
 	GuestDao guestDao;
 
 	@Override
-	public Long addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException {
+	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException {
 		if (!typeDao.existsByName(rt1.getRoomtype().getName())) {
 			throw new InstanceNotFoundException("project.entities.roomtype", rt1.getRoomtype().getId());
 		}
@@ -57,7 +56,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		reservationDao.save(rt1.getReservation());
 		roomtypereservationDao.save(rt1);
-		return rt1.getId();
+		return rt1;
 	}
 
 	@Override
@@ -73,12 +72,10 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public void updateReservation(RoomTypeReservation rt2) throws IncorrectHotelException {
+	public void updateReservation(RoomTypeReservation rt2) {
 		Optional<RoomTypeReservation> roomtypereservationfound = roomtypereservationDao.findById(rt2.getId());
 		if (roomtypereservationfound.isPresent()) {
-			if (roomtypereservationfound.get().getHotel() != rt2.getHotel()) {
-				throw new IncorrectHotelException();
-			}
+			
 			RoomTypeReservation actual = roomtypereservationfound.get();
 			if (typeDao.existsByName(rt2.getRoomtype().getName())) {
 				actual.setRoomtype(rt2.getRoomtype());
@@ -100,22 +97,23 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public Long assignReservation(RoomReservation rr1) throws InstanceNotFoundException {
+	public RoomReservation assignReservation(RoomReservation rr1, Long id) throws InstanceNotFoundException, IncorrectReservationException {
 		if (!roomDao.existsByNumber(rr1.getRoom().getNumber())
 				|| (!reservationDao.existsById(rr1.getReservation().getId()))) {
 			throw new InstanceNotFoundException("project.entities.roomreservation", rr1.getId());
 		}
 		Optional<Room> rfound = roomDao.findByNumber(rr1.getRoom().getNumber());
 		Optional<Reservation> reservation = reservationDao.findById(rr1.getReservation().getId());
-
-		rfound.get().setStatus(Status.OCUPADA);
-		roomDao.save(rfound.get());
-
-		if (reservation.get().getUser() == rr1.getReservation().getUser()) {
+		Optional<RoomTypeReservation> rtr = roomtypereservationDao.findById(id);
+		if (rtr.isPresent() && rfound.get().getType() == rtr.get().getRoomtype() && rfound.get().getHotel()==rtr.get().getHotel()) {
+			rfound.get().setStatus(Status.OCUPADA);
+			roomDao.save(rfound.get());
 			roomreservationDao.save(rr1);
-		}
+			
+		} else throw new IncorrectReservationException();
+	
 
-		return rr1.getId();
+		return rr1;
 	}
 
 	@Override
@@ -164,6 +162,23 @@ public class ReservationServiceImpl implements ReservationService {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public void updateGuest(GuestReservation gr1) throws InstanceNotFoundException {
+		Optional<GuestReservation> gr = guestReservationDao.findById(gr1.getId());
+		if (! gr.isPresent()) {
+			throw new InstanceNotFoundException("project.entities.guestreservation", gr1.getId());
+		}
+		GuestReservation actual = gr.get();
+		if(guestDao.existsByDni(gr1.getGuest().getDni())) {
+			actual.getGuest().setName(gr1.getGuest().getName());
+			actual.getGuest().setSurname(gr1.getGuest().getSurname());
+			actual.getGuest().setAddress(gr1.getGuest().getAddress());
+			guestDao.save(actual.getGuest());
+		}
+		guestReservationDao.save(actual);
+		
 	}
 
 	}

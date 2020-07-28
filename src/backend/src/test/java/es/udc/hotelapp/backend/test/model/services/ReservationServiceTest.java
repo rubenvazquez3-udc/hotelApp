@@ -113,7 +113,7 @@ public class ReservationServiceTest {
 	}
 	
 	@Test
-	public void testassignRoom() throws InstanceNotFoundException {
+	public void testassignRoom() throws InstanceNotFoundException, IncorrectReservationException {
 		RoomTypeReservation rt1 = create("username", "DOUBLE");
 		reservationService.addReservation(rt1);
 		RoomReservation rr1 = crateRR(rt1);
@@ -125,7 +125,7 @@ public class ReservationServiceTest {
 		rr1.getRoom().setType(rt1.getRoomtype());
 		roomDao.save(rr1.getRoom());
 		
-		reservationService.assignReservation(rr1);
+		reservationService.assignReservation(rr1, rt1.getId());
 		
 		assertEquals(rr1, rrDao.findById(rr1.getId()).get());
 		
@@ -140,7 +140,7 @@ public class ReservationServiceTest {
 		
 		Guest g1 = new Guest("Pepe", "Perez", "34567821A", "La Coruña");
 		
-		GuestReservation gr1 = new GuestReservation(rt1.getReservation(), g1);
+		GuestReservation gr1 = new GuestReservation(rt1, g1);
 		
 		reservationService.addGuest(gr1);
 		

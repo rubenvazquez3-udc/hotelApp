@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/hotels/*/services/*").permitAll()
 			.antMatchers("/hotels/*/rooms/*").permitAll()
 			.antMatchers("/hotels/*/reservations/*").permitAll()
+			.antMatchers("/hotels/*/reservations/*/assignRoom/").permitAll()
 			.anyRequest().hasRole("USER");
 
 	}

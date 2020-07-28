@@ -3,7 +3,7 @@ package es.udc.hotelapp.backend.rest.dtos;
 public class GuestReservationDto {
 
 	private Long id;
-	private ReservationDto reservation;
+	private RoomTypeReservationDto reservation;
 	private GuestDto guest;
 
 	public Long getId() {
@@ -14,11 +14,11 @@ public class GuestReservationDto {
 		this.id = id;
 	}
 
-	public ReservationDto getReservation() {
+	public RoomTypeReservationDto getReservation() {
 		return reservation;
 	}
 
-	public void setReservation(ReservationDto reservation) {
+	public void setReservation(RoomTypeReservationDto reservation) {
 		this.reservation = reservation;
 	}
 
@@ -30,8 +30,7 @@ public class GuestReservationDto {
 		this.guest = guest;
 	}
 
-	public GuestReservationDto(Long id, ReservationDto reservation, GuestDto guest) {
-		super();
+	public GuestReservationDto(Long id, RoomTypeReservationDto reservation, GuestDto guest) {
 		this.id = id;
 		this.reservation = reservation;
 		this.guest = guest;

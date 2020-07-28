@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class RoomReservation {
+	
 	private Long id;
 	private Room room;
 	private Reservation reservation;

@@ -4,10 +4,10 @@ DROP TABLE AccountItem;
 DROP TABLE Account;
 DROP TABLE RoomService;
 DROP TABLE RoomReservation;
+DROP TABLE GuestReservation;
 DROP TABLE Room;
 DROP TABLE RoomTypeReservation;
 DROP TABLE RoomType;
-DROP TABLE GuestReservation;
 DROP TABLE Reservation;
 DROP TABLE Service;
 DROP TABLE User;
@@ -86,16 +86,6 @@ CREATE TABLE Reservation(
         REFERENCES User (id)
 ) ENGINE = InnoDB;
 
-CREATE TABLE GuestReservation(
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    reservationId BIGINT NOT NULL,
-    guestId BIGINT NOT NULL,
-    CONSTRAINT GuestReservationPK PRIMARY KEY (id),
-    CONSTRAINT GuestReservationFK FOREIGN KEY (reservationId)
-        REFERENCES Reservation (id),
-    CONSTRAINT GuestReservationGuestFK FOREIGN KEY (guestId)
-        REFERENCES Guest (id)
-) ENGINE = InnoDB;
 
 CREATE TABLE RoomType (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -117,6 +107,17 @@ CREATE TABLE RoomTypeReservation (
         REFERENCES Reservation (id),
     CONSTRAINT RoomTypeReservationHotelFK FOREIGN KEY (hotelId)
     	REFERENCES Hotel(id)
+) ENGINE = InnoDB;
+
+CREATE TABLE GuestReservation(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    reservationId BIGINT NOT NULL,
+    guestId BIGINT NOT NULL,
+    CONSTRAINT GuestReservationPK PRIMARY KEY (id),
+    CONSTRAINT GuestReservationFK FOREIGN KEY (reservationId)
+        REFERENCES RoomTypeReservation (id),
+    CONSTRAINT GuestReservationGuestFK FOREIGN KEY (guestId)
+        REFERENCES Guest (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE Room(
