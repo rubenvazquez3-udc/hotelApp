@@ -126,7 +126,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public Long addGuest(GuestReservation gr1) throws IncorrectReservationException {
+	public GuestReservation addGuest(GuestReservation gr1) throws IncorrectReservationException {
 		if(! reservationDao.existsById(gr1.getReservation().getId())) {
 			throw new IncorrectReservationException();
 		}
@@ -140,7 +140,7 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		
 		guestReservationDao.save(gr1);
-		return gr1.getId();
+		return gr1;
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public interface ReservationService {
 	
 	public RoomTypeReservation findById(Long id) throws InstanceNotFoundException;
 	
-	public Long addGuest(GuestReservation gr1) throws IncorrectReservationException;
+	public GuestReservation addGuest(GuestReservation gr1) throws IncorrectReservationException;
 	
 	public void updateGuest(GuestReservation gr1) throws InstanceNotFoundException;
 	

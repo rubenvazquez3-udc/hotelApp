@@ -18,5 +18,9 @@ public interface UserService {
 	
 	void changePassword(Long id, String oldPassword, String newPassword)
 		throws InstanceNotFoundException, IncorrectPasswordException;
+	
+	void createManagerAccount(User user) throws DuplicateInstanceException;
+	
+	void createHotelPersonalAccount(User user) throws DuplicateInstanceException;
 
 }

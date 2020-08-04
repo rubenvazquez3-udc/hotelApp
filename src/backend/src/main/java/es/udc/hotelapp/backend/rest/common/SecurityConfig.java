@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
 			.authorizeRequests()
 			.antMatchers("/users/signUp").permitAll()
+			.antMatchers("/users/admin/*").permitAll()
 			.antMatchers("/users/login").permitAll()
 			.antMatchers("/users/loginFromServiceToken").permitAll()
 			.antMatchers("/hotels/*").permitAll()
@@ -33,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/hotels/*/rooms/*").permitAll()
 			.antMatchers("/hotels/*/reservations/*").permitAll()
 			.antMatchers("/hotels/*/reservations/*/assignRoom/").permitAll()
+			.antMatchers("/hotels/*/reservations/*/guests/*").permitAll()
 			.anyRequest().hasRole("USER");
 
 	}

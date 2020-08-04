@@ -24,7 +24,6 @@ import es.udc.hotelapp.backend.model.entities.RoomReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.entities.Service;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
-import es.udc.hotelapp.backend.model.exceptions.IncorrectHotelException;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.exceptions.RoomAlreadyExistsException;
@@ -65,8 +64,6 @@ public class HotelController {
 	
 	private final static String INCORRECT_RESERVATION_EXCEPTION_CODE = "project.exceptions.IncorrectReservationException";
 	
-	private final static String INCORRECT_HOTEL_EXCEPTION_CODE = "project.exceptions.IncorrectHotelException";
-
 	@Autowired
 	private HotelService hotelService;
 	@Autowired
@@ -106,17 +103,7 @@ public class HotelController {
 		return new ErrorsDto(errorMessage);
 
 	}
-	
-	@ExceptionHandler(IncorrectHotelException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ResponseBody
-	public ErrorsDto handleIncorrectHotelException(IncorrectHotelException exception, Locale locale) {
-		String errorMessage = messageSource.getMessage(INCORRECT_HOTEL_EXCEPTION_CODE, null,
-				INCORRECT_HOTEL_EXCEPTION_CODE , locale);
-		return new ErrorsDto(errorMessage);
-
-	}
-	
+		
 	@ExceptionHandler(IncorrectReservationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
@@ -183,6 +170,19 @@ public class HotelController {
 		return toServiceDto(s);
 	}
 
+	@PutMapping("/hotels/{hotelid}/services/{id}")
+	public ResponseEntity updateService(@PathVariable Long hotelid, @RequestBody ServiceDto serviceDto)
+			throws InstanceNotFoundException {
+		Service service = toService(serviceDto);
+		Long id = serviceDto.getId();
+		service.setId(id);
+		service.getHotel().setId(serviceDto.getHotel().getId());
+
+		hotelService.updateService(service);
+
+		return ResponseEntity.noContent().build();
+	}
+	
 	@PostMapping("/hotels/{hotelid}/rooms")
 	public RoomDto addRoom(@PathVariable Long hotelid, @RequestBody RoomDto roomDto)
 			throws InstanceNotFoundException, RoomAlreadyExistsException {
@@ -279,8 +279,11 @@ public class HotelController {
 		gr.getReservation().setId(grDto.getReservation().getId());
 
 		reservationService.addGuest(gr);
-
-		return toGuestReservationDto(gr);
+		
+		grDto.setId(gr.getId());
+		grDto.getGuest().setId(gr.getGuest().getId());
+		
+		return grDto;
 	}
 
 	@GetMapping("/hotels/{hotelid}/reservations/{reservationid}/guests/{id}")
