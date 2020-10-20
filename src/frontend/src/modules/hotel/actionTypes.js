@@ -1,0 +1,1 @@
+export const GET_HOTELS_COMPLETED = "project/hotel/getHotelsCompleted";

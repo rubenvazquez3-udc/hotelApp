@@ -9,12 +9,12 @@ public class RoomReservationConversor {
 
 	public final static RoomReservation toRoomReservation(RoomReservationDto rrDto) {
 		return new RoomReservation(RoomConversor.toRoom(rrDto.getRoom()),
-				ReservationConversor.toReservation(rrDto.getReservation()), rrDto.getBegin(), rrDto.getEnd());
+				RoomTypeReservationConversor.toRoomTypeReservation(rrDto.getReservation()), rrDto.getBegin(), rrDto.getEnd());
 	}
 
 	public final static RoomReservationDto toRoomReservationDto(RoomReservation rr) {
 		return new RoomReservationDto(rr.getId(), RoomConversor.toRoomDto(rr.getRoom()),
-				ReservationConversor.toReservationDto(rr.getReservation()), rr.getBegin(), rr.getEnd());
+				RoomTypeReservationConversor.toRoomTypeReservationDto(rr.getReservation()), rr.getBegin(), rr.getEnd());
 	}
 
 }

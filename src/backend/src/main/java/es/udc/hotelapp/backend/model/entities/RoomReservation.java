@@ -15,7 +15,7 @@ public class RoomReservation {
 	
 	private Long id;
 	private Room room;
-	private Reservation reservation;
+	private RoomTypeReservation reservation;
 	private LocalDate begin;
 	private LocalDate end;
 	
@@ -23,7 +23,7 @@ public class RoomReservation {
 	
 	public RoomReservation() {	}
 	
-	public RoomReservation(Room room, Reservation reservation, LocalDate begin, LocalDate end) {
+	public RoomReservation(Room room, RoomTypeReservation reservation, LocalDate begin, LocalDate end) {
 		super();
 		this.room = room;
 		this.reservation = reservation;
@@ -50,10 +50,10 @@ public class RoomReservation {
 	
 	@ManyToOne(optional=false, fetch=FetchType.LAZY)
 	@JoinColumn(name="reservationId")
-	public Reservation getReservation() {
+	public RoomTypeReservation getReservation() {
 		return reservation;
 	}
-	public void setReservation(Reservation reservation) {
+	public void setReservation(RoomTypeReservation reservation) {
 		this.reservation = reservation;
 	}
 	public LocalDate getBegin() {

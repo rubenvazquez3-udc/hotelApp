@@ -38,9 +38,6 @@ public class RoomServiceImpl implements RoomService {
 		if (roomfound.isPresent() && roomfound.get().getHotel() == room.getHotel()) {
 			throw new RoomAlreadyExistsException(room.getId());
 		}
-		if (!hotel) {
-			throw new InstanceNotFoundException("project.entities.hotel", room.getHotel().getId());
-		}
 		if (!type) {
 			typeDao.save(room.getType());
 		} else {

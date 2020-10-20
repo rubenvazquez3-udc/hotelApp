@@ -65,6 +65,7 @@ public class RoomServiceTest {
 		
 		assertThrows(RoomAlreadyExistsException.class,() -> roomService.addRoom(r1));
 		
+		
 	}
 	
 	@Test
@@ -96,6 +97,8 @@ public class RoomServiceTest {
 		
 		assertThrows(InstanceNotFoundException.class, ()-> roomService.findRoom(r1.getId()));
 		
+		assertThrows(InstanceNotFoundException.class, () -> roomService.removeRoom(r1));
+		
 	}
 	
 	@Test
@@ -118,7 +121,11 @@ public class RoomServiceTest {
 		List<Room> result = new ArrayList<>();
 		result.add(r1); result.add(r2);
 		
+		List<Room> result1 = new ArrayList<>();
+		
 		assertEquals(result, roomService.findRooms(Status.LIBRE, h1.getId()));
+		
+		assertEquals(result1, roomService.findRooms(Status.OCUPADA, h1.getId()));
 		
 		
 		

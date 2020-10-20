@@ -5,11 +5,11 @@ import java.time.LocalDate;
 public class RoomReservationDto {
 	private Long id;
 	private RoomDto room;
-	private ReservationDto reservation;
+	private RoomTypeReservationDto reservation;
 	private LocalDate begin;
 	private LocalDate end;
 
-	public RoomReservationDto(Long id, RoomDto room, ReservationDto reservation, LocalDate begin, LocalDate end) {
+	public RoomReservationDto(Long id, RoomDto room, RoomTypeReservationDto reservation, LocalDate begin, LocalDate end) {
 		this.id = id;
 		this.room = room;
 		this.reservation = reservation;
@@ -35,11 +35,11 @@ public class RoomReservationDto {
 		this.room = room;
 	}
 
-	public ReservationDto getReservation() {
+	public RoomTypeReservationDto getReservation() {
 		return reservation;
 	}
 
-	public void setReservation(ReservationDto reservation) {
+	public void setReservation(RoomTypeReservationDto reservation) {
 		this.reservation = reservation;
 	}
 

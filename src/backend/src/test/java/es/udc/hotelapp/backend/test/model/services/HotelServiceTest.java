@@ -2,7 +2,9 @@ package es.udc.hotelapp.backend.test.model.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +110,11 @@ public class HotelServiceTest {
 		
 		assertEquals(s1,s2);
 		
+		assertThrows(ServiceAlreadyExistsException.class, () -> hotelService.addService(s1, h1.getId()));
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.addService(s1, (long) 5));
+		
+		
 	}
 	
 	@Test
@@ -121,7 +128,10 @@ public class HotelServiceTest {
 		hotelService.addService(s1, h1.getId());
 		
 		hotelService.removeService(s1.getId());
+		
 		assertThrows( InstanceNotFoundException.class, () -> hotelService.findService(s1.getId()));
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.removeService(s1.getId()));
 	}
 	
 	@Test
@@ -157,5 +167,19 @@ public class HotelServiceTest {
 		
 		assertEquals(s1,s2);
 		
+		s2.setId((long) 4);
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.updateService(s2));
+		
+	}
+	
+	@Test
+	public void testFindAllHotels() throws HotelAlreadyExistsException {
+		
+		List<Hotel> list = new ArrayList<>();
+		Hotel h1 = createHotel();
+		hotelService.createHotel(h1);
+		list.add(h1);
+		assertEquals(list, hotelService.findHotels());
 	}
 }

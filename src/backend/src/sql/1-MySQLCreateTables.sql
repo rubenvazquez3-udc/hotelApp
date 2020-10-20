@@ -8,13 +8,27 @@ DROP TABLE GuestReservation;
 DROP TABLE Room;
 DROP TABLE RoomTypeReservation;
 DROP TABLE RoomType;
-DROP TABLE Reservation;
+--DROP TABLE Reservation;
 DROP TABLE Service;
 DROP TABLE User;
 DROP TABLE Product;
 DROP TABLE Hotel;
 DROP TABLE Guest;
 
+CREATE TABLE User (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    userName VARCHAR(60) COLLATE latin1_bin NOT NULL,
+    password VARCHAR(60) NOT NULL, 
+    firstName VARCHAR(60) NOT NULL,
+    lastName VARCHAR(60) NOT NULL, 
+    email VARCHAR(60) NOT NULL,
+    role TINYINT NOT NULL,
+    address VARCHAR(250),
+    CONSTRAINT UserPK PRIMARY KEY (id),
+    CONSTRAINT UserNameUniqueKey UNIQUE (userName)
+) ENGINE = InnoDB;
+
+CREATE INDEX UserIndexByUserName ON User (userName);
 
 CREATE TABLE Guest (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -48,20 +62,7 @@ CREATE TABLE Product (
 
 CREATE INDEX ProductIndexByName ON Product (name);
 
-CREATE TABLE User (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    userName VARCHAR(60) COLLATE latin1_bin NOT NULL,
-    password VARCHAR(60) NOT NULL, 
-    firstName VARCHAR(60) NOT NULL,
-    lastName VARCHAR(60) NOT NULL, 
-    email VARCHAR(60) NOT NULL,
-    role TINYINT NOT NULL,
-    address VARCHAR(250),
-    CONSTRAINT UserPK PRIMARY KEY (id),
-    CONSTRAINT UserNameUniqueKey UNIQUE (userName)
-) ENGINE = InnoDB;
 
-CREATE INDEX UserIndexByUserName ON User (userName);
 
 CREATE TABLE Service (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -75,17 +76,7 @@ CREATE TABLE Service (
 ) ENGINE = InnoDB;
 
 CREATE INDEX ServiceIndexByName ON Service (name);
-
-CREATE TABLE Reservation(
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    userId BIGINT,
-    inbound DATETIME NOT NULL,
-    outbound DATETIME NOT NULL,
-    CONSTRAINT ReservationPK PRIMARY KEY (id),
-    CONSTRAINT ReservationUserFK FOREIGN KEY (userId)
-        REFERENCES User (id)
-) ENGINE = InnoDB;
-
+  
 
 CREATE TABLE RoomType (
     id BIGINT NOT NULL AUTO_INCREMENT,
@@ -96,17 +87,19 @@ CREATE TABLE RoomType (
 
 CREATE TABLE RoomTypeReservation (
     id BIGINT NOT NULL AUTO_INCREMENT,
+    userId BIGINT NOT NULL,
     typeId BIGINT NOT NULL,
-    reservationId BIGINT NOT NULL,
+    inbound DATETIME NOT NULL,
+    outbound DATETIME NOT NULL,
     hotelId BIGINT NOT NULL,
     rooms SMALLINT NOT NULL,
     CONSTRAINT RoomTypeReservationPK PRIMARY KEY (id),
     CONSTRAINT RoomTypeReservationTypeFK FOREIGN KEY (typeId)
         REFERENCES RoomType (id),
-    CONSTRAINT RoomTypeReservationReservationFK FOREIGN KEY (reservationId)
-        REFERENCES Reservation (id),
     CONSTRAINT RoomTypeReservationHotelFK FOREIGN KEY (hotelId)
-    	REFERENCES Hotel(id)
+    	REFERENCES Hotel(id),
+    CONSTRAINT ReservationUserFK FOREIGN KEY (userId)
+        REFERENCES User (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE GuestReservation(
@@ -143,7 +136,7 @@ CREATE TABLE RoomReservation (
     CONSTRAINT RoomReservationRoomFK FOREIGN KEY (roomId)
         REFERENCES Room (id),
     CONSTRAINT RoomReservationReservationFK FOREIGN KEY (reservationId)
-        REFERENCES Reservation (id)
+        REFERENCES RoomTypeReservation (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE RoomService (
@@ -166,7 +159,7 @@ CREATE TABLE Account (
     outbound DATETIME NOT NULL,
     CONSTRAINT AccountPK PRIMARY KEY (id),
     CONSTRAINT AccountReservationFK FOREIGN KEY (reservationId)
-        REFERENCES Reservation (id)
+        REFERENCES RoomTypeReservation (id)
 ) ENGINE = InnoDB;
 
 

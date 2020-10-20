@@ -1,9 +1,13 @@
 package es.udc.hotelapp.backend.rest.dtos;
 
+import java.time.LocalDate;
+
 public class RoomTypeReservationDto {
 
 	private Long id;
-	private ReservationDto reservation;
+	private UserDto user;
+	private LocalDate inbound;
+	private LocalDate outbound;
 	private int rooms;
 	private RoomTypeDto roomtype;
 	private HotelDto hotel;
@@ -16,13 +20,38 @@ public class RoomTypeReservationDto {
 		this.id = id;
 	}
 
-	public ReservationDto getReservation() {
-		return reservation;
+	public UserDto getUser() {
+		return user;
 	}
 
-	public void setReservation(ReservationDto reservation) {
-		this.reservation = reservation;
+
+	public void setUser(UserDto user) {
+		this.user = user;
 	}
+
+
+
+	public LocalDate getInbound() {
+		return inbound;
+	}
+
+
+	public void setInbound(LocalDate inbound) {
+		this.inbound = inbound;
+	}
+
+
+
+	public LocalDate getOutbound() {
+		return outbound;
+	}
+
+
+
+	public void setOutbound(LocalDate outbound) {
+		this.outbound = outbound;
+	}
+
 
 	public int getRooms() {
 		return rooms;
@@ -48,10 +77,13 @@ public class RoomTypeReservationDto {
 		this.hotel = hotel;
 	}
 
-	public RoomTypeReservationDto(Long id, ReservationDto reservation, int rooms, RoomTypeDto roomtype,
-			HotelDto hotel) {
+	
+	public RoomTypeReservationDto(Long id, UserDto user, LocalDate inbound, LocalDate outbound, int rooms,
+			RoomTypeDto roomtype, HotelDto hotel) {
 		this.id = id;
-		this.reservation = reservation;
+		this.user = user;
+		this.inbound = inbound;
+		this.outbound = outbound;
 		this.rooms = rooms;
 		this.roomtype = roomtype;
 		this.hotel = hotel;

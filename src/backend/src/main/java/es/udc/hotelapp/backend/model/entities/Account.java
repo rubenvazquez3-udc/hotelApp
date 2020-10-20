@@ -21,10 +21,10 @@ public class Account {
 	private Long id;
 	private LocalDateTime inbound;
 	private LocalDateTime outbound;
-	private Reservation reservation;
+	private RoomTypeReservation reservation;
 	private Set<AccountItem> items = new HashSet<>();
 
-	public Account(Reservation reservation) {
+	public Account(RoomTypeReservation reservation) {
 		this.reservation = reservation;
 	}
 
@@ -41,11 +41,11 @@ public class Account {
 	}
 	@OneToOne(optional=false, fetch= FetchType.LAZY)
 	@JoinColumn(name="reservationId")
-	public Reservation getReservation() {
+	public RoomTypeReservation getReservation() {
 		return reservation;
 	}
 
-	public void setReservation(Reservation reservation) {
+	public void setReservation(RoomTypeReservation reservation) {
 		this.reservation = reservation;
 	}
 

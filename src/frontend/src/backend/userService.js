@@ -50,3 +50,9 @@ export const changePassword = (id, oldPassword, newPassword, onSuccess,
     appFetch(`/users/${id}/changePassword`, 
         config('POST', {oldPassword, newPassword}),
         onSuccess, onErrors);
+
+export const createManagerAccount=(user, onSuccess,onErrors) =>
+    appFetch(`/users/admin/manager`, config('POST', user), onSuccess, onErrors);
+
+export const createHotelAccount=(user, onSuccess, onErrors) => 
+    appFetch(`/users/admin/hotel`, config('POST', user), onSuccess, onErrors);

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import es.udc.hotelapp.backend.model.exceptions.DuplicateInstanceException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.entities.User;
+import es.udc.hotelapp.backend.model.entities.User.RoleType;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectLoginException;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectPasswordException;
 import es.udc.hotelapp.backend.model.services.UserService;
@@ -79,8 +80,7 @@ public class UserServiceTest {
 		String clearPassword = user.getPassword();
 		
 		userService.signUp(user);
-		assertThrows(IncorrectLoginException.class, () ->
-			userService.login(user.getUserName(), 'X' + clearPassword));
+		assertThrows(IncorrectLoginException.class, () -> userService.login(user.getUserName(), 'X' + clearPassword));
 		
 	}
 	
@@ -147,5 +147,33 @@ public class UserServiceTest {
 			userService.changePassword(user.getId(), 'Y' + oldPassword, newPassword));
 		
 	}
+	
+	@Test
+	public void testCreateManagerAccount() throws DuplicateInstanceException, InstanceNotFoundException {
+		User user = createUser("user");
+		
+		userService.createManagerAccount(user);
+		User loggeduser = userService.loginFromId(user.getId());
+		
+		user.setRole(RoleType.MANAGER);
+		assertEquals(user, loggeduser);
+		assertEquals(User.RoleType.MANAGER, user.getRole());
+		
+		assertThrows(DuplicateInstanceException.class, () -> userService.createManagerAccount(user));
+		}
+	
+	@Test
+	public void testCreateHotelPersonalAccount() throws DuplicateInstanceException, InstanceNotFoundException {
+		User user = createUser("user");
+		
+		userService.createHotelPersonalAccount(user);
+		User loggeduser = userService.loginFromId(user.getId());
+		
+		user.setRole(RoleType.HOTEL);
+		assertEquals(user, loggeduser);
+		assertEquals(User.RoleType.HOTEL, user.getRole());
+		
+		assertThrows(DuplicateInstanceException.class, () -> userService.createHotelPersonalAccount(user));
+		}
 
 }

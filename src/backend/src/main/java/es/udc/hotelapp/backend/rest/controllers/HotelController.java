@@ -219,13 +219,12 @@ public class HotelController {
 			throws InstanceNotFoundException {
 
 		RoomTypeReservation typer = toRoomTypeReservation(rtrDto);
-		typer.getReservation().getUser().setId(rtrDto.getReservation().getUser().getId());
+		typer.getUser().setId(rtrDto.getUser().getId());
 
 		typer.getHotel().setId(hotelid);
 		typer.getRoomtype().setId(rtrDto.getRoomtype().getId());
 		
 		RoomTypeReservation rtrDto1 = reservationService.addReservation(typer);
-		rtrDto.getReservation().setId(rtrDto.getReservation().getId());
 		rtrDto.setId(rtrDto1.getId());
 
 		return rtrDto;
@@ -264,8 +263,7 @@ public class HotelController {
 		typer.setId(rtrDto.getId());
 		typer.getHotel().setId(rtrDto.getHotel().getId());
 		typer.getRoomtype().setId(rtrDto.getRoomtype().getId());
-		typer.getReservation().setId(rtrDto.getReservation().getId());
-		typer.getReservation().getUser().setId(rtrDto.getReservation().getUser().getId());
+		typer.getUser().setId(rtrDto.getUser().getId());
 
 		reservationService.updateReservation(typer);
 

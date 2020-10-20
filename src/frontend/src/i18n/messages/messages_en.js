@@ -21,7 +21,6 @@ export default {
     'project.global.fields.name': 'Name',
     'project.global.fields.password': 'Password',
     'project.global.fields.address': 'Address',
-    'project.global.fields.postalCode': 'Postal code',
     'project.global.fields.userName': 'Username',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',

@@ -18,7 +18,7 @@ public interface ReservationService {
 	
 	public void updateReservation (RoomTypeReservation rt2);
 	
-	public RoomReservation assignReservation( RoomReservation rr1, Long id) throws InstanceNotFoundException, IncorrectReservationException;
+	public RoomReservation assignReservation( RoomReservation rr1, Long id) throws IncorrectReservationException;
 	
 	public RoomTypeReservation findById(Long id) throws InstanceNotFoundException;
 	
