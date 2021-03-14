@@ -8,5 +8,7 @@ export {default as SignUp} from './components/SignUp';
 export {default as UpdateProfile} from './components/UpdateProfile';
 export {default as ChangePassword} from './components/ChangePassword';
 export {default as Logout} from './components/Logout';
+export {default as CreateManagerAcccount} from './components/CreateManagerAccount';
+export {default as CreateHotelPersonalAccount} from './components/createPersonalAccount';
 
 export default {actions, actionTypes, reducer, selectors};

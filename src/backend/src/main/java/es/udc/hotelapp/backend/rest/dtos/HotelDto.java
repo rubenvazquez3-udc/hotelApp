@@ -6,6 +6,9 @@ public class HotelDto {
 	private String name;
 	private String manager;
 	private String address;
+	private String phoneNumber;
+	private String description;
+	
 
 	public Long getId() {
 		return id;
@@ -39,12 +42,31 @@ public class HotelDto {
 		this.address = address;
 	}
 
-	public HotelDto(Long id, String name, String manager, String address) {
-		super();
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	
+
+	public HotelDto(Long id, String name, String manager, String address, String phoneNumber, String description) {
 		this.id = id;
 		this.name = name;
 		this.manager = manager;
 		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.description = description;
 	}
 
 	public HotelDto() {

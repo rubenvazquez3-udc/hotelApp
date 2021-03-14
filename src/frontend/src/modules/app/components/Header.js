@@ -9,10 +9,14 @@ const Header = () => {
 
     const userName = useSelector(users.selectors.getUserName);
 
+    const user = useSelector(users.selectors.getUserRole);
+
+    /*Falta poñer no menu de nav bar que segun o tipo de rol que teña o user, apareza unha cousa ou outra*/
+
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light bg-light border">
-            <Link className="navbar-brand" to="/">PA Project</Link>
+            <Link className="navbar-brand" to="/"><img src= '.././public/logo192.png' alt = 'HOTEL App'/></Link>
             <button className="navbar-toggler" type="button" 
                 data-toggle="collapse" data-target="#navbarSupportedContent" 
                 aria-controls="navbarSupportedContent" aria-expanded="false" 
@@ -24,37 +28,52 @@ const Header = () => {
 
                 <ul className="navbar-nav mr-auto">
                 </ul>
-                
-                {userName ? 
 
-                <ul className="navbar-nav">
+                {user === "ADMIN" ?
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/users/admin">
+                                <FormattedMessage id="project.users.Admin.title"/>
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/hotels">
+                                <FormattedMessage id="project.hotels.addHotel"/>
+                            </Link>
+                        </li>
+                    </ul>
+                : user === "MANAGER" ?
+                    <ul className="navbar-nav">
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/users/manager">
+                                <FormattedMessage id="project.users.Manager.title"/>
+                            </Link>
+                        </li>
+                    </ul>
                 
-                    <li className="nav-item dropdown">
+                : userName ? 
 
-                        <a className="dropdown-toggle nav-link" href="/"
-                            data-toggle="dropdown">
-                            <span className="fas fa-user"></span>&nbsp;
-                            {userName}
-                        </a>
-                        <div className="dropdown-menu dropdown-menu-right">
-                            <Link className="dropdown-item" to="/users/update-profile">
-                                <FormattedMessage id="project.users.UpdateProfile.title"/>
-                            </Link>
-                            <Link className="dropdown-item" to="/users/change-password">
-                                <FormattedMessage id="project.users.ChangePassword.title"/>
-                            </Link>
+                    <ul className="navbar-nav">
+                        <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
+                                <span className="fas fa-user"></span>&nbsp;
+                                    {userName}
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/users/update-profile">
+                                    <FormattedMessage id="project.users.UpdateProfile.title"/>
+                                </Link>
+                                <Link className="dropdown-item" to="/users/change-password">
+                                    <FormattedMessage id="project.users.ChangePassword.title"/>
+                                </Link>
                             <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" to="/users/logout">
-                                <FormattedMessage id="project.app.Header.logout"/>
-                            </Link>
-                        </div>
-
-                    </li>
-
-                </ul>
-                
+                                <Link className="dropdown-item" to="/users/logout">
+                                    <FormattedMessage id="project.app.Header.logout"/>
+                                </Link>
+                            </div>
+                        </li>
+                    </ul>
                 :
-
                 <ul className="navbar-nav">
                     <li className="nav-item">
                         <Link className="nav-link" to="/users/login">
@@ -62,9 +81,7 @@ const Header = () => {
                         </Link>
                     </li>
                 </ul>
-                
-                }
-
+                }  
             </div>
         </nav>
 

@@ -1,12 +1,13 @@
 export default {
 
-    'project.app.Footer.text': 'PA Project - Area de Enxeñaría Telemática - Universidade da Coruña',
+    'project.app.Footer.text': 'Hotel App - Area de Enxeñaría Telemática - Universidade da Coruña',
     'project.app.Header.home': 'Inicio',
     'project.app.Header.logout': 'Saír',
     'project.app.Home.welcome': '¡Contido da páxina principal de PA Project!',
     
     'project.common.ErrorDialog.title': 'Erro',
 
+    'project.global.buttons.search': 'Procurar',
     'project.global.buttons.cancel': 'Cancelar',
     'project.global.buttons.close': 'Cerrar',
     'project.global.buttons.next': 'Seguinte',
@@ -23,6 +24,13 @@ export default {
     'project.global.fields.address': 'Dirección',
     'project.global.fields.postalCode': 'Código postal',
     'project.global.fields.userName': 'Usuario',
+    'project.global.fields.hotelName': 'Hotel',
+    'project.global.fields.hotelManager': 'Responsable',
+    'project.global.fields.phone':'Teléfono',
+    'project.global.fields.description': 'Descripción',
+    'project.global.fields.roomNumber':'Habitación',
+    'project.global.fields.roomType':'Tipo',
+    'project.global.fields.roomStatus': 'Estado',
     'project.global.validator.email': 'Introduzca unha dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'As contrasinais non coinciden',
     'project.global.validator.required': 'Campo obrigatorio',
@@ -34,6 +42,16 @@ export default {
     'project.users.Login.title': 'Autenticarse',
     'project.users.SignUp.fields.confirmPassword': 'Confirmar contrasinal',
     'project.users.SignUp.title': 'Rexistrarse',
-    'project.users.UpdateProfile.title': 'Actualizar perfil'
+    'project.users.UpdateProfile.title': 'Actualizar perfil',
+    'project.users.Manager.title': 'Engadir Empregado',
+    'project.users.Admin.title': 'Engadir Encargado',
+
+    'project.hotels.SignUp.title': 'Rexistrar',
+    'project.hotels.noHotelsFound': 'Non hai hoteis, por favor intenteo mais tarde',
+    'project.hotels.UpdateHotel.title': 'Actualizar hotel',
+    'project.hotels.RemoveHotel.title': 'Eliminar hotel',
+    'project.hotels.AddRoom.title': 'Engadir habitación',
+    'project.hotels.AddReservation.title': 'Reservar',
+    'project.room.FindRoomsResult.noRoomsFound': 'Non hai habitacions'
 
 }

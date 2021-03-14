@@ -25,7 +25,6 @@ import es.udc.hotelapp.backend.model.entities.RoomTypeReservationDao;
 import es.udc.hotelapp.backend.model.entities.Status;
 import es.udc.hotelapp.backend.model.entities.User;
 import es.udc.hotelapp.backend.model.entities.UserDao;
-import es.udc.hotelapp.backend.model.exceptions.IncorrectHotelException;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.services.ReservationService;
@@ -60,7 +59,7 @@ public class ReservationServiceTest {
 		RoomType rt1 = new RoomType(typename);
 		typeDao.save(rt1);
 		
-		Hotel h1 = new Hotel("As Arias", "Pedro Gonzalez", " C/ Lonzas, 20");
+		Hotel h1 = new Hotel("As Arias", "Pedro Gonzalez", " C/ Lonzas, 20","981723452", "LOrem prego");
 		hotelDao.save(h1);
 		
 		return new RoomTypeReservation(us1, LocalDate.now(), LocalDate.now(),3, rt1,h1);
@@ -81,10 +80,10 @@ public class ReservationServiceTest {
 		rt2.setHotel(hotel);
 		rt2.setRoomtype(roomtype);
 	
-		
+		long id3 = rt1.getId() + 2;
 		assertEquals(rt1, reservationService.findById(rt1.getId()));
 		
-		assertThrows(InstanceNotFoundException.class, () -> reservationService.findById((long) 6 ));
+		assertThrows(InstanceNotFoundException.class, () -> reservationService.findById(id3));
 		
 		assertThrows(InstanceNotFoundException.class, () -> reservationService.addReservation(rt2));
 		
@@ -97,7 +96,7 @@ public class ReservationServiceTest {
 	}
 
 	@Test
-	public void testUpdateReservation() throws InstanceNotFoundException, IncorrectHotelException {
+	public void testUpdateReservation() throws InstanceNotFoundException{
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		
 		reservationService.addReservation(rt1);
@@ -147,7 +146,7 @@ public class ReservationServiceTest {
 		
 		
 		RoomType type = new RoomType("Individual");
-		Hotel h1 = new Hotel("NH", "Manolo", "C/Lonzas 20");
+		Hotel h1 = new Hotel("NH", "Manolo", "C/Lonzas 20", "981723452", "LOrem prego");
 		hotelDao.save(h1);
 		typeDao.save(type);
 		
@@ -187,7 +186,9 @@ public class ReservationServiceTest {
 		reservationService.addGuest(gr2);
 		assertEquals(gr2, reservationService.findGuestReservationById(gr2.getId()));
 		
-		assertThrows(InstanceNotFoundException.class, () -> reservationService.findGuestReservationById((long) 6));
+		long id3 = gr2.getId() + 3;
+		
+		assertThrows(InstanceNotFoundException.class, () -> reservationService.findGuestReservationById(id3));
 	
 		RoomTypeReservation rt2 = new RoomTypeReservation();
 		rt2.setId((long) 4);

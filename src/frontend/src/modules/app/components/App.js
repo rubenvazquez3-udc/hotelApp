@@ -6,6 +6,7 @@ import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 import users from '../../users';
+import hotels from "../../hotel";
 
 const App = () => {
 
@@ -15,6 +16,8 @@ const App = () => {
 
         dispatch(users.actions.tryLoginFromServiceToken(
             () => dispatch(users.actions.logout())));
+
+        dispatch(hotels.actions.getHotels());
     
     });
 

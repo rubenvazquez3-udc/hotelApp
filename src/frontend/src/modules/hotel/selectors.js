@@ -1,5 +1,8 @@
 
-const getModuleState = state => state.hotel;
+const getModuleState = state => state.hotels;
 
 export const getHotels = state =>
-    getModuleState(state).hotels;
+    getModuleState(state).hotelResult;
+
+export const getHotel = state =>
+    getModuleState(state).hotel;

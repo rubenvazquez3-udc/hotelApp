@@ -47,6 +47,8 @@ CREATE TABLE Hotel (
     name VARCHAR(30) NOT NULL,
     address VARCHAR(75) NOT NULL,
     manager VARCHAR(30) NOT NULL,
+    phonenumber VARCHAR(15) NOT NULL,
+    description VARCHAR(250) NOT NULL,
     CONSTRAINT HotelPK PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 

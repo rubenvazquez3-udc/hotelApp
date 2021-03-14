@@ -8,7 +8,7 @@ const Footer = () => (
         <hr/>
         <footer>
             <p className="text-center">
-                <FormattedMessage id="project.app.Footer.text"/>
+                &copy; <FormattedMessage id="project.app.Footer.text"/>
             </p>
         </footer>
     </div>

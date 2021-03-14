@@ -56,6 +56,8 @@ public class HotelServiceImpl implements HotelService {
 			hotelactual.setName(hotel.getName());
 			hotelactual.setAddress(hotel.getAddress());
 			hotelactual.setManager(hotel.getManager());
+			hotelactual.setPhonenumber(hotel.getPhonenumber());
+			hotelactual.setDescription(hotel.getDescription());
 
 			hotelDao.save(hotelactual);
 			return hotelactual;

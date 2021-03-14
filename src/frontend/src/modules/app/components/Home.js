@@ -1,8 +1,13 @@
 import React from 'react';
-import {FormattedMessage} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import FindHotelsResult from '../../hotel/components/FindHotelsResult';
 
-const Home = () => (
+
+/* Contenido de la web inicial*/
+const Home = () =>(
     <div className="text-center">
+
+        <FindHotelsResult/>
         <FormattedMessage id="project.app.Home.welcome"/>
     </div>
 );

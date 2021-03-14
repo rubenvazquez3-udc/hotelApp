@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.udc.hotelapp.backend.model.entities.HotelDao;
 import es.udc.hotelapp.backend.model.entities.Room;
 import es.udc.hotelapp.backend.model.entities.RoomDao;
 import es.udc.hotelapp.backend.model.entities.RoomType;
@@ -26,15 +25,12 @@ public class RoomServiceImpl implements RoomService {
 	private RoomDao roomDao;
 	@Autowired
 	private RoomTypeDao typeDao;
-	@Autowired
-	private HotelDao hotelDao;
-
+	
 	@Override
 	public Long addRoom(Room room) throws RoomAlreadyExistsException, InstanceNotFoundException {
 		Optional<Room> roomfound = roomDao.findByNumber(room.getNumber());
 		boolean type = typeDao.existsByName(room.getType().getName());
 		Optional<RoomType> typeRoom = typeDao.findByName(room.getType().getName());
-		boolean hotel = hotelDao.existsByName(room.getHotel().getName());
 		if (roomfound.isPresent() && roomfound.get().getHotel() == room.getHotel()) {
 			throw new RoomAlreadyExistsException(room.getId());
 		}

@@ -1,12 +1,13 @@
 export default {
 
-    'project.app.Footer.text': 'PA Project - Area of Telematics Engineering - University of A Coruña',
+    'project.app.Footer.text': 'Hotel App - Area of Telematics Engineering - University of A Coruña',
     'project.app.Header.home': 'Home',
     'project.app.Header.logout': 'Logout',
     'project.app.Home.welcome': 'MiniPortal main page content!',
 
     'project.common.ErrorDialog.title': 'Error',
 
+    'project.global.buttons.search': 'Search',
     'project.global.buttons.cancel': 'Cancel',
     'project.global.buttons.close': 'Close',
     'project.global.buttons.next': 'Next',
@@ -22,6 +23,13 @@ export default {
     'project.global.fields.password': 'Password',
     'project.global.fields.address': 'Address',
     'project.global.fields.userName': 'Username',
+    'project.global.fields.hotelName': 'Hotel',
+    'project.global.fields.hotelManager': 'Manager',
+    'project.global.fields.phone':'Phone Number',
+    'project.global.fields.description': 'Description',
+    'project.global.fields.roomNumber':'Room',
+    'project.global.fields.roomType':'Type',
+    'project.global.fields.roomStatus': 'Status',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',
     'project.global.validator.required': 'Required field',
@@ -33,6 +41,16 @@ export default {
     'project.users.Login.title': 'Login',
     'project.users.SignUp.fields.confirmPassword': 'Confirm password',
     'project.users.SignUp.title': 'Sign up',
-    'project.users.UpdateProfile.title': 'Update profile'
+    'project.users.UpdateProfile.title': 'Update profile',
+    'project.users.Manager.title': 'Add Employee',
+    'project.users.Admin.title': 'Add Manager',
+
+    'project.hotels.SignUp.title': 'Sign up',
+    'project.hotels.noHotelsFound': 'No hotels found, please try again later',
+    'project.hotels.UpdateHotel.title': 'Update hotel',
+    'project.hotels.RemoveHotel.title': 'Remove hotel',
+    'project.hotels.AddRoom.title': 'Add Room',
+    'project.hotels.AddReservation.title': 'Book',
+    'project.room.FindRoomsResult.noRoomsFound': 'No rooms found'
 
 }

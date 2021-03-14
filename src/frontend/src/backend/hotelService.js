@@ -13,8 +13,8 @@ export const getHotelsById = (hotelid, onSuccess, onErrors) => {
     appFetch(`/hotels/${hotelid}`, config('GET'), onSuccess, onErrors);
 }
 
-export const updateHotel = (hotelid, hotel, onSuccess, onErrors) =>{
-    appFetch(`/hotels/${hotelid}`, config('PUT', hotel), onSuccess, onErrors);
+export const updateHotel = (hotel, onSuccess, onErrors) =>{
+    appFetch(`/hotels/${hotel.id}`, config('PUT', hotel), onSuccess, onErrors);
 }
 
 export const removeHotel = (hotelid, onSuccess, onErrors) =>{

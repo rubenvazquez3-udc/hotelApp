@@ -35,7 +35,7 @@ public class RoomServiceTest {
 	
 	
 	private Hotel createHotel() {
-		return new Hotel("As Arias", "Pedro Gonzalez", " C/ Lonzas, 20");
+		return new Hotel("As Arias", "Pedro Gonzalez", " C/ Lonzas, 20", "981723452", "LOrem prego");
 	}
 	
 	
