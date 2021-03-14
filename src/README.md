@@ -1,4 +1,4 @@
-# PA Project 
+# Hotel App
 
 ## Requirements
 
@@ -13,13 +13,13 @@
 ```
 Start Mysql server if not running (e.g. mysqld).
 
-mysqladmin -u root create paproject
-mysqladmin -u root create paprojecttest
+mysqladmin -u root create pa
+mysqladmin -u root create patest
 
 mysql -u root
-    CREATE USER 'pa'@'localhost' IDENTIFIED BY 'pa';
-    GRANT ALL PRIVILEGES ON paproject.* to 'pa'@'localhost' WITH GRANT OPTION;
-    GRANT ALL PRIVILEGES ON paprojecttest.* to 'pa'@'localhost' WITH GRANT OPTION;
+    CREATE USER 'hotelapp'@'localhost' IDENTIFIED BY 'hotelapp';
+    GRANT ALL PRIVILEGES ON hotelapp.* to 'hotelapp'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON hotelapptest.* to 'hotelapp'@'localhost' WITH GRANT OPTION;
     exit
 ```
 
