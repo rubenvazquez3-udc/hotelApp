@@ -40,6 +40,23 @@ const Header = () => {
                             <Link className="nav-link" to="/hotels">
                                 <FormattedMessage id="project.hotels.addHotel"/>
                             </Link>
+                        </li> <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
+                                <span className="fas fa-user"></span>&nbsp;
+                                    {userName}
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/users/update-profile">
+                                    <FormattedMessage id="project.users.UpdateProfile.title"/>
+                                </Link>
+                                <Link className="dropdown-item" to="/users/change-password">
+                                    <FormattedMessage id="project.users.ChangePassword.title"/>
+                                </Link>
+                            <div className="dropdown-divider"></div>
+                                <Link className="dropdown-item" to="/users/logout">
+                                    <FormattedMessage id="project.app.Header.logout"/>
+                                </Link>
+                            </div>
                         </li>
                     </ul>
                 : user === "MANAGER" ?
@@ -48,6 +65,24 @@ const Header = () => {
                             <Link className="nav-link" to="/users/manager">
                                 <FormattedMessage id="project.users.Manager.title"/>
                             </Link>
+                        </li>
+                        <li className="nav-item dropdown">
+                            <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
+                                <span className="fas fa-user"></span>&nbsp;
+                                    {userName}
+                            </a>
+                            <div className="dropdown-menu dropdown-menu-right">
+                                <Link className="dropdown-item" to="/users/update-profile">
+                                    <FormattedMessage id="project.users.UpdateProfile.title"/>
+                                </Link>
+                                <Link className="dropdown-item" to="/users/change-password">
+                                    <FormattedMessage id="project.users.ChangePassword.title"/>
+                                </Link>
+                            <div className="dropdown-divider"></div>
+                                <Link className="dropdown-item" to="/users/logout">
+                                    <FormattedMessage id="project.app.Header.logout"/>
+                                </Link>
+                            </div>
                         </li>
                     </ul>
                 
