@@ -18,8 +18,8 @@ mysqladmin -u root create patest
 
 mysql -u root
     CREATE USER 'hotelapp'@'localhost' IDENTIFIED BY 'hotelapp';
-    GRANT ALL PRIVILEGES ON hotelapp.* to 'hotelapp'@'localhost' WITH GRANT OPTION;
-    GRANT ALL PRIVILEGES ON hotelapptest.* to 'hotelapp'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON hotelappproject.* to 'hotelapp'@'localhost' WITH GRANT OPTION;
+    GRANT ALL PRIVILEGES ON hotelappprojecttest.* to 'hotelapp'@'localhost' WITH GRANT OPTION;
     exit
 ```
 
