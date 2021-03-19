@@ -17,8 +17,8 @@ export const updateHotel = (hotel, onSuccess, onErrors) =>{
     appFetch(`/hotels/${hotel.id}`, config('PUT', hotel), onSuccess, onErrors);
 }
 
-export const removeHotel = (hotelid, onSuccess, onErrors) =>{
-    appFetch(`/hotels/${hotelid}`, config('DELETE'), onSuccess, onErrors);
+export const removeHotel = (hotel, onSuccess, onErrors) =>{
+    appFetch(`/hotels/${hotel.id}`, config('DELETE'), onSuccess, onErrors);
 }
 
 export const addService = (hotelid, service, onSuccess, onErrors) =>{

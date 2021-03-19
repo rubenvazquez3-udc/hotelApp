@@ -6,7 +6,7 @@ import AppGlobalComponents from './AppGlobalComponents';
 import Home from './Home';
 import {Login, SignUp, UpdateProfile, ChangePassword, Logout,CreateManagerAcccount, CreateHotelPersonalAccount} from '../../users';
 import users from '../../users';
-import {HotelDetails, AddHotel} from '../../hotel';
+import {HotelDetails, AddHotel, RemoveHotel} from '../../hotel';
 
 
 
@@ -26,6 +26,7 @@ const Body = () => {
             <Switch>
                 <Route exact path="/"><Home/></Route>
                 <Route exact path="/hotels/hotel-details/:id"><HotelDetails/></Route>
+                <Route exact path='/hotels/hotel-details/:id/remove'><RemoveHotel/></Route>
                 {loggedIn && <Route exact path="/users/update-profile"><UpdateProfile/></Route>}
                 {loggedIn && <Route exact path="/users/change-password"><ChangePassword/></Route>}
                 {loggedIn && <Route exact path="/users/logout"><Logout/></Route>}

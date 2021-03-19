@@ -52,3 +52,17 @@ export const updateHotel = (hotel, onSuccess, onErrors) => dispatch =>
             onSuccess();
         },
         onErrors);
+
+const removeHotelCompleted = hotel =>({
+    type: actionTypes.REMOVE_HOTEL_COMPLETED
+});
+
+export const removeHotel = (hotel, onSuccess, onErrors) => dispatch => 
+    backend.hotelService.removeHotel(hotel,
+        hotel => {
+            dispatch(removeHotelCompleted(hotel));
+            onSuccess();
+        },
+        onErrors
+        );
+

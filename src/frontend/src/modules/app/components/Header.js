@@ -16,7 +16,7 @@ const Header = () => {
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light bg-light border">
-            <Link className="navbar-brand" to="/"><img src= '.././public/logo192.png' alt = 'HOTEL App'/></Link>
+            <Link className="navbar-brand" to="/"><img src= '../../../../public/logo512.png' alt = 'HOTEL App'/></Link>
             <button className="navbar-toggler" type="button" 
                 data-toggle="collapse" data-target="#navbarSupportedContent" 
                 aria-controls="navbarSupportedContent" aria-expanded="false" 
@@ -40,7 +40,8 @@ const Header = () => {
                             <Link className="nav-link" to="/hotels">
                                 <FormattedMessage id="project.hotels.addHotel"/>
                             </Link>
-                        </li> <li className="nav-item dropdown">
+                        </li> 
+                        <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
                                 <span className="fas fa-user"></span>&nbsp;
                                     {userName}
@@ -66,6 +67,11 @@ const Header = () => {
                                 <FormattedMessage id="project.users.Manager.title"/>
                             </Link>
                         </li>
+                          <li className="nav-item">
+                            <Link className="nav-link" to="/hotels">
+                                <FormattedMessage id="project.hotels.addHotel"/>
+                            </Link>
+                        </li> 
                         <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
                                 <span className="fas fa-user"></span>&nbsp;

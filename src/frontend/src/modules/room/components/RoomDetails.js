@@ -39,17 +39,17 @@ const RoomDetails = () => {
         adminValues = ( 
         <div className="navbat-nav">
         <Link className="nav-link" to={`/hotels/room-details/${room.id}/update`}>
-            <FormattedMessage id="project.hotels.UpdateHotel.title" />
+            <FormattedMessage id="project.room.UpdateRoom.title" />
         </Link>
         <Link className="nav-link" to={`/hotels/room-details/${room.id}/remove`} >
-            <FormattedMessage id="project.hotels.AddRoom.title"/>
+            <FormattedMessage id="project.room.RemoveRoom.title"/>
         </Link>
     </div>
     )
     } else if (user.role === 'HOTEL'){
         adminValues = 
-        <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/reservations`} >
-            <FormattedMessage id="project.hotels.AddReservation.title"/>
+        <Link className="nav-link" to={`/hotels/room-details/${room.id}/update`}>
+            <FormattedMessage id="project.room.UpdateRoom.title" />
         </Link>   
     }
 
@@ -59,10 +59,23 @@ const RoomDetails = () => {
 
             <div className="card text-center">
                 <div className="card-body">
+
+                    <label htmlFor="number" className="col-md-3 col-form-label">
+                        <FormattedMessage id="project.global.fields.roomNumber"/>
+                    </label>
                     <h5 className="card-title">{room.number}</h5>
+                    
+                    <label htmlFor="type" className="col-md-3 col-form-label">
+                        <FormattedMessage id="project.global.fields.type"/>
+                    </label>
                     <h6 className="card-subtitle text-muted">{room.type.name}</h6>
+
+                    <label htmlFor="status" className="col-md-3 col-form-label">
+                        <FormattedMessage id="project.global.fields.roomStatus"/>
+                    </label>
                     <p className="card-text"> {room.status}</p>
                 </div>
+
                 {adminValues}
             </div>
             

@@ -5,6 +5,7 @@ import * as selectors from "./selectors";
 
 export {default as AddHotel} from "./components/addhotel";
 export {default as HotelDetails} from "./components/HotelDetails";
+export {default as RemoveHotel} from "./components/RemoveHotel";
 
 
 

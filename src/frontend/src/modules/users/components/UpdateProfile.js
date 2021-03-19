@@ -106,7 +106,7 @@ const UpdateProfile = () => {
                                     onChange={e => setAddress(e.target.value)}
                                     required/>
                                 <div className="invalid-feedback">
-                                    <FormattedMessage id='project.global.validator.address'/>
+                                    <FormattedMessage id='project.global.validator.required'/>
                                 </div>
                             </div>
                         </div>

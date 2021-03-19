@@ -51,9 +51,12 @@ export default {
     'project.hotels.noHotelsFound': 'No hay hoteles, por favor inténtelo más tarde',
     'project.hotels.UpdateHotel.title': 'Actualizar hotel',
     'project.hotels.RemoveHotel.title': 'Eliminar hotel',
+    'project.hotels.RemoveHotel.body': '¿Estás seguro de eliminar el hotel',
     'project.hotels.AddRoom.title': 'Añadir habitación',
     'project.hotels.AddReservation.title': 'Reservar',
-    'project.room.FindRoomsResult.noRoomsFound': 'No hay habitaciones'
+    'project.room.FindRoomsResult.noRoomsFound': 'No hay habitaciones',
+    'project.room.UpdateRoom.title': 'Actualizar habitación',
+    'project.room.RemoveRoom.title': 'Eliminar habitación'
 
 
     

@@ -9,12 +9,9 @@ const FindHotelsResult = () => {
 
     const hotels = useSelector(selectors.getHotels);
 
-    //console.log(hotelResult);
-
-   if(!hotels){
+    if(!hotels){
         return null;
     }
-        
 
     if(hotels.length === 0){
         return(
@@ -24,10 +21,9 @@ const FindHotelsResult = () => {
 
         ) 
     }
-       
 
     return (
-        <Hotels hotels={hotels.hotels.items}/>
+        <Hotels hotels={hotels}/>
     )
 
 
