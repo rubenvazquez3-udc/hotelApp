@@ -12,7 +12,7 @@ const hotels = (state = initialState.hotels, action) => {
         case actionTypes.GET_HOTELS_COMPLETED:
             return action.hotelResult;
         case actionTypes.ADD_HOTEL_COMPLETED:
-            return action.hotels;
+            return action.authenticatedHotel;
         default:
              return state;
     }

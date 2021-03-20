@@ -11,6 +11,8 @@ const UpdateHotel = () => {
 
     const hotel = useSelector(selectors.getHotel);
 
+    //console.log(hotel);
+
     const dispatch = useDispatch();
     const history = useHistory();
     const [name, setHotelName] = useState(hotel.name);
@@ -30,15 +32,14 @@ const UpdateHotel = () => {
         if (form.checkValidity()) {
             
             dispatch(actions.updateHotel(
-                {id:hotel.id,
+                {id: hotel.id,
                 name: name.trim(),
                 manager: manager.trim(),
                 address: address.trim(),
                 phoneNumber: phoneNumber.trim(),
                 description: description.trim()},
                 () => history.push('/'),
-                errors => setBackendErrors(errors)
-            ));
+                errors => setBackendErrors(errors)));
             
 
         } else {
@@ -50,7 +51,7 @@ const UpdateHotel = () => {
 
     }
 
-
+   // console.log(hotel);
     return (
         <div>
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
@@ -60,8 +61,7 @@ const UpdateHotel = () => {
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
-                        className="needs-validation" noValidate 
-                        onSubmit={e => handleSubmit(e)}>
+                        className="needs-validation" noValidate onSubmit={e => handleSubmit(e)}>
                         <div className="form-group row">
                             <label htmlFor="name" className="col-md-3 col-form-label">
                                 <FormattedMessage id="project.global.fields.hotelName"/>
@@ -133,6 +133,7 @@ const UpdateHotel = () => {
                                 </div>
                             </div>
                         </div>
+                        
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
@@ -145,7 +146,7 @@ const UpdateHotel = () => {
             </div>
         </div>
     );
-
+    
 }
 
 export default UpdateHotel;

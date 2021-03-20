@@ -1,11 +1,15 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import React from 'react';
 
 import * as selectors from '../selectors';
+import * as actions from '../actions';
 import { FormattedMessage } from "react-intl";
 import Hotels from "./Hotels";
 
 const FindHotelsResult = () => {
+    const dispatch = useDispatch();
+
+    //dispatch(actions.getHotels());
 
     const hotels = useSelector(selectors.getHotels);
 

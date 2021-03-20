@@ -12,7 +12,7 @@ export const getHotels = () =>  dispatch => {
 
     backend.hotelService.getHotels(hotelResult => 
         dispatch(getHotelsCompleted(hotelResult)));
-    }
+    };
 
 const findHotelByIdCompleted = hotel => ({
         type: actionTypes.GET_HOTEL_BY_ID_COMPLETED,
@@ -22,7 +22,7 @@ const findHotelByIdCompleted = hotel => ({
 export const findHotelById = id => dispatch => {
         backend.hotelService.getHotelsById(id, hotel => 
             dispatch(findHotelByIdCompleted(hotel)));
-    }
+    };
 
 
 const addHotelCompleted = authenticatedHotel => ({

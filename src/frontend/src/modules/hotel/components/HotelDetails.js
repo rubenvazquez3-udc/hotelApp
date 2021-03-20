@@ -1,24 +1,31 @@
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import * as selectors from "../selectors";
 import * as actions from '../actions';
 import users from '../../users';
 
-import {BackLink} from '../../common';
+import {BackLink, ConfirmDialog} from '../../common';
 import { FormattedMessage } from 'react-intl';
-import UpdateHotel from '../components/UpdateHotel';
+
 
 const HotelDetails = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const hotel = useSelector(selectors.getHotel);
     const {id} = useParams();
     const user = useSelector(users.selectors.getUser);
 
     let adminValues = null;
 
-    const updateHotel =  <UpdateHotel/>;
+    const handleSubmit = event => {
+        event.preventDefault();
+
+         dispatch(actions.removeHotel(hotel));
+         history.push('/')
+    }
+
 
     useEffect(()=>{
         const hotelid = Number(id);
@@ -34,25 +41,32 @@ const HotelDetails = () => {
 
     if(user.role === 'ADMIN'){
         adminValues =( 
-        <div className="navbat-nav">
-        <button className="nav-link" onClick ={updateHotel}>
-            <FormattedMessage id="project.hotels.UpdateHotel.title" />
-        </button>
-        <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/remove`} >
-            <FormattedMessage id="project.hotels.RemoveHotel.title"/>
-        </Link>
-    </div>
-    )
-    } else if (user.role === 'MANAGER' && hotel.address === user.address) {
-        adminValues = ( 
-        <div className="navbat-nav">
+        <ul className="navbar-nav">
+            <li className="nav-item">
         <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
             <FormattedMessage id="project.hotels.UpdateHotel.title" />
         </Link>
+        </li>
+        <li className="nav-item">
+        <ConfirmDialog id='removeHotel' icon='eraser' headerTitle='Remove Hotel' 
+        bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleSubmit(e)} />
+        </li>
+    </ul>
+    )
+    } else if (user.role === 'MANAGER' && hotel.address === user.address) {
+        adminValues = ( 
+        <ul className="navbat-nav">
+            <li className="nav-item">
+        <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
+            <FormattedMessage id="project.hotels.UpdateHotel.title" />
+        </Link>
+        </li>
+        <li className="nav-item">
         <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/add-rooms`} >
             <FormattedMessage id="project.hotels.AddRoom.title"/>
         </Link>
-    </div>
+        </li>
+    </ul>
     )
     } else if (user.role === 'USER'){
         adminValues = 
@@ -85,11 +99,7 @@ const HotelDetails = () => {
                         <FormattedMessage id="project.global.fields.description"/>
                     </label>
                     <p className="card-text"> {hotel.description}</p>
-
-                    <label htmlFor="phoneNumber" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.phone"/>
-                        <span className="fas fa-phone-square" />
-                    </label>
+                    <span className="fas fa-phone-square" />
                     <p className="card-text"> {hotel.phoneNumbre}</p>
                 </div>
 

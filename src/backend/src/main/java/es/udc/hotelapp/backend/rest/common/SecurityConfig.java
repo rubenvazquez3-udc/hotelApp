@@ -3,6 +3,7 @@ package es.udc.hotelapp.backend.rest.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -26,17 +27,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.addFilter(new JwtFilter(authenticationManager(), jwtGenerator))
 			.authorizeRequests()
 			.antMatchers("/users/signUp").permitAll()
-			.antMatchers("/users/admin/*").permitAll()
 			.antMatchers("/users/login").permitAll()
+			.antMatchers("/users/*").permitAll()
 			.antMatchers("/users/loginFromServiceToken").permitAll()
-			.antMatchers("/hotels/*").permitAll()
-			.antMatchers("/hotels/*/services/*").permitAll()
-			.antMatchers("/hotels/*/rooms/*").permitAll()
+			.antMatchers(HttpMethod.POST,"/users/admin/manager").hasRole("ADMIN")
+			.antMatchers(HttpMethod.POST,"/users/admin/hotel").hasRole("MANAGER")
+			.antMatchers(HttpMethod.POST,"/hotels").hasRole("ADMIN")
+			.antMatchers(HttpMethod.GET,"/hotels").permitAll()
+			.antMatchers(HttpMethod.GET,"/hotels/*").permitAll()
+			.antMatchers(HttpMethod.PUT,"/hotels/*").permitAll()
+			.antMatchers(HttpMethod.DELETE,"/hotels/*").hasRole("ADMIN")
+			.antMatchers(HttpMethod.POST,"/hotels/*/services").hasRole("MANAGER")
+			.antMatchers(HttpMethod.POST,"/hotels/*/services").hasRole("HOTEL")
+			.antMatchers(HttpMethod.GET,"/hotels/*/services/*").permitAll()
+			.antMatchers(HttpMethod.PUT,"/hotels/*/services/*").permitAll()
+			.antMatchers(HttpMethod.DELETE,"/hotels/*/services/*").hasRole("MANAGER")
+			.antMatchers(HttpMethod.POST,"/hotels/*/rooms").hasRole("MANAGER")
+			.antMatchers(HttpMethod.GET,"/hotels/*/rooms/*").permitAll()
+			.antMatchers(HttpMethod.PUT,"/hotels/*/rooms/*").permitAll()
+			.antMatchers(HttpMethod.DELETE,"/hotels/*/rooms/*").permitAll()
+			
+			//Corregido hasta aqui
 			.antMatchers("/hotels/*/reservations/*").permitAll()
 			.antMatchers("/hotels/*/reservations/*/assignRoom/").permitAll()
 			.antMatchers("/hotels/*/reservations/*/guests/*").permitAll()
 			.anyRequest().hasRole("USER");
-//			.anyRequest().hasRole("MANAGER");
+
 			
 
 	}
