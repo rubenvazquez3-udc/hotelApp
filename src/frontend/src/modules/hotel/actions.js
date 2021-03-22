@@ -2,7 +2,6 @@ import * as actionTypes from './actionTypes';
 import backend from '../../backend';
 
 
-
 export const getHotelsCompleted = hotelResult => ({
     type: actionTypes.GET_HOTELS_COMPLETED, 
     hotelResult
@@ -43,7 +42,7 @@ export const addHotel = (hotel, onSuccess, onErrors, reauthenticationCallback) =
 const updateHotelCompleted = hotel =>({
     type: actionTypes.UPDATE_HOTEL_COMPLETED,
     hotel
-})
+});
 
 export const updateHotel = (hotel, onSuccess, onErrors) => dispatch => 
     backend.hotelService.updateHotel(hotel,
@@ -54,7 +53,8 @@ export const updateHotel = (hotel, onSuccess, onErrors) => dispatch =>
         onErrors);
 
 const removeHotelCompleted = hotel =>({
-    type: actionTypes.REMOVE_HOTEL_COMPLETED
+    type: actionTypes.REMOVE_HOTEL_COMPLETED,
+    hotel
 });
 
 export const removeHotel = (hotel, onSuccess, onErrors) => dispatch => 
@@ -63,6 +63,5 @@ export const removeHotel = (hotel, onSuccess, onErrors) => dispatch =>
             dispatch(removeHotelCompleted(hotel));
             onSuccess();
         },
-        onErrors
-        );
+        onErrors);
 

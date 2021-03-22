@@ -131,7 +131,7 @@ public class HotelController {
 	}
 
 	@PutMapping("/hotels/{hotelid}")
-	public ResponseEntity updateHotel(@PathVariable Long hotelid, @RequestBody HotelDto hotelDto)
+	public HotelDto updateHotel(@PathVariable Long hotelid, @RequestBody HotelDto hotelDto)
 			throws InstanceNotFoundException {
 		Hotel hotel = toHotel(hotelDto);
 		Long id = hotelDto.getId();
@@ -139,7 +139,7 @@ public class HotelController {
 
 		hotelService.updateHotel(hotel);
 
-		return ResponseEntity.noContent().build();
+		return toHotelDto(hotel);
 	}
 
 	@GetMapping("/hotels")
@@ -203,7 +203,7 @@ public class HotelController {
 	}
 
 	@PutMapping("/hotels/{hotelid}/rooms/{roomid}")
-	public ResponseEntity updateRoom(@PathVariable Long hotelid, @PathVariable Long roomid,
+	public RoomDto updateRoom(@PathVariable Long hotelid, @PathVariable Long roomid,
 			@RequestBody RoomDto roomDto) {
 		Room r = toRoom(roomDto);
 		r.getHotel().setId(hotelid);
@@ -211,7 +211,7 @@ public class HotelController {
 		r.setId(roomid);
 		roomService.updateRoom(r);
 
-		return ResponseEntity.noContent().build();
+		return toRoomDto(r);
 	}
 
 	@PostMapping("/hotels/{hotelid}/reservations")

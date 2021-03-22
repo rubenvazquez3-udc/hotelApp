@@ -13,6 +13,16 @@ const hotels = (state = initialState.hotels, action) => {
             return action.hotelResult;
         case actionTypes.ADD_HOTEL_COMPLETED:
             return [...state, action.authenticatedHotel];
+        case actionTypes.UPDATE_HOTEL_COMPLETED:
+            let hotels = [...state];
+            hotels.splice(hotels.findIndex(hotel => hotel.id === action.hotel.id),1,action.hotel);
+            return  hotels;
+
+        case actionTypes.REMOVE_HOTEL_COMPLETED:
+            //let hotel = action.hotel;
+            //let index = [state].indexOf(hotel);
+            return state;
+
         default:
              return state;
     }
@@ -21,8 +31,6 @@ const hotels = (state = initialState.hotels, action) => {
 const hotel = (state = initialState.hotel, action) => {
         switch (action.type) {
             case actionTypes.GET_HOTEL_BY_ID_COMPLETED:
-                return action.hotel;
-            case actionTypes.UPDATE_HOTEL_COMPLETED:
                 return action.hotel;
             case actionTypes.REMOVE_HOTEL_COMPLETED:
                 return initialState.hotel;

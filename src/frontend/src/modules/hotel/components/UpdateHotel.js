@@ -29,8 +29,7 @@ const UpdateHotel = () => {
 
         event.preventDefault();
 
-        if (form.checkValidity()) {
-            
+        if (form.checkValidity()) {            
             dispatch(actions.updateHotel(
                 {id: hotel.id,
                 name: name.trim(),
@@ -40,7 +39,6 @@ const UpdateHotel = () => {
                 description: description.trim()},
                 () => history.push('/'),
                 errors => setBackendErrors(errors)));
-            
 
         } else {
 
@@ -51,7 +49,7 @@ const UpdateHotel = () => {
 
     }
 
-   // console.log(hotel);
+
     return (
         <div>
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)}/>
