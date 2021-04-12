@@ -3,48 +3,48 @@ import backend from '../../backend';
 
 
 export const getHotelsCompleted = hotelResult => ({
-    type: actionTypes.GET_HOTELS_COMPLETED, 
+    type: actionTypes.GET_HOTELS_COMPLETED,
     hotelResult
 });
 
-export const getHotels = () =>  dispatch => {
+export const getHotels = () => dispatch => {
 
-    backend.hotelService.getHotels(hotelResult => 
+    backend.hotelService.getHotels(hotelResult =>
         dispatch(getHotelsCompleted(hotelResult)));
-    };
+};
 
 const findHotelByIdCompleted = hotel => ({
-        type: actionTypes.GET_HOTEL_BY_ID_COMPLETED,
-        hotel
-    });
-    
+    type: actionTypes.GET_HOTEL_BY_ID_COMPLETED,
+    hotel
+});
+
 export const findHotelById = id => dispatch => {
-        backend.hotelService.getHotelsById(id, hotel => 
-            dispatch(findHotelByIdCompleted(hotel)));
-    };
+    backend.hotelService.getHotelsById(id, hotel =>
+        dispatch(findHotelByIdCompleted(hotel)));
+};
 
 
 const addHotelCompleted = authenticatedHotel => ({
-    type : actionTypes.ADD_HOTEL_COMPLETED,
+    type: actionTypes.ADD_HOTEL_COMPLETED,
     authenticatedHotel
-  });
-  
-export const addHotel = (hotel, onSuccess, onErrors, reauthenticationCallback) => dispatch => 
-        backend.hotelService.addHotel(hotel, 
-            authenticatedHotel => {
+});
+
+export const addHotel = (hotel, onSuccess, onErrors, reauthenticationCallback) => dispatch =>
+    backend.hotelService.addHotel(hotel,
+        authenticatedHotel => {
             dispatch(addHotelCompleted(authenticatedHotel));
             onSuccess();
         },
         onErrors,
         reauthenticationCallback
-  );
+    );
 
-const updateHotelCompleted = hotel =>({
+const updateHotelCompleted = hotel => ({
     type: actionTypes.UPDATE_HOTEL_COMPLETED,
     hotel
 });
 
-export const updateHotel = (hotel, onSuccess, onErrors) => dispatch => 
+export const updateHotel = (hotel, onSuccess, onErrors) => dispatch =>
     backend.hotelService.updateHotel(hotel,
         hotel => {
             dispatch(updateHotelCompleted(hotel));
@@ -52,12 +52,12 @@ export const updateHotel = (hotel, onSuccess, onErrors) => dispatch =>
         },
         onErrors);
 
-const removeHotelCompleted = hotel =>({
+const removeHotelCompleted = hotel => ({
     type: actionTypes.REMOVE_HOTEL_COMPLETED,
     hotel
 });
 
-export const removeHotel = (hotel, onSuccess, onErrors) => dispatch => 
+export const removeHotel = (hotel, onSuccess, onErrors) => dispatch =>
     backend.hotelService.removeHotel(hotel,
         hotel => {
             dispatch(removeHotelCompleted(hotel));

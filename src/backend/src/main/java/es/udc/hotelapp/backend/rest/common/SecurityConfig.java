@@ -37,15 +37,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET,"/hotels/*").permitAll()
 			.antMatchers(HttpMethod.PUT,"/hotels/*").permitAll()
 			.antMatchers(HttpMethod.DELETE,"/hotels/*").hasRole("ADMIN")
+			.antMatchers(HttpMethod.GET,"/hotels/*/rooms/*").permitAll()
+			.antMatchers(HttpMethod.POST,"/hotels/*/rooms").hasRole("MANAGER")
+			.antMatchers(HttpMethod.PUT,"/hotels/*/rooms/*").permitAll()
+			.antMatchers(HttpMethod.DELETE,"/hotels/*/rooms/*").permitAll()
+			.antMatchers(HttpMethod.GET,"/hotels/roomtypes").permitAll()
 			.antMatchers(HttpMethod.POST,"/hotels/*/services").hasRole("MANAGER")
 			.antMatchers(HttpMethod.POST,"/hotels/*/services").hasRole("HOTEL")
 			.antMatchers(HttpMethod.GET,"/hotels/*/services/*").permitAll()
 			.antMatchers(HttpMethod.PUT,"/hotels/*/services/*").permitAll()
 			.antMatchers(HttpMethod.DELETE,"/hotels/*/services/*").hasRole("MANAGER")
-			.antMatchers(HttpMethod.POST,"/hotels/*/rooms").hasRole("MANAGER")
-			.antMatchers(HttpMethod.GET,"/hotels/*/rooms/*").permitAll()
-			.antMatchers(HttpMethod.PUT,"/hotels/*/rooms/*").permitAll()
-			.antMatchers(HttpMethod.DELETE,"/hotels/*/rooms/*").permitAll()
+			
+			
+		//	.antMatchers(HttpMethod.GET,"/hotels/*/rooms").permitAll()
+			
 			
 			//Corregido hasta aqui
 			.antMatchers("/hotels/*/reservations/*").permitAll()

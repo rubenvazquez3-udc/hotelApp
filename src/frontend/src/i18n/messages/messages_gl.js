@@ -55,6 +55,8 @@ export default {
     'project.hotels.AddReservation.title': 'Reservar',
     'project.room.FindRoomsResult.noRoomsFound': 'Non hai habitacions',
     'project.room.UpdateRoom.title': 'Actualizar habitación',
-    'project.room.RemoveRoom.title': 'Eliminar habitación'
+    'project.room.RemoveRoom.title': 'Eliminar habitación',
+    'project.room.FindRoom.title': 'Buscar habitación',
+    'project.room.RoomTypeSelector': 'Tipos'
 
 }

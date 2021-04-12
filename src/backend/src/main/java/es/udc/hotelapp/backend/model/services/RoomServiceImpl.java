@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,5 +94,14 @@ public class RoomServiceImpl implements RoomService {
 			throw new InstanceNotFoundException("project.entities.room", id);
 		}
 		return room.get();
+	}
+
+	@Override
+	public List<RoomType> findAllRoomTypes() {
+		Iterable<RoomType> roomtypes = typeDao.findAll(Sort.by(Sort.Direction.ASC, "name"));
+		List<RoomType> roomtypesAsList = new ArrayList<>();
+		
+		roomtypes.forEach(c -> roomtypesAsList.add(c));
+		return roomtypesAsList;
 	}
 }

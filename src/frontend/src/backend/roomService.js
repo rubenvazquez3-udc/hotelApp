@@ -7,13 +7,15 @@ export const findRoom = (hotelid, roomid, onSuccess, onErrors) =>
     appFetch(`/hotels/${hotelid}/rooms/${roomid}`, config('GET'), onSuccess, onErrors);
 
 export const findRooms = (hotelid, status, onSuccess, onErrors) => {
-    let path = `/hotels/${hotelid}/rooms`;
-
+    let path = `/hotels/${hotelid}/rooms/`;
     path+= status ? `?status=${status}` : "";
-
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
+
+export const findAllRoomTypes = (onSuccess) => 
+    appFetch('/hotels/roomtypes', config('GET'), onSuccess);
+
 
 export const updateRoom = (room, onSuccess, onErrors) => 
     appFetch(`/hotels/${room.hotel.id}/rooms/${room.id}`, config('PUT', room), onSuccess, onErrors);

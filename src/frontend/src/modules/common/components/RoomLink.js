@@ -15,7 +15,7 @@ const RoomLink = ({id, name}) => {
 
 RoomLink.propTypes = {
     id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
+    name: PropTypes.number.isRequired,
 };
 
 export default RoomLink;

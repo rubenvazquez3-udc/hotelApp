@@ -14,3 +14,14 @@ VALUES ('admin', '$2a$10$G1YMhG.SIKtbef.Kr172p.LcSHFTze1x.L6wY.xDhDfiRg6yr10U.',
  VALUES ('NH Finisterre', 'Pep Guardiola', 'C/ Viñas 22', 'Hotel 5 estrellas', '981326373'),
  	('All Stars','Mike Knight','C/ Pisuerga 3','Hotel 3 Estrellas con servicio de catering','647389269'),
  	('Rock Star','Pepe Botella','C/ Mike October 3','Hotel 2 Estrellas con buena ubicacion','0948596738');
+ 	
+ 	
+ INSERT INTO RoomType (name)
+ 	VALUES('INDIVIDUAL'),
+ 	('DOBLE'),
+ 	('ESPECIAL');
+ 	
+ INSERT INTO Room (number, status, typeid, hotelid)
+ 	VALUES (201, 0, 1, 1),
+ 	       (202, 1, 2,1),
+ 	       (203, 0, 3,1);

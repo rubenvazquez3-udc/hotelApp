@@ -54,6 +54,8 @@ export default {
     'project.hotels.AddReservation.title': 'Book',
     'project.room.FindRoomsResult.noRoomsFound': 'No rooms found',
     'project.room.UpdateRoom.title': 'Update Room',
-    'project.room.RemoveRoom.title': 'Remove Room'
+    'project.room.RemoveRoom.title': 'Remove Room',
+    'project.room.FindRoom.title': 'Search Room',
+    'project.room.RoomTypeSelector': 'Types'
 
 }

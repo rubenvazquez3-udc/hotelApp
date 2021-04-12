@@ -37,6 +37,7 @@ import es.udc.hotelapp.backend.rest.dtos.GuestReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.HotelDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomReservationDto;
+import es.udc.hotelapp.backend.rest.dtos.RoomTypeDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.ServiceDto;
 import es.udc.hotelapp.backend.rest.dtos.StatusConversor;
@@ -44,6 +45,7 @@ import es.udc.hotelapp.backend.rest.dtos.StatusConversor;
 import static es.udc.hotelapp.backend.rest.dtos.HotelConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.ServiceConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomConversor.*;
+import static es.udc.hotelapp.backend.rest.dtos.RoomTypeConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.GuestReservationConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomReservationConversor.*;
@@ -150,6 +152,11 @@ public class HotelController {
 		}
 		return list;
 	}
+	
+	@GetMapping("/hotels/roomtypes")
+	public List<RoomTypeDto> findAllRoomTypes() {
+		return toRoomTypeDtos(roomService.findAllRoomTypes());
+	}
 
 	@GetMapping("/hotels/{hotelid}/services")
 	public BlockDto<ServiceDto> findAllServices(@PathVariable Long hotelid) {
@@ -198,7 +205,7 @@ public class HotelController {
 	}
 
 	@GetMapping("/hotels/{hotelid}/rooms")
-	public List<RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam("status") String status) {
+	public List<RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam(required=false) String status) {
 		return toRoomDtos(roomService.findRooms(StatusConversor.toStatus(status), hotelid));
 	}
 

@@ -5,3 +5,10 @@
 .form-group > label > span {
     font-weight: bold;
 }
+ul#admin > li {
+    display: inline;
+}
+ul#admin {
+    display: inline-flex;
+    margin-inline: auto;
+}

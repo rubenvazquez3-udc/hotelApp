@@ -7,6 +7,7 @@ import Home from './Home';
 import {Login, SignUp, UpdateProfile, ChangePassword, Logout,CreateManagerAcccount, CreateHotelPersonalAccount} from '../../users';
 import users from '../../users';
 import {HotelDetails, AddHotel, UpdateHotel} from '../../hotel';
+import {AddRoom, FindRooms, FindRoomsResult, RoomDetails, UpdateRoom} from '../../room';
 
 
 
@@ -16,7 +17,6 @@ import {HotelDetails, AddHotel, UpdateHotel} from '../../hotel';
 const Body = () => {
 
     const loggedIn = useSelector(users.selectors.isLoggedIn);
-
     const userRole = useSelector(users.selectors.getUserRole);
     
    return (
@@ -28,6 +28,11 @@ const Body = () => {
                 <Route exact path="/"><Home/></Route>
                 <Route exact path="/hotels/hotel-details/:id"><HotelDetails/></Route>
                 <Route exact path='/hotels/hotel-details/:id/update'><UpdateHotel/></Route>
+                <Route exact path='/rooms'><FindRooms/></Route>
+                <Route exact path='/rooms/find-rooms-result'><FindRoomsResult/></Route>
+                <Route exact path='/rooms/room-details/:id'><RoomDetails/></Route>
+                <Route exact path='/hotels/hotel-details/:id/add-rooms'><AddRoom/></Route>
+                <Route exact path='/hotels/room-details/:id/update'><UpdateRoom/></Route>
                 {loggedIn && <Route exact path="/users/update-profile"><UpdateProfile/></Route>}
                 {loggedIn && <Route exact path="/users/change-password"><ChangePassword/></Route>}
                 {loggedIn && <Route exact path="/users/logout"><Logout/></Route>}
