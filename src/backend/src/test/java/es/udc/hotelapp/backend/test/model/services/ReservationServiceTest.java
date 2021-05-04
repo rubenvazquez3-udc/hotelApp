@@ -207,9 +207,11 @@ public class ReservationServiceTest {
 		reservationService.addReservation(rt1);
 		list.add(rt1);
 		
-		assertEquals(list, reservationService.findReservationsHotel(rt1.getHotel().getId()));
+		assertEquals(list, reservationService.findReservationsHotel(rt1.getHotel().getId(), null));
 		
-		assertEquals(list2, reservationService.findReservationsHotel((long) 3));
+		assertEquals(list, reservationService.findReservationsHotel(rt1.getHotel().getId(), rt1.getInbound()));
+		
+		assertEquals(list2, reservationService.findReservationsHotel((long) 3, null));
 		
 	}
 	

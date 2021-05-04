@@ -50,6 +50,7 @@ import static es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.GuestReservationConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomReservationConversor.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -205,8 +206,13 @@ public class HotelController {
 	}
 
 	@GetMapping("/hotels/{hotelid}/rooms")
-	public List<RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam(required=false) String status) {
-		return toRoomDtos(roomService.findRooms(StatusConversor.toStatus(status), hotelid));
+	public List<RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam(defaultValue= "") String status) {
+		List<Room> rooms = new ArrayList<>();
+		if (status.isEmpty()) 
+			rooms = roomService.findRooms(hotelid);
+		 else 
+			 rooms = roomService.findRooms(StatusConversor.toStatus(status), hotelid);
+		return toRoomDtos(rooms);
 	}
 
 	@PutMapping("/hotels/{hotelid}/rooms/{roomid}")
@@ -237,17 +243,30 @@ public class HotelController {
 		return rtrDto;
 
 	}
+	@GetMapping("/hotels/reservationUser")
+	public List<RoomTypeReservationDto> findReservationsByUsername(@RequestParam String username){
+		List<RoomTypeReservationDto> result = new ArrayList<>();
+		List<RoomTypeReservation> list = reservationService.findReservations(username);
+		
+		for( RoomTypeReservation r : list) {
+			result.add(toRoomTypeReservationDto(r));
+		}
+		return result;
+	}
 
 	@GetMapping("/hotels/{hotelid}/reservations")
 	public List<RoomTypeReservationDto> findAllReservations(@PathVariable Long hotelid,
-			@RequestParam(defaultValue = "") String username) {
+			@RequestParam(defaultValue = "") String username, @RequestParam(defaultValue = "") LocalDate date) {
 		List<RoomTypeReservationDto> result = new ArrayList<>();
-		List<RoomTypeReservation> list;
-		if (!username.isEmpty())
-			list = reservationService.findReservations(username);
-		else {
-			list = reservationService.findReservationsHotel(hotelid);
-		}
+		List<RoomTypeReservation> list = reservationService.findReservationsHotel(hotelid, date);
+		if (!username.isEmpty()) 
+			for ( RoomTypeReservation r : list) {
+				if(r.getUser().getFirstName() == username) {
+					result.add(toRoomTypeReservationDto(r));
+				}
+			}
+			
+		else
 		for (RoomTypeReservation r : list) {
 			result.add(toRoomTypeReservationDto(r));
 		}

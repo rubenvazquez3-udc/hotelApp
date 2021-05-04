@@ -41,12 +41,12 @@ const HotelDetails = () => {
 
     if (user.role === 'ADMIN') {
         adminValues = (
-            <div >
+            <div className="card-footer">
                 <div className="form-group row">
                     <ul id='admin'>
                         <li id='managerbutton'>
                             <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
-                                <FormattedMessage id="project.hotels.UpdateHotel.title" />
+                                <span className="fas fa-edit fa-2x"></span>
                             </Link>
                         </li>
                         <li id='managerbutton'>
@@ -59,6 +59,7 @@ const HotelDetails = () => {
         )
     } else if (user.role === 'MANAGER' && hotel.address === user.address) {
         adminValues = (
+            <div className='card-footer'>
             <div className="form-group row">
                 <ul id='admin'>
                     <li id='managerbutton' >
@@ -73,6 +74,7 @@ const HotelDetails = () => {
                     </li>
                 </ul>
             </div>
+            </div>
         )
     } else if (user.role === 'USER') {
         adminValues =
@@ -85,25 +87,17 @@ const HotelDetails = () => {
         <div>
             <BackLink />
 
-            <div className="card text-center">
-                <div className="card-body">
+            <div className="card">
+                <div className="card-body text-center">
                     <h5 className="card-title">{hotel.name}</h5>
-                    <label htmlFor="address" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.address" />
-                    </label>
-                    <h6 className="card-subtitle text-muted">{hotel.address}</h6>
 
-                    <label htmlFor="manager" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.hotelManager" />
-                    </label>
-                    <p className="card-text">{hotel.manager}</p>
+                    <h6 className="card-subtitle text-muted"><FormattedMessage id="project.global.fields.address" /> : {hotel.address}</h6>
+                    <br/>
+                    <p className="card-text">  <FormattedMessage id="project.global.fields.hotelManager" /> : {hotel.manager}</p>
 
-                    <label htmlFor="description" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.description" />
-                    </label>
-                    <p className="card-text"> {hotel.description}</p>
-                    <span className="fas fa-phone-square" />
-                    <p className="card-text"> {hotel.phoneNumbre}</p>
+                    <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {hotel.description}</p>
+
+                    <p className="card-text"> <span className="fas fa-phone-square"/>  {hotel.phoneNumber}</p>
                 </div>
 
                 {adminValues}

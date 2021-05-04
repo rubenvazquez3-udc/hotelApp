@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { FormattedMessage } from 'react-intl';
-import { RoomLink } from '../../common';
+import { ReservationLink } from '../../common';
 
-const Rooms = ({ rooms }) => (
+const Reservations = ({ reservations }) => (
 
     <table className="table table-striped table-hover">
 
@@ -22,11 +22,14 @@ const Rooms = ({ rooms }) => (
         </thead>
 
         <tbody>
-            {rooms.map(room =>
-                <tr key={room.id}>
-                    <td><RoomLink id={room.id} name={room.number} /></td>
-                    <td>{room.type.name}</td>
-                    <td>{room.status}</td>
+            {reservations.map(reservation =>
+                <tr key={reservation.id}>
+                    <td><ReservationLink id={reservation.id} name={reservation.id}/></td>
+                    <td>{reservation.type.name}</td>
+                    <td>{reservation.hotel.name}</td>
+                    <td>{reservation.user.firstName}</td>
+                    <td>{reservation.inbound}</td>
+                    <td>{reservation.outbound}</td>
                 </tr>
             )}
         </tbody>
@@ -35,8 +38,8 @@ const Rooms = ({ rooms }) => (
 
 );
 
-Rooms.propTypes = {
-    rooms: PropTypes.array.isRequired
+Reservations.propTypes = {
+    reservations: PropTypes.array.isRequired
 };
 
-export default Rooms;
+export default Reservations;

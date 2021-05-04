@@ -28,7 +28,7 @@ export default {
     'project.global.fields.phone':'Phone Number',
     'project.global.fields.description': 'Description',
     'project.global.fields.roomNumber':'Room',
-    'project.global.fields.roomType':'Type',
+    'project.global.fields.type':'Type',
     'project.global.fields.roomStatus': 'Status',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',

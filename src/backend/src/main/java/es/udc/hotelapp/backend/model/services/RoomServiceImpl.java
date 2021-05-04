@@ -104,4 +104,20 @@ public class RoomServiceImpl implements RoomService {
 		roomtypes.forEach(c -> roomtypesAsList.add(c));
 		return roomtypesAsList;
 	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Room> findRooms(Long hotelid) {
+		List<Room> result = new ArrayList<>();
+		Iterable<Room> roomsfound = roomDao.findAll();
+		if (roomsfound != null) {
+			Iterator<Room> iter = roomsfound.iterator();
+			while (iter.hasNext()) {
+				Room room = iter.next();
+				if (room.getHotel().getId() == hotelid)
+					result.add(room);
+			}
+		}
+		return result;
+	}
 }

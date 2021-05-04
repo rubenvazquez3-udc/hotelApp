@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import * as selectors from "../selectors";
 import * as actions from '../actions';
 import users from '../../users';
 import hotels from '../../hotel';
 
-import { BackLink } from '../../common';
+import { BackLink, ConfirmDialog } from '../../common';
 import { FormattedMessage } from 'react-intl';
 
 
@@ -14,22 +14,31 @@ import { FormattedMessage } from 'react-intl';
 const RoomDetails = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const hotelResult = useSelector(hotels.selectors.getHotels);
     const room = useSelector(selectors.getRoom);
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
 
-    const hotel1 = hotelResult.filter(hotel => hotel.address === user.address);
+    const hotel1 = {...hotelResult.filter(hotel => hotel.address === user.address)};
 
+    const hotelid = hotel1[0].id;
     let adminValues = null;
 
     useEffect(() => {
         const roomid = Number(id);
 
         if (!Number.isNaN(id)) {
-            dispatch(actions.findRoomById(hotel1[0].id, roomid));
+            dispatch(actions.findRoomById(hotelid, roomid));
         }
-    }, [id,hotel1, dispatch]);
+    }, [id,hotelid, dispatch]);
+
+    const handleDelete = event => {
+        event.preventDefault();
+
+        dispatch(actions.removeRoom(room));
+        history.push('/rooms/find-rooms.result');
+    }
 
     if (!room) {
         return null;
@@ -39,11 +48,10 @@ const RoomDetails = () => {
         adminValues = (
             <div className="navbar-nav">
                 <Link className="nav-link" to={`/hotels/room-details/${room.id}/update`}>
-                    <FormattedMessage id="project.room.UpdateRoom.title" />
+                    <span className="fas fa-edit fa-2x"></span>
                 </Link>
-                <Link className="nav-link" to={`/hotels/room-details/${room.id}/remove`} >
-                    <FormattedMessage id="project.room.RemoveRoom.title" />
-                </Link>
+                <ConfirmDialog id='removeRoom' icon='eraser fa-3x' headerTitle='Remove Room'
+                    bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
             </div>
         )
     } else if (user.role === 'HOTEL') {

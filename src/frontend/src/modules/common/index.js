@@ -7,3 +7,4 @@ export {default as Pager} from "./components/Pager";
 export {default as BackLink} from "./components/BackLink";
 export {default as HotelLink} from "./components/HotelLink";
 export {default as RoomLink} from "./components/RoomLink";
+export {default as ReservationLink} from "./components/ReservationLink";

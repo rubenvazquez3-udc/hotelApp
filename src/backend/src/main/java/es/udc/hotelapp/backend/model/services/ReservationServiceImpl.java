@@ -1,5 +1,6 @@
 package es.udc.hotelapp.backend.model.services;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -139,12 +140,14 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<RoomTypeReservation> findReservationsHotel(Long id) {
+	public List<RoomTypeReservation> findReservationsHotel(Long id, LocalDate date) {
 		List<RoomTypeReservation> result = new ArrayList<>();
 		Iterable<RoomTypeReservation> reservations = roomtypereservationDao.findAll();
 		for (RoomTypeReservation r : reservations) {
 			if (r.getHotel().getId() == id) {
-				result.add(r);
+				if( date != null && date.equals(r.getInbound()))
+					result.add(r);
+				else result.add(r);
 			}
 		}
 		return result;
@@ -166,5 +169,7 @@ public class ReservationServiceImpl implements ReservationService {
 		guestReservationDao.save(actual);
 		
 	}
+
+	
 
 	}

@@ -19,5 +19,8 @@ public interface RoomService {
 	public Room findRoom(Long id) throws InstanceNotFoundException;
 
 	public List<Room> findRooms(Status status, Long hotelid);
+	
+	public List<Room> findRooms(Long hotelid);
+	
 	public List<RoomType> findAllRoomTypes();
 }

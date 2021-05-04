@@ -29,7 +29,7 @@ export default {
     'project.global.fields.phone':'Teléfono',
     'project.global.fields.description': 'Descripción',
     'project.global.fields.roomNumber':'Habitación',
-    'project.global.fields.roomType':'Tipo',
+    'project.global.fields.type':'Tipo',
     'project.global.fields.roomStatus': 'Estado',
     'project.global.validator.email': 'Introduzca unha dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'As contrasinais non coinciden',

@@ -1,5 +1,6 @@
 package es.udc.hotelapp.backend.model.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import es.udc.hotelapp.backend.model.entities.GuestReservation;
@@ -14,7 +15,7 @@ public interface ReservationService {
 	
 	public List<RoomTypeReservation> findReservations(String username);
 	
-	public List<RoomTypeReservation> findReservationsHotel(Long id);
+	public List<RoomTypeReservation> findReservationsHotel(Long id, LocalDate date);
 	
 	public void updateReservation (RoomTypeReservation rt2);
 	

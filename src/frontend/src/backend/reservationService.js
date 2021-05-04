@@ -1,16 +1,22 @@
 import {config, appFetch} from './appFetch';
 
-export const addReservation = (hotelid, reservation, onSuccess, onErrors) =>
-    appFetch(`/hotels/${hotelid}/reservations`, config('POST', reservation), onSuccess, onErrors);
+export const addReservation = (reservation, onSuccess, onErrors) =>
+    appFetch(`/hotels/${reservation.hotel.id}/reservations`, config('POST', reservation), onSuccess, onErrors);
 
 
-export const findReservations = ( hotelid, username, onSuccess, onErrors) => {
+export const findReservationsHotel = ( hotelid, username, date, onSuccess, onErrors) => {
     let path = `/hotels/${hotelid}/reservations`;
 
     path+= username ? `?username=${username}` : "";
 
+    path+= date ? `?date=${date}` : "";
+
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
+
+export const findReservationsUser = ( username, onSuccess, onErrors) =>
+    appFetch(`/hotels/reservationUser/?username=${username}`);
+
 
 export const findReservationById = (hotelid, reservationid, onSuccess, onErrors) =>
     appFetch(`/hotels/${hotelid}/reservations/${reservationid}`, config('GET'), onSuccess, onErrors);

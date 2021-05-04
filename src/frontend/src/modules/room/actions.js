@@ -8,14 +8,13 @@ const addRoomCompleted = authenticatedRoom => ({
     authenticatedRoom
 });
 
-export const addRoom = (room, onSuccess, onErrors, reauthenticationCallback) => dispatch =>
+export const addRoom = (room, onSuccess, onErrors) => dispatch =>
     backend.roomService.addRoom(room,
         authenticatedRoom => {
             dispatch(addRoomCompleted(authenticatedRoom));
             onSuccess();
         },
-        onErrors,
-        reauthenticationCallback
+        onErrors
     );
 
 
@@ -24,24 +23,20 @@ const findRoomsCompleted = rooms => ({
     rooms
 });
 
-export const findRooms = (hotelid, status, onSuccess, onErrors) => dispatch =>
+export const findRooms = (hotelid, status) => dispatch =>
     backend.roomService.findRooms(hotelid, status, rooms => {
         dispatch(findRoomsCompleted(rooms));
-        onSuccess();
-        },
-        onErrors);
+    });
 
 const findRoomByIdCompleted = room => ({
     type: actionTypes.FIND_ROOM_BY_ID_COMPLETED,
     room
 })
 
-export const findRoomById = (hotelid, roomid, onSuccess, onErrors) => dispatch =>
+export const findRoomById = (hotelid, roomid) => dispatch =>
     backend.roomService.findRoom(hotelid, roomid, room => {
         dispatch(findRoomByIdCompleted(room));
-        onSuccess();
-        },
-        onErrors);
+        });
 
 const updateRoomCompleted = room => ({
     type: actionTypes.UPDATE_ROOM_COMPLETED,
@@ -70,3 +65,15 @@ export const findAllRoomTypes = () => (dispatch, getState) => {
         );
     }
 }
+
+const removeRoomCompleted = room => ({
+    type: actionTypes.REMOVE_ROOM_COMPLETED,
+    room
+});
+
+export const removeRoom = (room, onSuccess, onErrors) => dispatch => 
+    backend.roomService.removeRoom(room.hotel.id, room.id, room => {
+        dispatch(removeRoomCompleted(room));
+        onSuccess();
+    },
+    onErrors);
