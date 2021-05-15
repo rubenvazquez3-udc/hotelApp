@@ -35,7 +35,7 @@ const AddRoom = () => {
                     },
                     hotel: hotel
                 },
-                () => history.push('/rooms/find-rooms-result'),
+                () => history.push('/rooms'),
                 errors => setBackendErrors(errors)
             ));
 

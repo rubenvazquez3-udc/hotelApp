@@ -22,7 +22,9 @@ import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.Room;
 import es.udc.hotelapp.backend.model.entities.RoomReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
+import es.udc.hotelapp.backend.model.entities.RoomType;
 import es.udc.hotelapp.backend.model.entities.Service;
+import es.udc.hotelapp.backend.model.entities.User;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
@@ -34,13 +36,16 @@ import es.udc.hotelapp.backend.model.services.RoomService;
 import es.udc.hotelapp.backend.rest.common.ErrorsDto;
 import es.udc.hotelapp.backend.rest.dtos.BlockDto;
 import es.udc.hotelapp.backend.rest.dtos.GuestReservationDto;
+import es.udc.hotelapp.backend.rest.dtos.HotelConversor;
 import es.udc.hotelapp.backend.rest.dtos.HotelDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomReservationDto;
+import es.udc.hotelapp.backend.rest.dtos.RoomTypeConversor;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.ServiceDto;
 import es.udc.hotelapp.backend.rest.dtos.StatusConversor;
+import es.udc.hotelapp.backend.rest.dtos.UserConversor;
 
 import static es.udc.hotelapp.backend.rest.dtos.HotelConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.ServiceConversor.*;
@@ -232,13 +237,14 @@ public class HotelController {
 			throws InstanceNotFoundException {
 
 		RoomTypeReservation typer = toRoomTypeReservation(rtrDto);
+		
 		typer.getUser().setId(rtrDto.getUser().getId());
-
 		typer.getHotel().setId(hotelid);
 		typer.getRoomtype().setId(rtrDto.getRoomtype().getId());
 		
-		RoomTypeReservation rtrDto1 = reservationService.addReservation(typer);
-		rtrDto.setId(rtrDto1.getId());
+		reservationService.addReservation(typer);
+		
+		rtrDto.setId(typer.getId());
 
 		return rtrDto;
 
@@ -256,16 +262,21 @@ public class HotelController {
 
 	@GetMapping("/hotels/{hotelid}/reservations")
 	public List<RoomTypeReservationDto> findAllReservations(@PathVariable Long hotelid,
-			@RequestParam(defaultValue = "") String username, @RequestParam(defaultValue = "") LocalDate date) {
+			@RequestParam(defaultValue = "") String username, @RequestParam(defaultValue = "") String date) {
 		List<RoomTypeReservationDto> result = new ArrayList<>();
-		List<RoomTypeReservation> list = reservationService.findReservationsHotel(hotelid, date);
+		List<RoomTypeReservation> list = new ArrayList<>();
+		
+		if(date.isEmpty())
+			list = reservationService.findReservationsHotel(hotelid);
+		else 
+			list = reservationService.findReservationHotelDate(hotelid, LocalDate.parse(date));
+		
 		if (!username.isEmpty()) 
 			for ( RoomTypeReservation r : list) {
-				if(r.getUser().getFirstName() == username) {
+				if(r.getUser().getFirstName().equalsIgnoreCase(username)) {
 					result.add(toRoomTypeReservationDto(r));
 				}
 			}
-			
 		else
 		for (RoomTypeReservation r : list) {
 			result.add(toRoomTypeReservationDto(r));

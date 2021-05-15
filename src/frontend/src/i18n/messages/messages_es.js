@@ -31,6 +31,9 @@ export default {
     'project.global.fields.roomNumber':'Habitación',
     'project.global.fields.type':'Tipo',
     'project.global.fields.roomStatus': 'Estado',
+    'project.global.fields.date.in': 'Llegada',
+    'project.global.fields.date.out': 'Salida',
+    'project.global.fields.quantity': 'Habitaciones',
     'project.global.validator.email': 'Introduzca una dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'Las contraseñas no coinciden',
     'project.global.validator.required': 'Campo obligatorio',
@@ -58,7 +61,8 @@ export default {
     'project.room.UpdateRoom.title': 'Actualizar habitación',
     'project.room.RemoveRoom.title': 'Eliminar habitación',
     'project.room.FindRoom.title': 'Buscar habitación',
-    'project.room.RoomTypeSelector': 'Tipos'
+    'project.room.RoomTypeSelector': 'Tipos',
+    'project.reservations.FindReservations.title': 'Reservas'
 
 
     

@@ -49,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.DELETE,"/hotels/*/services/*").hasRole("MANAGER")
 			.antMatchers(HttpMethod.GET,"/hotels/reservationUser/*").hasRole("USER")
 			.antMatchers(HttpMethod.GET,"/hotels/*/reservations/*").permitAll()
-			.antMatchers(HttpMethod.POST,"/hotels/*/reservations/*").permitAll()
+			.antMatchers(HttpMethod.POST,"/hotels/*/reservations").permitAll()
 			.antMatchers(HttpMethod.PUT,"/hotels/*/reservations/*").permitAll()
 			.antMatchers(HttpMethod.POST,"/hotels/*/reservations/*/assignRoom/").hasRole("MANAGER")
 			.antMatchers(HttpMethod.POST,"/hotels/*/reservations/*/assignRoom/").hasRole("HOTEL")

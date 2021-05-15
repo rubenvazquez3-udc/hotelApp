@@ -35,3 +35,13 @@ export const findReservationsHotel = (hotelid, username, date) => dispatch =>
     backend.reservationService.findReservationsHotel(hotelid, username, date, reservations => {
         dispatch(findReservationsHotelCompleted(reservations));
     });
+
+const findReservationByIdCompleted = reservation => ({
+    type: actionTypes.FIND_RESERVATION_BY_ID_COMPLETED,
+    reservation
+});
+
+export const findReservationById = (hotelid, reservationid) => dispatch =>
+    backend.reservationService.findReservationById(hotelid, reservationid, reservation =>{
+        dispatch(findReservationByIdCompleted(reservation));
+    });

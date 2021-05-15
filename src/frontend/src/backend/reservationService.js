@@ -5,7 +5,7 @@ export const addReservation = (reservation, onSuccess, onErrors) =>
 
 
 export const findReservationsHotel = ( hotelid, username, date, onSuccess, onErrors) => {
-    let path = `/hotels/${hotelid}/reservations`;
+    let path = `/hotels/${hotelid}/reservations/`;
 
     path+= username ? `?username=${username}` : "";
 
@@ -14,8 +14,14 @@ export const findReservationsHotel = ( hotelid, username, date, onSuccess, onErr
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
 
-export const findReservationsUser = ( username, onSuccess, onErrors) =>
-    appFetch(`/hotels/reservationUser/?username=${username}`);
+export const findReservationsUser = ( username, onSuccess, onErrors) =>{
+    let path = '/hotels/reservationUser/';
+
+    path += username ? `?username=${username}` : "";
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
+}
+   
 
 
 export const findReservationById = (hotelid, reservationid, onSuccess, onErrors) =>

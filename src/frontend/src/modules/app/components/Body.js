@@ -8,6 +8,7 @@ import {Login, SignUp, UpdateProfile, ChangePassword, Logout,CreateManagerAcccou
 import users from '../../users';
 import {HotelDetails, AddHotel, UpdateHotel} from '../../hotel';
 import {AddRoom, FindRooms, FindRoomsResult, RoomDetails, UpdateRoom} from '../../room';
+import {AddReservation, FindReservationsHotel, FindReservationsUser} from '../../reservation';
 
 
 
@@ -33,6 +34,9 @@ const Body = () => {
                 <Route exact path='/rooms/room-details/:id'><RoomDetails/></Route>
                 <Route exact path='/hotels/hotel-details/:id/add-rooms'><AddRoom/></Route>
                 <Route exact path='/hotels/room-details/:id/update'><UpdateRoom/></Route>
+                <Route exact path='/hotels/hotel-details/:id/reservations'><AddReservation/></Route>
+                {userRole === 'USER' && <Route exact path='/reservations'><FindReservationsUser/></Route>}
+                {userRole !== 'USER' && <Route exact path='/reservations'><FindReservationsHotel/></Route>}
                 {loggedIn && <Route exact path="/users/update-profile"><UpdateProfile/></Route>}
                 {loggedIn && <Route exact path="/users/change-password"><ChangePassword/></Route>}
                 {loggedIn && <Route exact path="/users/logout"><Logout/></Route>}

@@ -126,9 +126,49 @@ public class RoomServiceTest {
 		assertEquals(result, roomService.findRooms(Status.LIBRE, h1.getId()));
 		
 		assertEquals(result1, roomService.findRooms(Status.OCUPADA, h1.getId()));
+			
+	}
+	
+	@Test
+	public void testFindRoomsByHotelid() throws HotelAlreadyExistsException, InstanceNotFoundException, RoomAlreadyExistsException {
+		Hotel h1 = createHotel();
+		hotelService.createHotel(h1);
 		
+		Hotel h2 = createHotel();
+		h2.setManager("Pepe Perez");
+		h2.setName("NH");
+		hotelService.createHotel(h2);
 		
+		RoomType type = new RoomType("DOBLE");
+		Room r1 = new Room(201,type,h1);
+		roomService.addRoom(r1);
+		Room r2 = new Room(202,type,h1);
+		roomService.addRoom(r2);
+		Room r3 = new Room(201,type,h2);
+		roomService.addRoom(r3);
+		List<Room> result = new ArrayList<>();
+		result.add(r1); result.add(r2);
 		
+		assertEquals(result, roomService.findRooms(h1.getId()));
+	}
+	
+	@Test
+	public void testFindAllRoomTypes() throws HotelAlreadyExistsException, InstanceNotFoundException, RoomAlreadyExistsException {
+		
+		List<RoomType> list = new ArrayList<>();
+		
+		Hotel h1 = createHotel();
+		hotelService.createHotel(h1);
+		RoomType type1 = new RoomType("DOBLE");
+		RoomType type2 = new RoomType("ESEPCIAL");
+		Room r1 = new Room(201,type1,h1);
+		roomService.addRoom(r1);
+		Room r2 = new Room(202,type2,h1);
+		roomService.addRoom(r2);
+		
+		list.add(type1); list.add(type2);
+		
+		assertEquals(list, roomService.findAllRoomTypes());
 		
 	}
 }

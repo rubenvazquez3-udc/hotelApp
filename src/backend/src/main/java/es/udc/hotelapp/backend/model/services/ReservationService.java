@@ -15,7 +15,9 @@ public interface ReservationService {
 	
 	public List<RoomTypeReservation> findReservations(String username);
 	
-	public List<RoomTypeReservation> findReservationsHotel(Long id, LocalDate date);
+	public List<RoomTypeReservation> findReservationsHotel(Long id);
+	
+	public List<RoomTypeReservation> findReservationHotelDate(Long id, LocalDate date);
 	
 	public void updateReservation (RoomTypeReservation rt2);
 	

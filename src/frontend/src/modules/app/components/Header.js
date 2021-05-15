@@ -61,13 +61,18 @@ const Header = () => {
                     : user === "MANAGER" ?
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <Link className="nav-link" to="/users/manager">
-                                    <FormattedMessage id="project.users.Manager.title" />
+                                <Link className="nav-link" to="/reservations">
+                                    <FormattedMessage id="project.reservations.FindReservations.title" />
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/rooms">
                                     <FormattedMessage id="project.room.FindRoom.title" />
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/users/manager">
+                                    <FormattedMessage id="project.users.Manager.title" />
                                 </Link>
                             </li>
                             <li className="nav-item dropdown">
@@ -93,6 +98,11 @@ const Header = () => {
                         : userName ?
 
                             <ul className="navbar-nav">
+                                <li className="nav-item">
+                                <Link className="nav-link" to="/reservations">
+                                    <FormattedMessage id="project.reservations.FindReservations.title" />
+                                </Link>
+                            </li>
                                 <li className="nav-item dropdown">
                                     <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
                                         <span className="fas fa-user"></span>&nbsp;

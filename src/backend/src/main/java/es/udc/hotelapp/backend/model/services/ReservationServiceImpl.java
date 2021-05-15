@@ -140,14 +140,12 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<RoomTypeReservation> findReservationsHotel(Long id, LocalDate date) {
+	public List<RoomTypeReservation> findReservationsHotel(Long id) {
 		List<RoomTypeReservation> result = new ArrayList<>();
 		Iterable<RoomTypeReservation> reservations = roomtypereservationDao.findAll();
 		for (RoomTypeReservation r : reservations) {
 			if (r.getHotel().getId() == id) {
-				if( date != null && date.equals(r.getInbound()))
 					result.add(r);
-				else result.add(r);
 			}
 		}
 		return result;
@@ -168,6 +166,19 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		guestReservationDao.save(actual);
 		
+	}
+
+
+	@Override
+	public List<RoomTypeReservation> findReservationHotelDate(Long id, LocalDate date) {
+		List<RoomTypeReservation> result = new ArrayList<>();
+		Iterable<RoomTypeReservation> reservations = roomtypereservationDao.findAll();
+		for (RoomTypeReservation r : reservations) {
+			if (r.getHotel().getId() == id && r.getInbound().equals(date)) {
+					result.add(r);
+			}
+		}
+		return result;
 	}
 
 	

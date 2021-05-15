@@ -18,6 +18,18 @@ const Reservations = ({ reservations }) => (
                 <th scope="col">
                     <FormattedMessage id='project.global.fields.roomStatus' />
                 </th>
+                <th scope="col">
+                    <FormattedMessage id='project.global.fields.roomNumber' />
+                </th>
+                <th scope="col">
+                    <FormattedMessage id='project.global.fields.type' />
+                </th>
+                <th scope="col">
+                    <FormattedMessage id='project.global.fields.roomStatus' />
+                </th>
+                <th scope="col">
+                    <FormattedMessage id='project.global.fields.roomStatus' />
+                </th>
             </tr>
         </thead>
 
@@ -25,11 +37,12 @@ const Reservations = ({ reservations }) => (
             {reservations.map(reservation =>
                 <tr key={reservation.id}>
                     <td><ReservationLink id={reservation.id} name={reservation.id}/></td>
-                    <td>{reservation.type.name}</td>
+                    <td>{reservation.roomtype.name}</td>
                     <td>{reservation.hotel.name}</td>
                     <td>{reservation.user.firstName}</td>
                     <td>{reservation.inbound}</td>
                     <td>{reservation.outbound}</td>
+                    <td>{reservation.rooms}</td>
                 </tr>
             )}
         </tbody>

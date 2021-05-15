@@ -7,9 +7,10 @@ import * as actions from '../actions';
 
 import hotel from "../../hotel";
 import users from "../../users";
+import FindReservationsResult from './FindReservationsResult';
 
 
-const FindReservations = () => {
+const FindReservationsHotel = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -18,21 +19,14 @@ const FindReservations = () => {
     const hotels = useSelector(hotel.selectors.getHotels);
     const user = useSelector(users.selectors.getUser);
 
+    
     const hotel1 = hotels.filter(hotel => hotel.address === user.address);
     const hotelid = hotel1[0].id;
 
-    const roleuser = user.role === 'USER';
-
-    let values = null;
-
+    
     useEffect(() => {
-        
-        if(roleuser){
-            dispatch(actions.findReservationsUser(userName));
-        } else {
             dispatch(actions.findReservationsHotel(hotelid,userName,date));
-        }
-    }, [roleuser,hotelid,userName,date, dispatch]);
+    }, [hotelid,userName,date, dispatch]);
 
     const handleSearch = event => {
 
@@ -42,10 +36,8 @@ const FindReservations = () => {
         history.push('/reservations');
     }
     
-    if( user.role !== 'USER') {
-
-        values = (
-            <div>
+    return (
+        <div>
             <div className="formulario">
             <form className="form-inline mt-2 mt-md-0" onSubmit={e => handleSearch(e)}>
     
@@ -61,16 +53,10 @@ const FindReservations = () => {
             </form>
             </div>
             <br/>
-            
+            <FindReservationsResult/>
             </div>
-        );
-
-    }
-
-    return (
-        {values}
     )
 
 }
 
-export default FindReservations;
+export default FindReservationsHotel;

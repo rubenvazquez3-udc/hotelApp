@@ -8,7 +8,6 @@ import * as actions from '../actions';
 
 import hotel from "../../hotel";
 import users from "../../users";
-import rooms from '../../room';
 import RoomTypeSelector from '../../room/components/RoomTypeSelector';
 import room from '../../room';
 
@@ -16,12 +15,12 @@ const AddReservation = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const hotel1 = useSelector(hotel.selectors.getHotel);
     const user = useSelector(users.selectors.getUser);
-    const [type, setRoomType] = useState('');
+    const [typ, setRoomType] = useState('');
     const [date_in, setDateIn] = useState('');
     const [date_out, setDateOut] = useState('');
-    const [quantity, setQuantity] = useState('');
+    const hotel1 = useSelector(hotel.selectors.getHotel);
+    const [qantity, setQuantity] = useState('');
     const types = useSelector(room.selectors.getRoomTypes);
 
     const [backendErrors, setBackendErrors] = useState(null);
@@ -32,7 +31,7 @@ const AddReservation = () => {
         
         event.preventDefault();
         
-        const type1 = {...types.filter(type => type.id === parseInt(type,10))};
+        const type1 = {...types.filter(t => t.id === parseInt(typ,10))};
 
         if (form.checkValidity()) {
 
@@ -40,9 +39,9 @@ const AddReservation = () => {
                 {user: user,
                 inbound : date_in,
                 outbound: date_out,
-                type: type1[0],
+                roomtype: type1[0],
                 hotel: hotel1,
-                quantity: quantity
+                rooms: qantity
                 },
                 () => history.push('/reservations'),
                 errors => setBackendErrors(errors)
@@ -64,7 +63,7 @@ const AddReservation = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.hotels.SignUp.title" />
+                    <FormattedMessage id="project.hotels.AddReservation.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
@@ -72,7 +71,7 @@ const AddReservation = () => {
                         onSubmit={e => handleSubmit(e)}>
                         <div className="form-group row">
                             <label htmlFor="date_in" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.hotelName" />
+                                <FormattedMessage id="project.global.fields.date.in" />
                             </label>
                             <div className="col-md-4">
                                 <input type="date" id="date_in" className="form-control"
@@ -87,7 +86,7 @@ const AddReservation = () => {
                         </div>
                         <div className="form-group row">
                             <label htmlFor="date_out" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.hotelManager" />
+                                <FormattedMessage id="project.global.fields.date.out" />
                             </label>
                             <div className="col-md-4">
                                 <input type="date" id="date_out" className="form-control"
@@ -101,11 +100,11 @@ const AddReservation = () => {
                         </div>
                         <div className="form-group row">
                             <label htmlFor="quantity" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.address" />
+                                <FormattedMessage id="project.global.fields.quantity" />
                             </label>
                             <div className="col-md-4">
                                 <input type="number" id="address" className="form-control"
-                                    value={quantity}
+                                    value={qantity}
                                     onChange={e => setQuantity(e.target.value)}
                                     required />
                                 <div className="invalid-feedback">
@@ -118,7 +117,7 @@ const AddReservation = () => {
                                 <FormattedMessage id="project.global.fields.type" />
                             </label>
                             <div className="col-md-4">
-                                <RoomTypeSelector id="roomtypeid" className='custom-select my-1 mr-sm-2' value={type} 
+                                <RoomTypeSelector id="roomtypeid" className='custom-select my-1 mr-sm-2' value={typ} 
                                     onChange = {e => setRoomType(e.target.value)}/>
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required' />
@@ -128,7 +127,7 @@ const AddReservation = () => {
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
-                                    <FormattedMessage id="project.hotels.SignUp.title" />
+                                    <FormattedMessage id="project.hotels.AddReservation.title" />
                                 </button>
                             </div>
                         </div>
