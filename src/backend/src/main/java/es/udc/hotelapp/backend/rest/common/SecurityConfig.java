@@ -59,6 +59,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PUT,"/hotels/*/reservations/*/guests/*").hasRole("HOTEL")
 			.antMatchers(HttpMethod.GET,"/hotels/*/reservations/*/guests/*").hasRole("MANAGER")
 			.antMatchers(HttpMethod.GET,"/hotels/*/reservations/*/guests/*").hasRole("HOTEL")
+			.antMatchers(HttpMethod.GET,"/hotels/*/guests/*").hasRole("MANAGER")
+			.antMatchers(HttpMethod.GET,"/hotels/*/guests/*").hasRole("HOTEL")
 			.anyRequest().denyAll();
 
 			
