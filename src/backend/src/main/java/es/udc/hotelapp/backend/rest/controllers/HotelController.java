@@ -379,4 +379,22 @@ public class HotelController {
 		
 		return ResponseEntity.noContent().build();
 	}
+
+	@GetMapping("/hotels/{hotelid}/guests")
+	public List<GuestReservationDto> findGuests (@PathVariable Long hotelid,
+			 @RequestParam( defaultValue = "") String username){
+
+		List<GuestReservationDto> result = new ArrayList<>();
+		List<GuestReservation> list = reservationService.findAllGuestReservation(hotelid);
+
+		if(!username.isEmpty()){
+			for (GuestReservaion gr : list ) {
+				if( gr.getGuest().getName().equalsIgnoreCase(username))
+					result.add( toGuestReservationDto(gr));
+			}
+		} else
+			for (GuestReservaion gr : list )
+					result.add( toGuestReservationDto(gr));
+
+	}
 }

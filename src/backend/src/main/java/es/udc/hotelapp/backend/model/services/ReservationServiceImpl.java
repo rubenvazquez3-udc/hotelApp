@@ -181,6 +181,16 @@ public class ReservationServiceImpl implements ReservationService {
 		return result;
 	}
 
-	
+	@Override
+	public List<GuestReservation> findAllGuestReservation (Long hotelid){
+		List<GuestReservation> list = guestReservationDao.findAll();
+		List<GuestReservation> result = new ArrayList<>();
+
+		for (GuestReservation gr : list ) {
+			if(gr.getReservation().getHoel().getId() == hotelid)
+				result.add(gr);
+		}
+		return result;
+	}
 
 	}
