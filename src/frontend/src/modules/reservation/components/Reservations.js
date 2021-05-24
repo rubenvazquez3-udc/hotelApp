@@ -10,25 +10,25 @@ const Reservations = ({ reservations }) => (
         <thead>
             <tr>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.roomNumber' />
+                    <FormattedMessage id='project.global.fields.id' />
                 </th>
                 <th scope="col">
                     <FormattedMessage id='project.global.fields.type' />
                 </th>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.roomStatus' />
+                    <FormattedMessage id='project.global.fields.hotelName' />
                 </th>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.roomNumber' />
+                    <FormattedMessage id='project.global.fields.firstName' />
                 </th>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.type' />
+                    <FormattedMessage id='project.global.fields.date.in' />
                 </th>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.roomStatus' />
+                    <FormattedMessage id='project.global.fields.date.out' />
                 </th>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.roomStatus' />
+                    <FormattedMessage id='project.global.fields.quantity' />
                 </th>
             </tr>
         </thead>

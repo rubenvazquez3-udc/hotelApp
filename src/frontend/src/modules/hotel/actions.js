@@ -52,15 +52,15 @@ export const updateHotel = (hotel, onSuccess, onErrors) => dispatch =>
         },
         onErrors);
 
-const removeHotelCompleted = hotel => ({
+const removeHotelCompleted = hotelid => ({
     type: actionTypes.REMOVE_HOTEL_COMPLETED,
-    hotel
+    hotelid
 });
 
-export const removeHotel = (hotel, onSuccess, onErrors) => dispatch =>
+export const removeHotel = (hotel,hotelid, onSuccess, onErrors) => dispatch =>
     backend.hotelService.removeHotel(hotel,
         hotel => {
-            dispatch(removeHotelCompleted(hotel));
+            dispatch(removeHotelCompleted(hotelid));
             onSuccess();
         },
         onErrors);

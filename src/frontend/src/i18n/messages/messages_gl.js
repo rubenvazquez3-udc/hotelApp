@@ -14,7 +14,9 @@ export default {
     'project.global.buttons.ok': 'OK',
     'project.global.buttons.back': 'Anterior',
     'project.global.buttons.save': 'Gardar',
+
     'project.global.exceptions.NetworkError': 'Erro de comunicación',
+
     'project.global.fields.date': 'Data',
     'project.global.fields.email': 'Correo electrónico',
     'project.global.fields.firstName': 'Nome',
@@ -22,7 +24,6 @@ export default {
     'project.global.fields.name': 'Nome',
     'project.global.fields.password': 'Contrasinal',
     'project.global.fields.address': 'Dirección',
-    'project.global.fields.postalCode': 'Código postal',
     'project.global.fields.userName': 'Usuario',
     'project.global.fields.hotelName': 'Hotel',
     'project.global.fields.hotelManager': 'Responsable',
@@ -34,6 +35,7 @@ export default {
     'project.global.fields.date.in': 'Chegada',
     'project.global.fields.date.out': 'Saida',
     'project.global.fields.quantity': 'Habitacions',
+    'project.global.fields.id': 'ID',
     'project.global.validator.email': 'Introduzca unha dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'As contrasinais non coinciden',
     'project.global.validator.required': 'Campo obrigatorio',
@@ -50,16 +52,23 @@ export default {
     'project.users.Admin.title': 'Engadir Encargado',
 
     'project.hotels.SignUp.title': 'Rexistrar',
+    'project.hotels.addHotel': 'Engadir Hotel',
     'project.hotels.noHotelsFound': 'Non hai hoteis, por favor intenteo mais tarde',
     'project.hotels.UpdateHotel.title': 'Actualizar hotel',
     'project.hotels.RemoveHotel.title': 'Eliminar hotel',
     'project.hotels.RemoveHotel.body': 'Estás seguro de quitar o hotel ',
     'project.hotels.AddRoom.title': 'Engadir habitación',
     'project.hotels.AddReservation.title': 'Reservar',
+
     'project.room.FindRoomsResult.noRoomsFound': 'Non hai habitacions',
     'project.room.UpdateRoom.title': 'Actualizar habitación',
     'project.room.RemoveRoom.title': 'Eliminar habitación',
     'project.room.FindRoom.title': 'Buscar habitación',
-    'project.room.RoomTypeSelector': 'Tipos'
+    'project.room.RoomTypeSelector': 'Tipos',
+
+    'project.reservations.FindReservations.title': 'Reservas',
+    'project.reservations.FindReservationResult.noReservationsFound': 'Non hai reservas, por favor intenteo mais tarde',
+    'project.reservations.UpdateReservation.title': 'Actualizar reserva',
+    'project.reservations.RemoveReservation.title': 'Eliminar reserv',
 
 }

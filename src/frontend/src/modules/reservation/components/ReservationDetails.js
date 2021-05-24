@@ -15,20 +15,23 @@ const ReservationDetails = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    const reservations = useSelector(selectors.getReservations);
     const hotelResult = useSelector(hotels.selectors.getHotels);
     const reservation = useSelector(selectors.getReservation);
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
 
-    let hotel1 = {...selectors.getReservations.filter(reservation => reservation.id === id)};
+    let hotel1 = {...reservations.filter(reservation => reservation.id === parseInt(id))};
+
+    let hotelid = hotel1[0].hotel.id;
 
     if(user.role !== 'USER'){
         hotel1 = {...hotelResult.filter(hotel => hotel.address === user.address)};
+        hotelid = hotel1[0].id;
     }
     
 
-    const hotelid = hotel1[0].id;
-    let adminValues = null;
+  
 
     useEffect(() => {
         const reservationid = Number(id);
@@ -41,50 +44,47 @@ const ReservationDetails = () => {
     const handleDelete = event => {
         event.preventDefault();
 
-        //dispatch(actions.removeRoom(room));
-        history.push('/rooms/find-rooms.result');
+       // dispatch(actions.removeReservation(reservation, reservation.id));
+        history.push('/reseervations');
     }
 
     if (!reservation) {
         return null;
     }
 
-    if (user.role === 'MANAGER') {
-        adminValues = (
-            <div className="navbar-nav">
-                <Link className="nav-link" to={`/hotels/room-details/${room.id}/update`}>
-                    <span className="fas fa-edit fa-2x"></span>
-                </Link>
-                <ConfirmDialog id='removeRoom' icon='eraser fa-3x' headerTitle='Remove Room'
-                    bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
-            </div>
-        )
-    }
 
     return (
         <div>
-            <BackLink />
+           
+            <div className="card">
+                <div className="card-header">
+                    <BackLink /> <h5 className="card-title text-center"> {reservation.id}</h5>
+                </div>
+                <div className="card-body text-center">
 
-            <div className="card text-center">
-                <div className="card-body">
+                    <p className="card-text"><FormattedMessage id="project.global.fields.type" /> : {reservation.roomtype.name}</p>
 
-                    <label htmlFor="number" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.roomNumber" />
-                    </label>
-                    <h5 className="card-title">{room.number}</h5>
+                    <p className="card-text"> <FormattedMessage id="project.global.fields.date.in" />: {reservation.inbound}</p>
 
-                    <label htmlFor="type" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.type" />
-                    </label>
-                    <h6 className="card-subtitle text-muted">{room.roomtype.name}</h6>
+                    <p className="card-text"> <FormattedMessage id="project.global.fields.date.out" />: {reservation.outbound}</p>
 
-                    <label htmlFor="status" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.roomStatus" />
-                    </label>
-                    <p className="card-text"> {room.status}</p>
+                    {reservation.user.role !== 'USER' ?
+                        <p className="card-text"> <FormattedMessage id="project.global.fields.firstName"/>: {reservation.user.firstName}</p>
+                    :
+                        <p className="card-text"><FormattedMessage id="project.global.fields.hotelName"/>: {reservation.hotel.name}</p>   
+                    }
+                    <p className="card-text"> <FormattedMessage id="project.global.fields.quantity"/>: {reservation.rooms}</p>
                 </div>
 
-                {adminValues}
+                <div className="card-footer text-center">
+                    <div className="navbar-nav">
+                        <Link className="nav-link" to={`/reservations/reservation-details/${reservation.id}/update`}>
+                            <span className="fas fa-edit fa-2x"></span>
+                        </Link>
+                    <ConfirmDialog id='removeReservation' icon='eraser fa-3x' headerTitle='Remove Reservation'
+                        bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
+                    </div>
+                </div>
             </div>
 
         </div>

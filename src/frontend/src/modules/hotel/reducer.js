@@ -17,10 +17,10 @@ const hotels = (state = initialState.hotels, action) => {
             let hotels = [...state];
             hotels.splice(hotels.findIndex(hotel => hotel.id === action.hotel.id), 1, action.hotel);
             return hotels;
-        // case actionTypes.REMOVE_HOTEL_COMPLETED:
-        // console.log(state);
-        // return state;
-
+        case actionTypes.REMOVE_HOTEL_COMPLETED:
+            let hotels1 = [...state];
+            let result = hotels1.filter(hotel => hotel.id !== action.hotelid);
+            return result;
         default:
             return state;
     }

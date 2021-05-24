@@ -14,7 +14,9 @@ export default {
     'project.global.buttons.ok': 'OK',
     'project.global.buttons.back': 'Back',
     'project.global.buttons.save': 'Save',
+
     'project.global.exceptions.NetworkError': 'Network error',
+
     'project.global.fields.date': 'Date',
     'project.global.fields.email': 'Email address',
     'project.global.fields.firstName': 'First name',
@@ -33,6 +35,7 @@ export default {
     'project.global.fields.date.in': 'Arrival',
     'project.global.fields.date.out': 'Departure',
     'project.global.fields.quantity': 'Rooms',
+    'project.global.fields.id': 'ID',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',
     'project.global.validator.required': 'Required field',
@@ -49,16 +52,23 @@ export default {
     'project.users.Admin.title': 'Add Manager',
 
     'project.hotels.SignUp.title': 'Sign up',
+    'project.hotels.addHotel': 'Add Hotel',
     'project.hotels.noHotelsFound': 'No hotels found, please try again later',
     'project.hotels.UpdateHotel.title': 'Update hotel',
     'project.hotels.RemoveHotel.title': 'Remove hotel',
     'project.hotels.RemoveHotel.body': 'Are you sure to remove the hotel',
     'project.hotels.AddRoom.title': 'Add Room',
     'project.hotels.AddReservation.title': 'Book',
+
     'project.room.FindRoomsResult.noRoomsFound': 'No rooms found',
     'project.room.UpdateRoom.title': 'Update Room',
     'project.room.RemoveRoom.title': 'Remove Room',
     'project.room.FindRoom.title': 'Search Room',
-    'project.room.RoomTypeSelector': 'Types'
+    'project.room.RoomTypeSelector': 'Types',
+
+    'project.reservations.FindReservations.title': 'Reservations',
+    'project.reservations.FindReservationResult.noReservationsFound': 'No reservations found, please try again later',
+    'project.reservations.UpdateReservation.title': 'Update reservation',
+    'project.reservations.RemoveReservation.title': 'Remove reservation',
 
 }

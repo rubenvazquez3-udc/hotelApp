@@ -22,7 +22,7 @@ const HotelDetails = () => {
     const handleSubmit = event => {
         event.preventDefault();
 
-        dispatch(actions.removeHotel(hotel));
+        dispatch(actions.removeHotel(hotel,hotel.id));
         history.push('/')
     }
 

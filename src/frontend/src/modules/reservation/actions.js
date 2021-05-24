@@ -45,3 +45,28 @@ export const findReservationById = (hotelid, reservationid) => dispatch =>
     backend.reservationService.findReservationById(hotelid, reservationid, reservation =>{
         dispatch(findReservationByIdCompleted(reservation));
     });
+
+const updateReservationCompleted = reservation => ({
+    type: actionTypes.UPDATE_RESERVATION_COMPLETED,
+    reservation
+});
+
+export const updateReservation = (reservation, onSuccess, onErrors) => dispatch =>
+    backend.reservationService.updateReservation(reservation, reservation => {
+        dispatch(updateReservationCompleted(reservation));
+        onSuccess();
+    }, onErrors);
+
+/*
+const removeReservationCompleted = id =>({
+    type: actionTypes.REMOVE_RESERVATION_COMPLETED,
+    id
+});
+
+export const removeReservation = (reservation, id, onSuccess, onErrors) => dispatch => 
+    backend.reservationService.removeReservation(reservation, reservation => {
+        dispatch(removeReservationCompleted(id));
+        onSuccess();
+    }, onErrors);
+
+*/

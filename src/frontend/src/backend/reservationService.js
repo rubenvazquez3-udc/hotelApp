@@ -27,8 +27,8 @@ export const findReservationsUser = ( username, onSuccess, onErrors) =>{
 export const findReservationById = (hotelid, reservationid, onSuccess, onErrors) =>
     appFetch(`/hotels/${hotelid}/reservations/${reservationid}`, config('GET'), onSuccess, onErrors);
 
-export const updateReservation = (hotelid, reservationid, reservation, onSuccess, onErrors) =>
-    appFetch(`/hotels/${hotelid}/reservations/${reservationid}`, config('PUT', reservation), onSuccess, onErrors);
+export const updateReservation = (reservation, onSuccess, onErrors) =>
+    appFetch(`/hotels/${reservation.hotel.id}/reservations/${reservation.id}`, config('PUT', reservation), onSuccess, onErrors);
 
 export const addGuest = (hotelid, reservationid, guest, onSuccess, onErrors) => 
     appFetch(`/hotels/${hotelid}/reservations/${reservationid}/guests`, config('POST', guest), onSuccess, onErrors);

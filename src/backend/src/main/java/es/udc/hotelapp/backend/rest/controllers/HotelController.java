@@ -292,19 +292,19 @@ public class HotelController {
 	}
 
 	@PutMapping("/hotels/{hotelid}/reservations/{id}")
-	public ResponseEntity updateReservation(@PathVariable Long hotelid, @PathVariable Long id,
+	public RoomTypeReservationDto updateReservation(@PathVariable Long hotelid, @PathVariable Long id,
 			@RequestBody RoomTypeReservationDto rtrDto) throws InstanceNotFoundException {
-
+		
 		RoomTypeReservation typer = toRoomTypeReservation(rtrDto);
 		
-		typer.setId(rtrDto.getId());
-		typer.getHotel().setId(rtrDto.getHotel().getId());
+		typer.setId(id);
+		typer.getHotel().setId(hotelid);
 		typer.getRoomtype().setId(rtrDto.getRoomtype().getId());
 		typer.getUser().setId(rtrDto.getUser().getId());
 
 		reservationService.updateReservation(typer);
 
-		return ResponseEntity.noContent().build();
+		return rtrDto;
 	}
 
 	@PostMapping("/hotels/{hotelid}/reservations/{id}/guests")
@@ -388,13 +388,14 @@ public class HotelController {
 		List<GuestReservation> list = reservationService.findAllGuestReservation(hotelid);
 
 		if(!username.isEmpty()){
-			for (GuestReservaion gr : list ) {
+			for (GuestReservation gr : list ) {
 				if( gr.getGuest().getName().equalsIgnoreCase(username))
 					result.add( toGuestReservationDto(gr));
 			}
 		} else
-			for (GuestReservaion gr : list )
+			for (GuestReservation gr : list )
 					result.add( toGuestReservationDto(gr));
-
+					
+		return result;
 	}
 }

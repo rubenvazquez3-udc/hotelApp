@@ -183,11 +183,11 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public List<GuestReservation> findAllGuestReservation (Long hotelid){
-		List<GuestReservation> list = guestReservationDao.findAll();
+		Iterable<GuestReservation> list = guestReservationDao.findAll();
 		List<GuestReservation> result = new ArrayList<>();
 
 		for (GuestReservation gr : list ) {
-			if(gr.getReservation().getHoel().getId() == hotelid)
+			if(gr.getReservation().getHotel().getId() == hotelid)
 				result.add(gr);
 		}
 		return result;

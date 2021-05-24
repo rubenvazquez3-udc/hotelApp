@@ -18,6 +18,11 @@ const reservations = ( state = initialState.reservations, action ) => {
         case actionTypes.FIND_RESERVATIONS_HOTEL_COMPLETED:
             return action.reservations;
 
+        case actionTypes.UPDATE_RESERVATION_COMPLETED:
+            let estado = [...state];
+            estado.splice(estado.findIndex(r => r.id === action.reservation.id), 1, action.reservation);
+            return estado;
+
         default:
             return state;
     }

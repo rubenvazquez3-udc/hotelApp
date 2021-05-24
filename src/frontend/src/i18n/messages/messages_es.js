@@ -14,7 +14,9 @@ export default {
     'project.global.buttons.ok': 'OK',
     'project.global.buttons.back': 'Anterior',
     'project.global.buttons.save': 'Guardar',
+
     'project.global.exceptions.NetworkError': 'Fallo de comunicación',
+
     'project.global.fields.date': 'Fecha',
     'project.global.fields.email': 'Correo electrónico',
     'project.global.fields.firstName': 'Nombre',
@@ -22,7 +24,6 @@ export default {
     'project.global.fields.name': 'Nombre',
     'project.global.fields.password': 'Contraseña',
     'project.global.fields.address': 'Dirección',
-    'project.global.fields.postalCode': 'Código postal',
     'project.global.fields.userName': 'Usuario',
     'project.global.fields.hotelName': 'Hotel',
     'project.global.fields.hotelManager': 'Responsable',
@@ -34,6 +35,7 @@ export default {
     'project.global.fields.date.in': 'Llegada',
     'project.global.fields.date.out': 'Salida',
     'project.global.fields.quantity': 'Habitaciones',
+    'project.global.fields.id': 'ID',
     'project.global.validator.email': 'Introduzca una dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'Las contraseñas no coinciden',
     'project.global.validator.required': 'Campo obligatorio',
@@ -57,12 +59,17 @@ export default {
     'project.hotels.RemoveHotel.body': '¿Estás seguro de eliminar el hotel',
     'project.hotels.AddRoom.title': 'Añadir habitación',
     'project.hotels.AddReservation.title': 'Reservar',
+
     'project.room.FindRoomsResult.noRoomsFound': 'No hay habitaciones',
     'project.room.UpdateRoom.title': 'Actualizar habitación',
     'project.room.RemoveRoom.title': 'Eliminar habitación',
     'project.room.FindRoom.title': 'Buscar habitación',
     'project.room.RoomTypeSelector': 'Tipos',
-    'project.reservations.FindReservations.title': 'Reservas'
+
+    'project.reservations.FindReservations.title': 'Reservas',
+    'project.reservations.FindReservationResult.noReservationsFound': 'No hay reservas, intentelo de nuevo más tarde',
+    'project.reservations.UpdateReservation.title': 'Actualizar reserva',
+    'project.reservations.RemoveReservation.title': 'Eliminar reserva',
 
 
     

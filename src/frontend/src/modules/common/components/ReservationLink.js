@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 const ReservationLink = ({id, name}) => {
 
     return (
-        <Link to={`/reservations/reseravation-details/${id}`}> 
+        <Link to={`/reservations/reservation-details/${id}`}> 
         {name}
         </Link>
     );
