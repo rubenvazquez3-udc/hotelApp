@@ -6,13 +6,15 @@ public class GuestDto {
 	private String surname;
 	private String dni;
 	private String address;
+	private String phoneNumber;
 	
-	public GuestDto(Long id, String name, String surname, String dni, String address) {
+	public GuestDto(Long id, String name, String surname, String dni, String address, String phoneNumber) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
 		this.address = address;
+		this.phoneNumber = phoneNumber;
 	}
 
 	public GuestDto() {	}
@@ -55,6 +57,14 @@ public class GuestDto {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 	
 	

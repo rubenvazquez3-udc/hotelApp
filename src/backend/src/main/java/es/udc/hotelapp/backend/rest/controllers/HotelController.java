@@ -398,4 +398,27 @@ public class HotelController {
 					
 		return result;
 	}
+	
+	@DeleteMapping("/hotels/{hotelid}/reservations/{id}")
+	public ResponseEntity removeReservation(@PathVariable Long hotelid, @PathVariable Long id) throws InstanceNotFoundException {
+
+		reservationService.removeReservation(id);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/hotels/{hotelid}/roomassign")
+	public List<RoomDto> findAvailableRooms( @PathVariable Long hotelid, @RequestParam String type){
+		
+		List<Room> rooms = roomService.findRooms(StatusConversor.toStatus("LIBRE"), hotelid);
+		List<Room> result = new ArrayList<>();
+		
+		for( Room r : rooms) {
+			if(r.getType().getName().equalsIgnoreCase(type))
+				result.add(r);
+		}
+		
+		return toRoomDtos(result);
+	}
 }
+

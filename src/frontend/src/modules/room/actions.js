@@ -71,9 +71,6 @@ const removeRoomCompleted = room => ({
     room
 });
 
-export const removeRoom = (room, onSuccess, onErrors) => dispatch => 
-    backend.roomService.removeRoom(room.hotel.id, room.id, room => {
-        dispatch(removeRoomCompleted(room));
-        onSuccess();
-    },
-    onErrors);
+export const removeRoom = (room,roomid, onSuccess, onErrors) => dispatch => 
+    backend.roomService.removeRoom(room.hotel.id, room.id,
+        dispatch(removeRoomCompleted(roomid)), onErrors);

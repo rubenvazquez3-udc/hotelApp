@@ -35,6 +35,11 @@ const rooms = (state = initialState.rooms, action) => {
             let estado = [...state];
             estado.splice(estado.findIndex(room => room.id === action.room.id), 1, action.room);
             return estado;
+        case actionTypes.REMOVE_ROOM_COMPLETED:
+            let list = [...state];
+            let result = list.filter(room => room.id !== action.room);
+            return result;
+            
         default:
             return state;
     }

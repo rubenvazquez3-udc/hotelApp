@@ -59,9 +59,6 @@ const removeHotelCompleted = hotelid => ({
 
 export const removeHotel = (hotel,hotelid, onSuccess, onErrors) => dispatch =>
     backend.hotelService.removeHotel(hotel,
-        hotel => {
-            dispatch(removeHotelCompleted(hotelid));
-            onSuccess();
-        },
+            dispatch(removeHotelCompleted(hotelid)),
         onErrors);
 

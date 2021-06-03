@@ -36,6 +36,7 @@ CREATE TABLE Guest (
     surname VARCHAR(65) NOT NULL,
     address VARCHAR(75) NOT NULL,
     dni VARCHAR(10) NOT NULL,
+    phoneNumber VARCHAR(15) NOT NULL,
     CONSTRAINT GuestPK PRIMARY KEY (id),
     CONSTRAINT GuestDniUniqueKey UNIQUE (dni)
 ) ENGINE = InnoDB;

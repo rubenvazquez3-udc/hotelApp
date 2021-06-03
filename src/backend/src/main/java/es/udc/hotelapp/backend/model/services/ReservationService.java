@@ -32,5 +32,7 @@ public interface ReservationService {
 	public GuestReservation findGuestReservationById(Long id) throws InstanceNotFoundException;
 
 	public List<GuestReservation> findAllGuestReservation (Long hotelid);
+	
+	public void removeReservation (Long reservationid) throws InstanceNotFoundException;
 
 }

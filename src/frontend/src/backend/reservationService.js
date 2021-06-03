@@ -21,8 +21,6 @@ export const findReservationsUser = ( username, onSuccess, onErrors) =>{
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
-   
-
 
 export const findReservationById = (hotelid, reservationid, onSuccess, onErrors) =>
     appFetch(`/hotels/${hotelid}/reservations/${reservationid}`, config('GET'), onSuccess, onErrors);
@@ -41,3 +39,21 @@ export const updateGuest = (hotelid, reservationid, guestid, guest, onSuccess, o
 
 export const assignRoom = (hotelid, reservationid, roomreservation, onSuccess, onErrors) => 
     appFetch(`/hotels/${hotelid}/reservations/${reservationid}/assignRoom`, config('POST', roomreservation), onSuccess, onErrors);
+
+export const removeReservation = (reservation, onSuccess, onErrors) =>
+        appFetch(`/hotels/${reservation.hotel.id}/reservations/${reservation.id}`, config('DELETE'), onSuccess, onErrors);
+    
+
+export const findAvailableRooms = (hotelid, type, onSuccess, onErrors) =>
+    appFetch(`/hotels/${hotelid}/roomassign?type=${type}`, config('GET'),onSuccess, onErrors);
+
+
+export const findGuests = (hotelid, username, onSuccess, onErrors) =>{
+
+    let path = `/hotels/${hotelid}/guests`;
+
+    path += username ? `?username=${username}` : "";
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
+}
+

@@ -12,16 +12,18 @@ public class Guest {
 	private String surname;
 	private String dni;
 	private String address;
+	private String phoneNumber;
 
 	public Guest() {
 	}
 
-	public Guest(String name, String surname, String dni, String address) {
+	public Guest(String name, String surname, String dni, String address, String phoneNumber) {
 		super();
 		this.name = name;
 		this.surname = surname;
 		this.dni = dni;
 		this.address = address;
+		this.phoneNumber = phoneNumber;
 	}
 
 	@Id
@@ -64,6 +66,14 @@ public class Guest {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 }

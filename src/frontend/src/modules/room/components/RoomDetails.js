@@ -36,8 +36,8 @@ const RoomDetails = () => {
     const handleDelete = event => {
         event.preventDefault();
 
-        dispatch(actions.removeRoom(room));
-        history.push('/rooms/find-rooms.result');
+        dispatch(actions.removeRoom(room, room.id));
+        history.push('/rooms/find-rooms-result');
     }
 
     if (!room) {
@@ -63,28 +63,23 @@ const RoomDetails = () => {
 
     return (
         <div>
-            <BackLink />
+           
 
-            <div className="card text-center">
-                <div className="card-body">
-
-                    <label htmlFor="number" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.roomNumber" />
-                    </label>
-                    <h5 className="card-title">{room.number}</h5>
-
-                    <label htmlFor="type" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.type" />
-                    </label>
-                    <h6 className="card-subtitle text-muted">{room.type.name}</h6>
-
-                    <label htmlFor="status" className="col-md-3 col-form-label">
-                        <FormattedMessage id="project.global.fields.roomStatus" />
-                    </label>
-                    <p className="card-text"> {room.status}</p>
+            <div className="card">
+                <div className="card-header">
+                    <BackLink />  <h5 className="card-title text-center"> <FormattedMessage id="project.global.fields.roomNumber" />{room.number}</h5>
                 </div>
 
-                {adminValues}
+                <div className="card-body text-center">                   
+
+                    <h6 className="card-text">  <FormattedMessage id="project.global.fields.type" /> : {room.type.name}</h6>
+                    <p className="card-text">  <FormattedMessage id="project.global.fields.roomStatus" /> : {room.status}</p>
+                </div>
+
+                <div className="card-footer text-center">
+                    {adminValues}
+                </div>
+               
             </div>
 
         </div>

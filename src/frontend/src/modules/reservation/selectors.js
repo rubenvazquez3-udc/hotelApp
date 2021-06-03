@@ -5,3 +5,6 @@ export const getReservations = state =>
 
 export const getReservation = state =>
     getModuleState(state).reservation;
+
+export const getAvailableRooms = state =>
+    getModuleState(state).availableRooms;

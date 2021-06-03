@@ -99,10 +99,10 @@ const Header = () => {
 
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                <Link className="nav-link" to="/reservations">
-                                    <FormattedMessage id="project.reservations.FindReservations.title" />
-                                </Link>
-                            </li>
+                                    <Link className="nav-link" to="/reservations">
+                                        <FormattedMessage id="project.reservations.FindReservations.title" />
+                                    </Link>
+                                </li>
                                 <li className="nav-item dropdown">
                                     <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
                                         <span className="fas fa-user"></span>&nbsp;

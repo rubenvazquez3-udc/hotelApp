@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes';
 
 const initialState = {
     reservations: null,
-    reservation: null
+    reservation: null,
+    availableRooms: null
 };
 
 const reservations = ( state = initialState.reservations, action ) => {
@@ -23,6 +24,11 @@ const reservations = ( state = initialState.reservations, action ) => {
             estado.splice(estado.findIndex(r => r.id === action.reservation.id), 1, action.reservation);
             return estado;
 
+            case actionTypes.REMOVE_RESERVATION_COMPLETED:
+                let reservations = [...state];
+                let result = reservations.filter(reservation => reservation.id !== action.id);
+                return result;
+
         default:
             return state;
     }
@@ -36,9 +42,22 @@ const reservation = (state = initialState.reservation, action) => {
     }
 }
 
+const availableRooms = (state = initialState.availableRooms, action) =>{
+
+    switch (action.type) {
+        case actionTypes.FIND_AVAILABLE_ROOMS_COMPLETED:
+            return action.rooms;
+    
+        default:
+            return state;
+    }
+
+}
+
 const reducer = combineReducers({
     reservations,
-    reservation
+    reservation,
+    availableRooms
 });
 
 export default reducer;

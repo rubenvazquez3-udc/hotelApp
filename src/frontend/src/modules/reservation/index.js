@@ -9,6 +9,7 @@ export {default as FindReservationsUser} from './components/FindReservationsUser
 export {default as FindReservationsResult} from './components/FindReservationsResult';
 export {default as ReservationDetails} from './components/ReservationDetails';
 export {default as UpdateReservation} from './components/UpdateReservation';
+export {default as AssignRoom} from './components/AssignRoom';
 
 
 export default {actions, actionTypes, reducer, selectors};

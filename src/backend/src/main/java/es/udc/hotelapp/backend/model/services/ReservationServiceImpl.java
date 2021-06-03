@@ -119,8 +119,11 @@ public class ReservationServiceImpl implements ReservationService {
 		}
 		if(guestDao.existsByDni(gr1.getGuest().getDni())) {
 			Optional<Guest> guest = guestDao.findByDni(gr1.getGuest().getDni());
-			if (guest.isPresent()) {
+			if (guest.isPresent() && guest.get().equals(gr1.getGuest())) {
 				gr1.setGuest(guest.get());
+			} else {
+				gr1.getGuest().setId(guest.get().getId());
+				guestDao.save(gr1.getGuest());
 			}
 		} else {
 			guestDao.save(gr1.getGuest());
@@ -191,6 +194,17 @@ public class ReservationServiceImpl implements ReservationService {
 				result.add(gr);
 		}
 		return result;
+	}
+	
+	@Override
+	public void removeReservation (Long reservationid) throws InstanceNotFoundException {
+	
+	Optional<RoomTypeReservation> reservationfound = roomtypereservationDao.findById(reservationid);
+	
+		if (reservationfound.isPresent()) {
+			roomtypereservationDao.delete(reservationfound.get());
+		} else
+			throw new InstanceNotFoundException("project.entities.rooomtypereservation", reservationid);
 	}
 
 	}

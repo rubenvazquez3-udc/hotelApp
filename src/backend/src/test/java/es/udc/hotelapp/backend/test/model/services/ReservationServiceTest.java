@@ -173,7 +173,7 @@ public class ReservationServiceTest {
 		RoomTypeReservation rt1 = create("username", "DOUBLE");
 		reservationService.addReservation(rt1);
 		
-		Guest g1 = new Guest("Pepe", "Perez", "34567821A", "La Coruña");
+		Guest g1 = new Guest("Pepe", "Perez", "34567821A", "La Coruña", "984763827");
 		
 		GuestReservation gr1 = new GuestReservation(rt1, g1);
 		
@@ -225,7 +225,7 @@ public class ReservationServiceTest {
 		RoomTypeReservation rt1 = create("username", "DOUBLE");
 		reservationService.addReservation(rt1);
 		
-		Guest g1 = new Guest("Pepe", "Perez", "34567821A", "La Coruña");
+		Guest g1 = new Guest("Pepe", "Perez", "34567821A", "La Coruña", "98463748457");
 		
 		GuestReservation gr1 = new GuestReservation(rt1, g1);
 		

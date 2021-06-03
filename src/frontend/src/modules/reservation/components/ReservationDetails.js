@@ -44,8 +44,8 @@ const ReservationDetails = () => {
     const handleDelete = event => {
         event.preventDefault();
 
-       // dispatch(actions.removeReservation(reservation, reservation.id));
-        history.push('/reseervations');
+       dispatch(actions.removeReservation(reservation, reservation.id));
+        history.push('/reservations');
     }
 
     if (!reservation) {
@@ -55,7 +55,7 @@ const ReservationDetails = () => {
 
     return (
         <div>
-           
+
             <div className="card">
                 <div className="card-header">
                     <BackLink /> <h5 className="card-title text-center"> {reservation.id}</h5>
@@ -77,16 +77,31 @@ const ReservationDetails = () => {
                 </div>
 
                 <div className="card-footer text-center">
-                    <div className="navbar-nav">
-                        <Link className="nav-link" to={`/reservations/reservation-details/${reservation.id}/update`}>
-                            <span className="fas fa-edit fa-2x"></span>
-                        </Link>
-                    <ConfirmDialog id='removeReservation' icon='eraser fa-3x' headerTitle='Remove Reservation'
-                        bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
-                    </div>
+
+                    {user.role !== 'USER'?
+                        <div className="navbar-nav">
+                            <Link className="nav-link" to={`/reservations/reservation-details/${reservation.id}/update`}>
+                                <span className="fas fa-edit fa-2x"></span>
+                            </Link>
+                            <ConfirmDialog id='removeReservation' icon='eraser fa-3x' headerTitle='Remove Reservation'
+                                bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
+
+                            <Link className='nav-link' to={`/reservations/reservation-details/${reservation.id}/assignRoom`}>
+                                <span className='fas fa-edit fa-2x'/>
+                            </Link>
+                        </div>
+                    :
+                        <div className="navbar-nav">
+                            <Link className="nav-link" to={`/reservations/reservation-details/${reservation.id}/update`}>
+                                <span className="fas fa-edit fa-2x"></span>
+                            </Link>
+                            <ConfirmDialog id='removeReservation' icon='eraser fa-3x' headerTitle='Remove Reservation'
+                                bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
+                        </div>
+                    }
+                    
                 </div>
             </div>
-
         </div>
     );
 };

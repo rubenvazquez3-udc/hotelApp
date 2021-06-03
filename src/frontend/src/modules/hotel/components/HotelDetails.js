@@ -85,11 +85,14 @@ const HotelDetails = () => {
 
     return (
         <div>
-            <BackLink />
-
+            
             <div className="card">
+
+                <div className="card-header">
+                    <BackLink />  <h5 className="card-title text-center">{hotel.name}</h5>
+                </div>
+
                 <div className="card-body text-center">
-                    <h5 className="card-title">{hotel.name}</h5>
 
                     <h6 className="card-subtitle text-muted"><FormattedMessage id="project.global.fields.address" /> : {hotel.address}</h6>
                     <br/>
@@ -100,7 +103,10 @@ const HotelDetails = () => {
                     <p className="card-text"> <span className="fas fa-phone-square"/>  {hotel.phoneNumber}</p>
                 </div>
 
-                {adminValues}
+                <div className="card-footer">
+                    {adminValues}
+                </div>
+                
             </div>
 
         </div>

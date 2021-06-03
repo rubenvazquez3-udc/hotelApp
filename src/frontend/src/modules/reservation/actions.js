@@ -57,16 +57,36 @@ export const updateReservation = (reservation, onSuccess, onErrors) => dispatch 
         onSuccess();
     }, onErrors);
 
-/*
+
 const removeReservationCompleted = id =>({
     type: actionTypes.REMOVE_RESERVATION_COMPLETED,
     id
 });
 
 export const removeReservation = (reservation, id, onSuccess, onErrors) => dispatch => 
-    backend.reservationService.removeReservation(reservation, reservation => {
-        dispatch(removeReservationCompleted(id));
-        onSuccess();
+    backend.reservationService.removeReservation(reservation,
+        dispatch(removeReservationCompleted(id)), onErrors);
+
+    
+const findAvailableRoomsCompleted = rooms => ({
+    type: actionTypes.FIND_AVAILABLE_ROOMS_COMPLETED,
+    rooms
+});
+
+export const findAvailableRooms = (hotelid, type) => dispatch => {
+
+        backend.reservationService.findAvailableRooms(hotelid,type, 
+            roomsfound => dispatch(findAvailableRoomsCompleted(roomsfound)));
+    }
+
+
+const assignRoomCompleted = roomreservation => ({
+    type: actionTypes.ASSIGN_ROOM_COMPLETED
+});
+
+export const assignRoom = (roomreservation, onErrors) => dispatch => 
+    backend.reservationService.assignRoom(roomreservation.reservation.hotel.id,roomreservation.reservation.id, roomreservation, reservation =>{
+        dispatch(assignRoomCompleted(reservation));
     }, onErrors);
 
-*/
+
