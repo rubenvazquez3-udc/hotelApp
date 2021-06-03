@@ -59,6 +59,7 @@ export default {
     'project.hotels.RemoveHotel.body': '¿Estás seguro de eliminar el hotel',
     'project.hotels.AddRoom.title': 'Añadir habitación',
     'project.hotels.AddReservation.title': 'Reservar',
+    'project.hotels.AddGuest.title': 'Añadir Cliente',
 
     'project.room.FindRoomsResult.noRoomsFound': 'No hay habitaciones',
     'project.room.UpdateRoom.title': 'Actualizar habitación',

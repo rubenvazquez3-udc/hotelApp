@@ -59,6 +59,7 @@ export default {
     'project.hotels.RemoveHotel.body': 'Estás seguro de quitar o hotel ',
     'project.hotels.AddRoom.title': 'Engadir habitación',
     'project.hotels.AddReservation.title': 'Reservar',
+    'project.hotels.AddGuest.title': 'Engadir cliente',
 
     'project.room.FindRoomsResult.noRoomsFound': 'Non hai habitacions',
     'project.room.UpdateRoom.title': 'Actualizar habitación',
@@ -69,6 +70,6 @@ export default {
     'project.reservations.FindReservations.title': 'Reservas',
     'project.reservations.FindReservationResult.noReservationsFound': 'Non hai reservas, por favor intenteo mais tarde',
     'project.reservations.UpdateReservation.title': 'Actualizar reserva',
-    'project.reservations.RemoveReservation.title': 'Eliminar reserv',
+    'project.reservations.RemoveReservation.title': 'Eliminar reserva',
 
 }

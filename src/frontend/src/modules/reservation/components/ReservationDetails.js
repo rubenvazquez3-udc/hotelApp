@@ -52,6 +52,19 @@ const ReservationDetails = () => {
         return null;
     }
 
+    let values = null;
+
+    if(user.role !== 'USER'){
+        values = <div>
+                <Link className='nav-link' to={`/reservations/reservation-details/${reservation.id}/assignRoom`}>
+                    <span className='fas fa-bed fa-2x'/>
+                </Link>
+                <Link className='nav-link' to={`/reservations/reservation-details/${reservation.id}/addGuest`}>
+                    <span className='fas fa-user-plus fa-2x'/>
+                </Link>
+                </div>
+    }
+
 
     return (
         <div>
@@ -78,7 +91,6 @@ const ReservationDetails = () => {
 
                 <div className="card-footer text-center">
 
-                    {user.role !== 'USER'?
                         <div className="navbar-nav">
                             <Link className="nav-link" to={`/reservations/reservation-details/${reservation.id}/update`}>
                                 <span className="fas fa-edit fa-2x"></span>
@@ -86,19 +98,9 @@ const ReservationDetails = () => {
                             <ConfirmDialog id='removeReservation' icon='eraser fa-3x' headerTitle='Remove Reservation'
                                 bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
 
-                            <Link className='nav-link' to={`/reservations/reservation-details/${reservation.id}/assignRoom`}>
-                                <span className='fas fa-edit fa-2x'/>
-                            </Link>
+                            {values}
+                            
                         </div>
-                    :
-                        <div className="navbar-nav">
-                            <Link className="nav-link" to={`/reservations/reservation-details/${reservation.id}/update`}>
-                                <span className="fas fa-edit fa-2x"></span>
-                            </Link>
-                            <ConfirmDialog id='removeReservation' icon='eraser fa-3x' headerTitle='Remove Reservation'
-                                bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
-                        </div>
-                    }
                     
                 </div>
             </div>

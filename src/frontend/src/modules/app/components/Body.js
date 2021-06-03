@@ -9,6 +9,7 @@ import users from '../../users';
 import {HotelDetails, AddHotel, UpdateHotel} from '../../hotel';
 import {AddRoom, FindRooms, FindRoomsResult, RoomDetails, UpdateRoom} from '../../room';
 import {AddReservation, FindReservationsHotel, FindReservationsUser, ReservationDetails, UpdateReservation,AssignRoom} from '../../reservation';
+import { AddGuest, FindGuests } from '../../guest';
 
 
 
@@ -40,6 +41,8 @@ const Body = () => {
                 <Route exact path='/reservations/reservation-details/:id'><ReservationDetails/></Route>
                 <Route exact path='/reservations/reservation-details/:id/update'><UpdateReservation/></Route>
                 <Route exact path='/reservations/reservation-details/:id/assignRoom'><AssignRoom/></Route>
+                <Route exact path='/reservations/reservation-details/:id/addGuest'><AddGuest/></Route>
+                <Route exact path='/guests'><FindGuests/></Route>
                 {loggedIn && <Route exact path="/users/update-profile"><UpdateProfile/></Route>}
                 {loggedIn && <Route exact path="/users/change-password"><ChangePassword/></Route>}
                 {loggedIn && <Route exact path="/users/logout"><Logout/></Route>}

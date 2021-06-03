@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
-import FindGuestsResult from './FindGuestsResult';
+import FindGuestResult from './FindGuestResult';
 
 import * as actions from '../actions';
 
@@ -14,7 +14,7 @@ const FindGuests = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const [username, setStatus] = useState('');
+    const [username, setUsername] = useState('');
     const hotels = useSelector(hotel.selectors.getHotels);
     const user = useSelector(users.selectors.getUser);
 
@@ -31,14 +31,15 @@ const FindGuests = () => {
         dispatch(actions.findGuests(hotelid, username.trim()));
         history.push('/guests');
     }
+    const name = <FormattedMessage id='project.global.fields.firstName'/>
 
     return (
         <div>
             <div className="formulario">
                 <form className="form-inline mt-2 mt-md-0" onSubmit={e => handleSubmit(e)}>
 
-                    <input id="username" type="text" className="form-control mr-sm-2" placeholder="Nombre"
-                        value={username} onChange={e => setStatus(e.target.value)} />
+                    <input id="username" type="text" className="form-control mr-sm-2" placeholder={name}
+                        value={username} onChange={e => setUsername(e.target.value)} />
 
                     <button type="submit" className="btn btn-primary my-2 my-sm-0">
                         <FormattedMessage id='project.global.buttons.search' />
@@ -46,7 +47,7 @@ const FindGuests = () => {
                 </form>
             </div>
             <br />
-            <FindGuestsResult />
+            <FindGuestResult />
         </div>
     )
 

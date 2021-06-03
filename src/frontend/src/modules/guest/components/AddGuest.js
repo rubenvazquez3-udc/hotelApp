@@ -61,7 +61,7 @@ const AddGuest = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.hotels.AddReservation.title" />
+                    <FormattedMessage id="project.hotels.AddGuest.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
@@ -142,7 +142,7 @@ const AddGuest = () => {
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
-                                    <FormattedMessage id="project.hotels.AddReservation.title" />
+                                    <FormattedMessage id="project.global.buttons.save" />
                                 </button>
                             </div>
                         </div>

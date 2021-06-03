@@ -2,8 +2,7 @@ import { combineReducers } from 'redux';
 import * as actionTypes from './actionTypes';
 
 const initialState = {
-    guests: null,
-    guest: null
+    guests: null
 };
 
 const guests = (state = initialState.guests, action) => {
@@ -18,20 +17,10 @@ const guests = (state = initialState.guests, action) => {
     }
 }
 
-const guest = (state = initialState.guest, action) => {
-    switch (action.type) {
-        case actionTypes.FIND_GUEST_BY_ID_COMPLETED:
-            return action.guest;
-
-        default:
-            return state;
-    }
-}
 
 
 const reducer = combineReducers({
-    guests,
-    guest
+    guests
 });
 
 export default reducer;

@@ -22,9 +22,7 @@ import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.Room;
 import es.udc.hotelapp.backend.model.entities.RoomReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
-import es.udc.hotelapp.backend.model.entities.RoomType;
 import es.udc.hotelapp.backend.model.entities.Service;
-import es.udc.hotelapp.backend.model.entities.User;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
@@ -36,17 +34,13 @@ import es.udc.hotelapp.backend.model.services.RoomService;
 import es.udc.hotelapp.backend.rest.common.ErrorsDto;
 import es.udc.hotelapp.backend.rest.dtos.BlockDto;
 import es.udc.hotelapp.backend.rest.dtos.GuestReservationDto;
-import es.udc.hotelapp.backend.rest.dtos.HotelConversor;
 import es.udc.hotelapp.backend.rest.dtos.HotelDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomReservationDto;
-import es.udc.hotelapp.backend.rest.dtos.RoomTypeConversor;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.ServiceDto;
 import es.udc.hotelapp.backend.rest.dtos.StatusConversor;
-import es.udc.hotelapp.backend.rest.dtos.UserConversor;
-
 import static es.udc.hotelapp.backend.rest.dtos.HotelConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.ServiceConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomConversor.*;
@@ -319,26 +313,6 @@ public class HotelController {
 		grDto.getGuest().setId(gr.getGuest().getId());
 		
 		return grDto;
-	}
-
-	@GetMapping("/hotels/{hotelid}/reservations/{reservationid}/guests/{id}")
-	public GuestReservationDto findGuestById(@PathVariable Long hotelid, @PathVariable Long reservationid,
-			@PathVariable Long id) throws InstanceNotFoundException {
-		return toGuestReservationDto(reservationService.findGuestReservationById(id));
-	}
-
-	@PutMapping("/hotels/{hotelid}/reservations/{reservationid}/guests/{id}")
-	public ResponseEntity updateGuest(@PathVariable Long hotelid, @PathVariable Long reservationid,
-			@PathVariable Long id, @RequestBody GuestReservationDto grDto)
-			throws IncorrectReservationException, InstanceNotFoundException {
-		GuestReservation gr = toGuestReservation(grDto);
-		gr.setId(id);
-		gr.getGuest().setId(grDto.getGuest().getId());
-		gr.getReservation().setId(grDto.getReservation().getId());
-
-		reservationService.updateGuest(gr);
-
-		return ResponseEntity.noContent().build();
 	}
 
 	@PostMapping("/hotels/{hotelid}/reservations/{id}/assignRoom")

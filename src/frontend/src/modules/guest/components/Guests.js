@@ -1,34 +1,27 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { FormattedMessage } from 'react-intl';
-//import { ReservationLink } from '../../common';
 
 const Guests = ({ guests }) => (
-    //Modificar para guests
+
     <table className="table table-striped table-hover">
 
         <thead>
             <tr>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.id' />
-                </th>
-                <th scope="col">
-                    <FormattedMessage id='project.global.fields.type' />
-                </th>
-                <th scope="col">
-                    <FormattedMessage id='project.global.fields.hotelName' />
-                </th>
-                <th scope="col">
                     <FormattedMessage id='project.global.fields.firstName' />
                 </th>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.date.in' />
+                    <FormattedMessage id='project.global.fields.lastName' />
                 </th>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.date.out' />
+                    <FormattedMessage id='project.global.fields.id' />
                 </th>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.quantity' />
+                    <FormattedMessage id='project.global.fields.address' />
+                </th>
+                <th scope="col">
+                    <FormattedMessage id='project.global.fields.phone' />
                 </th>
             </tr>
         </thead>
@@ -36,13 +29,11 @@ const Guests = ({ guests }) => (
         <tbody>
             {guests.map(guest =>
                 <tr key={guest.id}>
-                    <td><ReservationLink id={reservation.id} name={reservation.id} /></td>
-                    <td>{reservation.roomtype.name}</td>
-                    <td>{reservation.hotel.name}</td>
-                    <td>{reservation.user.firstName}</td>
-                    <td>{reservation.inbound}</td>
-                    <td>{reservation.outbound}</td>
-                    <td>{reservation.rooms}</td>
+                    <td>{guest.guest.name}</td>
+                    <td>{guest.guest.surname}</td>
+                    <td>{guest.guest.dni}</td>
+                    <td>{guest.guest.address}</td>
+                    <td>{guest.guest.phoneNumber}</td>
                 </tr>
             )}
         </tbody>
