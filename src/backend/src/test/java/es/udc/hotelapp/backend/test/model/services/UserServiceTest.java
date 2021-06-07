@@ -34,13 +34,42 @@ public class UserServiceTest {
 	public void testSignUpAndLoginFromId() throws DuplicateInstanceException, InstanceNotFoundException {
 		
 		User user = createUser("user");
+		user.setRole(RoleType.USER);
+		
+		User manager = createUser("manager");
+		manager.setRole(RoleType.MANAGER);
+		
+		User hotel = createUser("hotel");
+		hotel.setRole(RoleType.HOTEL);
+		
+		User admin = createUser("admin");
+		admin.setRole(RoleType.ADMIN);
 		
 		userService.signUp(user);
 		
+		userService.signUp(admin);
+		userService.signUp(manager);
+		userService.signUp(hotel);
+		
 		User loggedInUser = userService.loginFromId(user.getId());
+		
+		User loggedInAdmin = userService.loginFromId(admin.getId());
+		
+		User loggedInManager = userService.loginFromId(manager.getId());
+		
+		User loggedInHotel = userService.loginFromId(hotel.getId());
 		
 		assertEquals(user, loggedInUser);
 		assertEquals(User.RoleType.USER, user.getRole());
+		
+		assertEquals(admin, loggedInAdmin);
+		assertEquals(User.RoleType.ADMIN, admin.getRole());
+		
+		assertEquals(manager, loggedInManager);
+		assertEquals(User.RoleType.MANAGER, manager.getRole());
+		
+		assertEquals(hotel, loggedInHotel);
+		assertEquals(User.RoleType.HOTEL, hotel.getRole());
 		
 	}
 	
@@ -48,6 +77,7 @@ public class UserServiceTest {
 	public void testSignUpDuplicatedUserName() throws DuplicateInstanceException {
 		
 		User user = createUser("user");
+		user.setRole(RoleType.USER);
 		
 		userService.signUp(user);
 		assertThrows(DuplicateInstanceException.class, () -> userService.signUp(user));
@@ -63,6 +93,7 @@ public class UserServiceTest {
 	public void testLogin() throws DuplicateInstanceException, IncorrectLoginException {
 		
 		User user = createUser("user");
+		user.setRole(RoleType.USER);
 		String clearPassword = user.getPassword();
 				
 		userService.signUp(user);
@@ -77,6 +108,7 @@ public class UserServiceTest {
 	public void testLoginWithIncorrectPassword() throws DuplicateInstanceException {
 		
 		User user = createUser("user");
+		user.setRole(RoleType.USER);
 		String clearPassword = user.getPassword();
 		
 		userService.signUp(user);
@@ -93,6 +125,7 @@ public class UserServiceTest {
 	public void testUpdateProfile() throws InstanceNotFoundException, DuplicateInstanceException {
 		
 		User user = createUser("user");
+		user.setRole(RoleType.USER);
 		
 		userService.signUp(user);
 		
@@ -120,6 +153,7 @@ public class UserServiceTest {
 		IncorrectPasswordException, IncorrectLoginException {
 		
 		User user = createUser("user");
+		user.setRole(RoleType.USER);
 		String oldPassword = user.getPassword();
 		String newPassword = 'X' + oldPassword;
 		
@@ -139,6 +173,7 @@ public class UserServiceTest {
 	public void testChangePasswordWithIncorrectPassword() throws DuplicateInstanceException {
 		
 		User user = createUser("user");
+		user.setRole(RoleType.USER);
 		String oldPassword = user.getPassword();
 		String newPassword = 'X' + oldPassword;
 		
@@ -148,32 +183,4 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test
-	public void testCreateManagerAccount() throws DuplicateInstanceException, InstanceNotFoundException {
-		User user = createUser("user");
-		
-		userService.createManagerAccount(user);
-		User loggeduser = userService.loginFromId(user.getId());
-		
-		user.setRole(RoleType.MANAGER);
-		assertEquals(user, loggeduser);
-		assertEquals(User.RoleType.MANAGER, user.getRole());
-		
-		assertThrows(DuplicateInstanceException.class, () -> userService.createManagerAccount(user));
-		}
-	
-	@Test
-	public void testCreateHotelPersonalAccount() throws DuplicateInstanceException, InstanceNotFoundException {
-		User user = createUser("user");
-		
-		userService.createHotelPersonalAccount(user);
-		User loggeduser = userService.loginFromId(user.getId());
-		
-		user.setRole(RoleType.HOTEL);
-		assertEquals(user, loggeduser);
-		assertEquals(User.RoleType.HOTEL, user.getRole());
-		
-		assertThrows(DuplicateInstanceException.class, () -> userService.createHotelPersonalAccount(user));
-		}
-
 }

@@ -64,28 +64,3 @@ export const updateProfile = (user, onSuccess, onErrors) => dispatch =>
 
 export const changePassword = (id, oldPassword, newPassword, onSuccess, onErrors) => dispatch =>
     backend.userService.changePassword(id, oldPassword, newPassword, onSuccess, onErrors);
-
-const addManagerCompleted = authenticatedUser => ({
-        type : actionTypes.MANAGER_CREATED,
-        authenticatedUser
-        });
-
-        
-export const createManagerAccount = (user, onSuccess, onErrors) => dispatch => 
-    backend.userService.createManagerAccount( user, user => {
-            dispatch(addManagerCompleted(user));
-            onSuccess();
-          },
-        onErrors);
-
-const addHotelPersonalAccount = authenticatedUser => ({
-    type : actionTypes.HOTELPERSONAL_CREATED,
-    authenticatedUser
-});
-
-export const createHotelPersonalAccount = (user, onSuccess, onErrors) => dispatch => 
-    backend.userService.createHotelAccount(user, user => {
-            dispatch(addHotelPersonalAccount(user));
-            onSuccess();
-        },
-        onErrors);

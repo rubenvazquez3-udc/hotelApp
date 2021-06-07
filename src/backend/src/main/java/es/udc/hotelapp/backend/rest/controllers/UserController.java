@@ -151,36 +151,4 @@ public class UserController {
 		
 	}
 	
-	@PostMapping("/admin/manager")
-	public ResponseEntity<UserDto> createManagerAccount(
-		@Validated({UserDto.AllValidations.class}) @RequestBody UserDto userDto) throws DuplicateInstanceException {
-		
-		User user = toUser(userDto);
-		
-		userService.createManagerAccount(user);
-		
-		URI location = ServletUriComponentsBuilder
-			.fromCurrentRequest().path("/{id}")
-			.buildAndExpand(user.getId()).toUri();
-	
-		return ResponseEntity.created(location).body(toUserDto(user));
-
-	}
-	
-	@PostMapping("/admin/hotel")
-	public ResponseEntity<UserDto> createHotelAccount(
-		@Validated({UserDto.AllValidations.class}) @RequestBody UserDto userDto) throws DuplicateInstanceException {
-		
-		User user = toUser(userDto);
-		
-		userService.createHotelPersonalAccount(user);
-		
-		URI location = ServletUriComponentsBuilder
-			.fromCurrentRequest().path("/{id}")
-			.buildAndExpand(user.getId()).toUri();
-	
-		return ResponseEntity.created(location).body(toUserDto(user));
-
-	}
-	
 }

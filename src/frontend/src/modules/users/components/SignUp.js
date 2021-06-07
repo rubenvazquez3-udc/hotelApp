@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {FormattedMessage} from 'react-intl';
 import {useHistory} from 'react-router-dom';
 
 import {Errors} from '../../common';
 import * as actions from '../actions';
+import * as selectors from "../selectors";
 
 const SignUp = () => {
 
@@ -19,12 +20,20 @@ const SignUp = () => {
     const [address, setAddress] = useState('');
     const [backendErrors, setBackendErrors] = useState(null);
     const [passwordsDoNotMatch, setPasswordsDoNotMatch] = useState(false);
+    const user = useSelector(selectors.getUser);
     let form;
     let confirmPasswordInput;
+    let userrole;
 
     const handleSubmit = event => {
 
         event.preventDefault();
+
+        user === null ?
+            userrole = 'USER'
+        : user.role === 'ADMIN' ?
+            userrole = "MANAGER"
+        : userrole = 'HOTEL';
 
         if (form.checkValidity() && checkConfirmPassword()) {
             
@@ -34,7 +43,8 @@ const SignUp = () => {
                 firstName: firstName.trim(),
                 lastName: lastName.trim(),
                 email: email.trim(),
-                address: address.trim()},
+                address: address.trim(),
+                role: userrole},
                 () => history.push('/'),
                 errors => setBackendErrors(errors),
                 () => {

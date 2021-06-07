@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
 		}
 			
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setRole(User.RoleType.USER);
 		
 		userDao.save(user);
 		
@@ -93,31 +92,5 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
-	@Override
-	public void createManagerAccount(User user) throws DuplicateInstanceException {
-		
-		if (userDao.existsByUserName(user.getUserName())) {
-			throw new DuplicateInstanceException("project.entities.user", user.getUserName());
-		}
-			
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setRole(User.RoleType.MANAGER);
-		
-		userDao.save(user);
-		
-	}
-
-	@Override
-	public void createHotelPersonalAccount(User user) throws DuplicateInstanceException {
-		if (userDao.existsByUserName(user.getUserName())) {
-			throw new DuplicateInstanceException("project.entities.user", user.getUserName());
-		}
-			
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setRole(User.RoleType.HOTEL);
-		
-		userDao.save(user);
-		
-	}
 
 }

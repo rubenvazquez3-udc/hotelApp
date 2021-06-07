@@ -1,6 +1,7 @@
 package es.udc.hotelapp.backend.rest.dtos;
 
 import es.udc.hotelapp.backend.model.entities.User;
+import es.udc.hotelapp.backend.model.entities.User.RoleType;
 
 public class UserConversor {
 	
@@ -13,8 +14,25 @@ public class UserConversor {
 	
 	public final static User toUser(UserDto userDto) {
 		
-		return new User(userDto.getUserName(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(),
-			userDto.getEmail(),userDto.getAddress());
+		User user = new User(userDto.getUserName(), userDto.getPassword(), userDto.getFirstName(), userDto.getLastName(),
+				userDto.getEmail(),userDto.getAddress());
+		
+		switch(userDto.getRole()) {
+			case "USER":
+				user.setRole(RoleType.USER);
+				break;
+			case "ADMIN":
+				user.setRole(RoleType.ADMIN);
+				break;
+			case "MANAGER":
+				user.setRole(RoleType.MANAGER);
+				break;
+			case "HOTEL":
+				user.setRole(RoleType.HOTEL);
+				break;
+		}
+		
+		return user;
 	}
 	
 	public final static AuthenticatedUserDto toAuthenticatedUserDto(String serviceToken, User user) {

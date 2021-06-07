@@ -30,7 +30,7 @@ const Header = () => {
                 {user === "ADMIN" ?
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/users/admin">
+                            <Link className="nav-link" to="/users/signup">
                                 <FormattedMessage id="project.users.Admin.title" />
                             </Link>
                         </li>
@@ -76,7 +76,7 @@ const Header = () => {
                                 </Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/users/manager">
+                                <Link className="nav-link" to="/users/signup">
                                     <FormattedMessage id="project.users.Manager.title" />
                                 </Link>
                             </li>

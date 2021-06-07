@@ -4,7 +4,7 @@ import {Route, Switch} from 'react-router-dom';
 
 import AppGlobalComponents from './AppGlobalComponents';
 import Home from './Home';
-import {Login, SignUp, UpdateProfile, ChangePassword, Logout,CreateManagerAcccount, CreateHotelPersonalAccount} from '../../users';
+import {Login, SignUp, UpdateProfile, ChangePassword, Logout} from '../../users';
 import users from '../../users';
 import {HotelDetails, AddHotel, UpdateHotel} from '../../hotel';
 import {AddRoom, FindRooms, FindRoomsResult, RoomDetails, UpdateRoom} from '../../room';
@@ -48,8 +48,8 @@ const Body = () => {
                 {loggedIn && <Route exact path="/users/logout"><Logout/></Route>}
                 {!loggedIn && <Route exact path="/users/login"><Login/></Route>}
                 {!loggedIn && <Route exact path="/users/signup"><SignUp/></Route>}
-                {userRole === "ADMIN" && <Route exact path="/users/admin"><CreateManagerAcccount/></Route>}
-                {userRole === "MANAGER" && <Route exact path="/users/manager"><CreateHotelPersonalAccount/></Route>}
+                {userRole === "ADMIN" && <Route exact path="/users/signup"><SignUp/></Route>}
+                {userRole === "MANAGER" && <Route exact path="/users/signup"><SignUp/></Route>}
                 {loggedIn && <Route exact path="/hotels"><AddHotel/></Route>}
                 <Route><Home/></Route>
             </Switch>
