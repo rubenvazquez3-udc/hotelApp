@@ -8,7 +8,7 @@ const addGuestCompleted = guest => ({
 });
 
 export const addGuest = (guest, onSuccess, onErrors) => dispatch =>
-    backend.reservationService.addGuest(guest.reservation.hotel.id, guest.reservation.id, guest, guest => {
+    backend.reservationService.addGuest(guest.reservation.id, guest, guest => {
         dispatch(addGuestCompleted(guest));
         onSuccess();
     },

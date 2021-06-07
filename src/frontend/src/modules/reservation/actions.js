@@ -15,25 +15,14 @@ export const addReservation = (reservation, onSuccess, onErrors) => dispatch =>
     onErrors
     );
 
-const findReservationsUserCompleted = reservations => ({
-    type: actionTypes.FIND_RESERVATIONS_USER_COMPLETED,
-    reservations
-});
-
-export const findReservationsUser = (username) => dispatch =>
-    backend.reservationService.findReservationsUser(username, reservations => {
-        dispatch(findReservationsUserCompleted(reservations));
-    }
-   );
-
-const findReservationsHotelCompleted = reservations => ({
+const findReservationsCompleted = reservations => ({
     type: actionTypes.FIND_RESERVATIONS_HOTEL_COMPLETED,
     reservations
 });
 
-export const findReservationsHotel = (hotelid, username, date) => dispatch =>
-    backend.reservationService.findReservationsHotel(hotelid, username, date, reservations => {
-        dispatch(findReservationsHotelCompleted(reservations));
+export const findReservations = (hotelid, username, date) => dispatch =>
+    backend.reservationService.findReservations(hotelid, username, date, reservations => {
+        dispatch(findReservationsCompleted(reservations));
     });
 
 const findReservationByIdCompleted = reservation => ({
@@ -41,8 +30,8 @@ const findReservationByIdCompleted = reservation => ({
     reservation
 });
 
-export const findReservationById = (hotelid, reservationid) => dispatch =>
-    backend.reservationService.findReservationById(hotelid, reservationid, reservation =>{
+export const findReservationById = (reservationid) => dispatch =>
+    backend.reservationService.findReservationById(reservationid, reservation =>{
         dispatch(findReservationByIdCompleted(reservation));
     });
 
@@ -85,7 +74,7 @@ const assignRoomCompleted = roomreservation => ({
 });
 
 export const assignRoom = (roomreservation, onErrors) => dispatch => 
-    backend.reservationService.assignRoom(roomreservation.reservation.hotel.id,roomreservation.reservation.id, roomreservation, reservation =>{
+    backend.reservationService.assignRoom(roomreservation.reservation.id, roomreservation, reservation =>{
         dispatch(assignRoomCompleted(reservation));
     }, onErrors);
 

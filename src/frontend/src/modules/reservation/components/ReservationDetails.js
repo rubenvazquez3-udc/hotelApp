@@ -37,7 +37,7 @@ const ReservationDetails = () => {
         const reservationid = Number(id);
 
         if (!Number.isNaN(id)) {
-            dispatch(actions.findReservationById(hotelid, reservationid));
+            dispatch(actions.findReservationById(reservationid));
         }
     }, [id,hotelid, dispatch]);
 

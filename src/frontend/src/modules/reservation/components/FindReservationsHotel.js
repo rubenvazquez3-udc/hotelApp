@@ -25,14 +25,14 @@ const FindReservationsHotel = () => {
 
     
     useEffect(() => {
-            dispatch(actions.findReservationsHotel(hotelid,userName,date));
+            dispatch(actions.findReservations(hotelid,userName,date));
     }, [hotelid,userName,date, dispatch]);
 
     const handleSearch = event => {
 
         event.preventDefault();
 
-        dispatch(actions.findReservationsHotel(hotelid, userName.trim(),date));
+        dispatch(actions.findReservations(hotelid, userName.trim(),date));
         history.push('/reservations');
     }
     

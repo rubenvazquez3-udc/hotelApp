@@ -20,11 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import es.udc.hotelapp.backend.model.entities.GuestReservation;
 import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.Room;
-import es.udc.hotelapp.backend.model.entities.RoomReservation;
-import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.entities.Service;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
-import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.exceptions.RoomAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.ServiceAlreadyExistsException;
@@ -36,18 +33,13 @@ import es.udc.hotelapp.backend.rest.dtos.BlockDto;
 import es.udc.hotelapp.backend.rest.dtos.GuestReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.HotelDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomDto;
-import es.udc.hotelapp.backend.rest.dtos.RoomReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeDto;
-import es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.ServiceDto;
 import static es.udc.hotelapp.backend.rest.dtos.HotelConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.ServiceConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomTypeConversor.*;
-import static es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.GuestReservationConversor.*;
-import static es.udc.hotelapp.backend.rest.dtos.RoomReservationConversor.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -62,12 +54,11 @@ public class HotelController {
 
 	private final static String ROOM_ALREADY_EXISTS_EXCEPTION_CODE = "project.exceptions.RoomAlreadyExistsException";
 	
-	private final static String INCORRECT_RESERVATION_EXCEPTION_CODE = "project.exceptions.IncorrectReservationException";
-	
 	@Autowired
 	private HotelService hotelService;
 	@Autowired
 	private RoomService roomService;
+	
 	@Autowired
 	private ReservationService reservationService;
 
@@ -104,16 +95,6 @@ public class HotelController {
 
 	}
 		
-	@ExceptionHandler(IncorrectReservationException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ResponseBody
-	public ErrorsDto handleIncorrectReservationException(IncorrectReservationException exception, Locale locale) {
-		String errorMessage = messageSource.getMessage(INCORRECT_RESERVATION_EXCEPTION_CODE, null,
-				INCORRECT_RESERVATION_EXCEPTION_CODE , locale);
-		return new ErrorsDto(errorMessage);
-
-	}
-
 	@PostMapping("/hotels")
 	public HotelDto addHotel(@RequestBody HotelDto hotelDto) throws HotelAlreadyExistsException {
 		Long id = null;
@@ -203,8 +184,8 @@ public class HotelController {
 	}
 
 	@GetMapping("/hotels/{hotelid}/rooms")
-	public List<RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam(defaultValue= "") String status) {
-		List<Room> rooms = roomService.findRooms(status, hotelid, "");
+	public List<RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam(defaultValue= "") String status, @RequestParam(defaultValue = "") String type) {
+		List<Room> rooms = roomService.findRooms(status, hotelid, type);
 		return toRoomDtos(rooms);
 	}
 
@@ -220,100 +201,6 @@ public class HotelController {
 		return toRoomDto(r);
 	}
 
-	@PostMapping("/hotels/{hotelid}/reservations")
-	public RoomTypeReservationDto addReservation(@PathVariable Long hotelid, @RequestBody RoomTypeReservationDto rtrDto)
-			throws InstanceNotFoundException {
-
-		RoomTypeReservation typer = toRoomTypeReservation(rtrDto);
-		
-		typer.getUser().setId(rtrDto.getUser().getId());
-		typer.getHotel().setId(hotelid);
-		typer.getRoomtype().setId(rtrDto.getRoomtype().getId());
-		
-		reservationService.addReservation(typer);
-		
-		rtrDto.setId(typer.getId());
-
-		return rtrDto;
-
-	}
-	@GetMapping("/hotels/reservationUser")
-	public List<RoomTypeReservationDto> findReservationsByUsername(@RequestParam String username){
-		List<RoomTypeReservationDto> result = new ArrayList<>();
-		List<RoomTypeReservation> list = reservationService.findReservations(null,"",username);
-		
-		for( RoomTypeReservation r : list) {
-			result.add(toRoomTypeReservationDto(r));
-		}
-		return result;
-	}
-
-	@GetMapping("/hotels/{hotelid}/reservations")
-	public List<RoomTypeReservationDto> findAllReservations(@PathVariable Long hotelid,
-			@RequestParam(defaultValue = "") String username, @RequestParam(defaultValue = "") String date) {
-		List<RoomTypeReservationDto> result = new ArrayList<>();
-		List<RoomTypeReservation> list = reservationService.findReservations(hotelid, date, username);
-		
-		for (RoomTypeReservation r : list) {
-			result.add(toRoomTypeReservationDto(r));
-		}
-
-		return result;
-	}
-
-	@GetMapping("/hotels/{hotelid}/reservations/{id}")
-	public RoomTypeReservationDto findReservation(@PathVariable Long hotelid, @PathVariable Long id)
-			throws InstanceNotFoundException {
-		return toRoomTypeReservationDto(reservationService.findById(id));
-	}
-
-	@PutMapping("/hotels/{hotelid}/reservations/{id}")
-	public RoomTypeReservationDto updateReservation(@PathVariable Long hotelid, @PathVariable Long id,
-			@RequestBody RoomTypeReservationDto rtrDto) throws InstanceNotFoundException {
-		
-		RoomTypeReservation typer = toRoomTypeReservation(rtrDto);
-		
-		typer.setId(id);
-		typer.getHotel().setId(hotelid);
-		typer.getRoomtype().setId(rtrDto.getRoomtype().getId());
-		typer.getUser().setId(rtrDto.getUser().getId());
-
-		reservationService.updateReservation(typer);
-
-		return rtrDto;
-	}
-
-	@PostMapping("/hotels/{hotelid}/reservations/{id}/guests")
-	public GuestReservationDto addGuest(@PathVariable Long hotelid, @PathVariable Long id,
-			@RequestBody GuestReservationDto grDto) throws IncorrectReservationException {
-		GuestReservation gr = toGuestReservation(grDto);
-		gr.getReservation().setId(grDto.getReservation().getId());
-
-		reservationService.addGuest(gr);
-		
-		grDto.setId(gr.getId());
-		grDto.getGuest().setId(gr.getGuest().getId());
-		
-		return grDto;
-	}
-
-	@PostMapping("/hotels/{hotelid}/reservations/{id}/assignRoom")
-	public RoomReservationDto assignRoom(@PathVariable Long hotelid, @PathVariable Long id,
-			@RequestBody RoomReservationDto rrDto) throws InstanceNotFoundException, IncorrectReservationException {
-		RoomReservation rr = toRoomReservation(rrDto);
-
-		rr.getReservation().setId(rrDto.getReservation().getId());
-		rr.getRoom().setId(rrDto.getRoom().getId());
-		rr.getRoom().getType().setId(rrDto.getRoom().getType().getId());
-		rr.getRoom().getHotel().setId(rrDto.getRoom().getHotel().getId());
-
-		RoomReservation rr1 = reservationService.assignReservation(rr, id);
-		
-		rrDto.setId(rr1.getId());
-		return rrDto;
-
-	}
-	
 	@DeleteMapping("/hotels/{hotelid}")
 	public ResponseEntity removeHotel(@PathVariable Long hotelid) throws InstanceNotFoundException {
 		
@@ -350,20 +237,5 @@ public class HotelController {
 		return result;
 	}
 	
-	@DeleteMapping("/hotels/{hotelid}/reservations/{id}")
-	public ResponseEntity removeReservation(@PathVariable Long hotelid, @PathVariable Long id) throws InstanceNotFoundException {
-
-		reservationService.removeReservation(id);
-		
-		return ResponseEntity.noContent().build();
-	}
-	
-	@GetMapping("/hotels/{hotelid}/roomassign")
-	public List<RoomDto> findAvailableRooms( @PathVariable Long hotelid, @RequestParam String type){
-		
-		List<Room> rooms = roomService.findRooms("LIBRE", hotelid, type);
-		
-		return toRoomDtos(rooms);
-	}
 }
 

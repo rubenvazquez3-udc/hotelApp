@@ -23,8 +23,8 @@ const findRoomsCompleted = rooms => ({
     rooms
 });
 
-export const findRooms = (hotelid, status) => dispatch =>
-    backend.roomService.findRooms(hotelid, status, rooms => {
+export const findRooms = (hotelid, status, type) => dispatch =>
+    backend.roomService.findRooms(hotelid, status,type, rooms => {
         dispatch(findRoomsCompleted(rooms));
     });
 
