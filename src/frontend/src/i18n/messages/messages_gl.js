@@ -53,7 +53,7 @@ export default {
 
     'project.hotels.SignUp.title': 'Rexistrar',
     'project.hotels.addHotel': 'Engadir Hotel',
-    'project.hotels.noHotelsFound': 'Non hai hoteis, por favor intenteo mais tarde',
+    'project.hotels.noHotelsFound': 'Non hai hoteis, por favor intenteo de novo',
     'project.hotels.UpdateHotel.title': 'Actualizar hotel',
     'project.hotels.RemoveHotel.title': 'Eliminar hotel',
     'project.hotels.RemoveHotel.body': 'Estás seguro de quitar o hotel ',
@@ -68,8 +68,11 @@ export default {
     'project.room.RoomTypeSelector': 'Tipos',
 
     'project.reservations.FindReservations.title': 'Reservas',
-    'project.reservations.FindReservationResult.noReservationsFound': 'Non hai reservas, por favor intenteo mais tarde',
+    'project.reservations.FindReservationResult.noReservationsFound': 'Non hai reservas, por favor intenteo de novo',
     'project.reservations.UpdateReservation.title': 'Actualizar reserva',
     'project.reservations.RemoveReservation.title': 'Eliminar reserva',
+
+    'project.guest.FindGuest.title': 'Clientes',
+    'project.guests.FindReservationResult.noGuestsFound': 'Non hai clientes, por favor intenteo de novo'
 
 }

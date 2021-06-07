@@ -53,7 +53,7 @@ export default {
 
     'project.hotels.SignUp.title': 'Sign up',
     'project.hotels.addHotel': 'Add Hotel',
-    'project.hotels.noHotelsFound': 'No hotels found, please try again later',
+    'project.hotels.noHotelsFound': 'No hotels found, please try again',
     'project.hotels.UpdateHotel.title': 'Update hotel',
     'project.hotels.RemoveHotel.title': 'Remove hotel',
     'project.hotels.RemoveHotel.body': 'Are you sure to remove the hotel',
@@ -68,8 +68,11 @@ export default {
     'project.room.RoomTypeSelector': 'Types',
 
     'project.reservations.FindReservations.title': 'Reservations',
-    'project.reservations.FindReservationResult.noReservationsFound': 'No reservations found, please try again later',
+    'project.reservations.FindReservationResult.noReservationsFound': 'No reservations found, please try again',
     'project.reservations.UpdateReservation.title': 'Update reservation',
     'project.reservations.RemoveReservation.title': 'Remove reservation',
+
+    'project.guest.FindGuest.title': 'Guests',
+    'project.guests.FindReservationResult.noGuestsFound': 'No guests found, please try again'
 
 }

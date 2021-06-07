@@ -67,7 +67,7 @@ const RoomDetails = () => {
 
             <div className="card">
                 <div className="card-header">
-                    <BackLink />  <h5 className="card-title text-center"> <FormattedMessage id="project.global.fields.roomNumber" />{room.number}</h5>
+                    <BackLink />  <h5 className="card-title text-center"> <FormattedMessage id="project.global.fields.roomNumber" /> {room.number}</h5>
                 </div>
 
                 <div className="card-body text-center">                   

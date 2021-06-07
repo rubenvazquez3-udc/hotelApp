@@ -1,7 +1,6 @@
 package es.udc.hotelapp.backend.model.services;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +13,6 @@ import es.udc.hotelapp.backend.model.entities.Room;
 import es.udc.hotelapp.backend.model.entities.RoomDao;
 import es.udc.hotelapp.backend.model.entities.RoomType;
 import es.udc.hotelapp.backend.model.entities.RoomTypeDao;
-import es.udc.hotelapp.backend.model.entities.Status;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.exceptions.RoomAlreadyExistsException;
 
@@ -71,17 +69,10 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public List<Room> findRooms(Status status, Long hotelid) {
-		List<Room> result = new ArrayList<>();
-		Iterable<Room> roomsfound = roomDao.findAll();
-		if (roomsfound != null) {
-			Iterator<Room> iter = roomsfound.iterator();
-			while (iter.hasNext()) {
-				Room room = iter.next();
-				if (room.getStatus() == status && room.getHotel().getId() == hotelid)
-					result.add(room);
-			}
-		}
+	public List<Room> findRooms(String status, Long hotelid, String type) {
+		
+		List<Room> result = roomDao.find(hotelid, status, type);
+		
 		return result;
 
 	}
@@ -105,19 +96,6 @@ public class RoomServiceImpl implements RoomService {
 		return roomtypesAsList;
 	}
 
-	@Override
-	@Transactional(readOnly = true)
-	public List<Room> findRooms(Long hotelid) {
-		List<Room> result = new ArrayList<>();
-		Iterable<Room> roomsfound = roomDao.findAll();
-		if (roomsfound != null) {
-			Iterator<Room> iter = roomsfound.iterator();
-			while (iter.hasNext()) {
-				Room room = iter.next();
-				if (room.getHotel().getId() == hotelid)
-					result.add(room);
-			}
-		}
-		return result;
-	}
+
+
 }

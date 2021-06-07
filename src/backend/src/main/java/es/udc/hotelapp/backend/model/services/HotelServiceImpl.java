@@ -59,7 +59,6 @@ public class HotelServiceImpl implements HotelService {
 			hotelactual.setPhonenumber(hotel.getPhonenumber());
 			hotelactual.setDescription(hotel.getDescription());
 
-			hotelDao.save(hotelactual);
 			return hotelactual;
 		} else
 			throw new InstanceNotFoundException("project.entities.hotel", hotel.getId());
@@ -131,7 +130,7 @@ public class HotelServiceImpl implements HotelService {
 		serviceActual.setName(service1.getName());
 		serviceActual.setDescription(service1.getDescription());
 		serviceActual.setPrice(service1.getPrice());
-		serviceDao.save(serviceActual);
+		//serviceDao.save(serviceActual);
 		
 		return serviceActual;
 	}

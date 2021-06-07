@@ -123,9 +123,9 @@ public class RoomServiceTest {
 		
 		List<Room> result1 = new ArrayList<>();
 		
-		assertEquals(result, roomService.findRooms(Status.LIBRE, h1.getId()));
+		assertEquals(result, roomService.findRooms("LIBRE", h1.getId(), ""));
 		
-		assertEquals(result1, roomService.findRooms(Status.OCUPADA, h1.getId()));
+		assertEquals(result1, roomService.findRooms("OCUPADA", h1.getId(),"DOBLE"));
 			
 	}
 	
@@ -149,7 +149,7 @@ public class RoomServiceTest {
 		List<Room> result = new ArrayList<>();
 		result.add(r1); result.add(r2);
 		
-		assertEquals(result, roomService.findRooms(h1.getId()));
+		assertEquals(result, roomService.findRooms("",h1.getId(),""));
 	}
 	
 	@Test

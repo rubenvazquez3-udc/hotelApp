@@ -31,14 +31,13 @@ const FindGuests = () => {
         dispatch(actions.findGuests(hotelid, username.trim()));
         history.push('/guests');
     }
-    const name = <FormattedMessage id='project.global.fields.firstName'/>
 
     return (
         <div>
             <div className="formulario">
                 <form className="form-inline mt-2 mt-md-0" onSubmit={e => handleSubmit(e)}>
 
-                    <input id="username" type="text" className="form-control mr-sm-2" placeholder={name}
+                    <input id="username" type="text" className="form-control mr-sm-2" placeholder='Name'
                         value={username} onChange={e => setUsername(e.target.value)} />
 
                     <button type="submit" className="btn btn-primary my-2 my-sm-0">

@@ -40,7 +40,6 @@ import es.udc.hotelapp.backend.rest.dtos.RoomReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.ServiceDto;
-import es.udc.hotelapp.backend.rest.dtos.StatusConversor;
 import static es.udc.hotelapp.backend.rest.dtos.HotelConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.ServiceConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomConversor.*;
@@ -49,7 +48,6 @@ import static es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.GuestReservationConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomReservationConversor.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -206,11 +204,7 @@ public class HotelController {
 
 	@GetMapping("/hotels/{hotelid}/rooms")
 	public List<RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam(defaultValue= "") String status) {
-		List<Room> rooms = new ArrayList<>();
-		if (status.isEmpty()) 
-			rooms = roomService.findRooms(hotelid);
-		 else 
-			 rooms = roomService.findRooms(StatusConversor.toStatus(status), hotelid);
+		List<Room> rooms = roomService.findRooms(status, hotelid, "");
 		return toRoomDtos(rooms);
 	}
 
@@ -246,7 +240,7 @@ public class HotelController {
 	@GetMapping("/hotels/reservationUser")
 	public List<RoomTypeReservationDto> findReservationsByUsername(@RequestParam String username){
 		List<RoomTypeReservationDto> result = new ArrayList<>();
-		List<RoomTypeReservation> list = reservationService.findReservations(username);
+		List<RoomTypeReservation> list = reservationService.findReservations(null,"",username);
 		
 		for( RoomTypeReservation r : list) {
 			result.add(toRoomTypeReservationDto(r));
@@ -258,20 +252,8 @@ public class HotelController {
 	public List<RoomTypeReservationDto> findAllReservations(@PathVariable Long hotelid,
 			@RequestParam(defaultValue = "") String username, @RequestParam(defaultValue = "") String date) {
 		List<RoomTypeReservationDto> result = new ArrayList<>();
-		List<RoomTypeReservation> list = new ArrayList<>();
+		List<RoomTypeReservation> list = reservationService.findReservations(hotelid, date, username);
 		
-		if(date.isEmpty())
-			list = reservationService.findReservationsHotel(hotelid);
-		else 
-			list = reservationService.findReservationHotelDate(hotelid, LocalDate.parse(date));
-		
-		if (!username.isEmpty()) 
-			for ( RoomTypeReservation r : list) {
-				if(r.getUser().getFirstName().equalsIgnoreCase(username)) {
-					result.add(toRoomTypeReservationDto(r));
-				}
-			}
-		else
 		for (RoomTypeReservation r : list) {
 			result.add(toRoomTypeReservationDto(r));
 		}
@@ -359,16 +341,11 @@ public class HotelController {
 			 @RequestParam( defaultValue = "") String username){
 
 		List<GuestReservationDto> result = new ArrayList<>();
-		List<GuestReservation> list = reservationService.findAllGuestReservation(hotelid);
+		List<GuestReservation> list = reservationService.findAllGuestReservation(hotelid, username);
 
-		if(!username.isEmpty()){
 			for (GuestReservation gr : list ) {
-				if( gr.getGuest().getName().equalsIgnoreCase(username))
 					result.add( toGuestReservationDto(gr));
 			}
-		} else
-			for (GuestReservation gr : list )
-					result.add( toGuestReservationDto(gr));
 					
 		return result;
 	}
@@ -384,15 +361,9 @@ public class HotelController {
 	@GetMapping("/hotels/{hotelid}/roomassign")
 	public List<RoomDto> findAvailableRooms( @PathVariable Long hotelid, @RequestParam String type){
 		
-		List<Room> rooms = roomService.findRooms(StatusConversor.toStatus("LIBRE"), hotelid);
-		List<Room> result = new ArrayList<>();
+		List<Room> rooms = roomService.findRooms("LIBRE", hotelid, type);
 		
-		for( Room r : rooms) {
-			if(r.getType().getName().equalsIgnoreCase(type))
-				result.add(r);
-		}
-		
-		return toRoomDtos(result);
+		return toRoomDtos(rooms);
 	}
 }
 

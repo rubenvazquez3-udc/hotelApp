@@ -59,22 +59,17 @@ const HotelDetails = () => {
         )
     } else if (user.role === 'MANAGER' && hotel.address === user.address) {
         adminValues = (
-            <div className='card-footer'>
-            <div className="form-group row">
-                <ul id='admin'>
-                    <li id='managerbutton' >
-                        <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
-                            <FormattedMessage id="project.hotels.UpdateHotel.title" />
-                        </Link>
-                    </li>
-                    <li id='managerbutton'>
-                        <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/add-rooms`} >
-                            <FormattedMessage id="project.hotels.AddRoom.title" />
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-            </div>
+                        <div>
+                            <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
+                                <FormattedMessage id="project.hotels.UpdateHotel.title" />
+                            </Link>
+                            <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/add-rooms`} >
+                                <FormattedMessage id="project.hotels.AddRoom.title" />
+                            </Link>
+                        </div>
+                       
+                  
+            
         )
     } else if (user.role === 'USER') {
         adminValues =
@@ -94,7 +89,7 @@ const HotelDetails = () => {
 
                 <div className="card-body text-center">
 
-                    <h6 className="card-subtitle text-muted"><FormattedMessage id="project.global.fields.address" /> : {hotel.address}</h6>
+                    <h6 className="card-subtitle"><FormattedMessage id="project.global.fields.address" /> : {hotel.address}</h6>
                     <br/>
                     <p className="card-text">  <FormattedMessage id="project.global.fields.hotelManager" /> : {hotel.manager}</p>
 
@@ -103,7 +98,7 @@ const HotelDetails = () => {
                     <p className="card-text"> <span className="fas fa-phone-square"/>  {hotel.phoneNumber}</p>
                 </div>
 
-                <div className="card-footer">
+                <div className="card-footer text-center">
                     {adminValues}
                 </div>
                 

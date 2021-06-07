@@ -5,10 +5,7 @@
 .form-group > label > span {
     font-weight: bold;
 }
-ul#admin > li {
+
+.nav-link {
     display: inline;
-}
-ul#admin {
-    display: inline-flex;
-    margin-inline: auto;
 }

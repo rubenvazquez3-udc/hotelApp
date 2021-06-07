@@ -1,7 +1,6 @@
 package es.udc.hotelapp.backend.model.services;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -57,18 +56,6 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<RoomTypeReservation> findReservations(String username) {
-		List<RoomTypeReservation> result = new ArrayList<>();
-		Iterable<RoomTypeReservation> reservations = roomtypereservationDao.findAll();
-		for (RoomTypeReservation r : reservations) {
-			if (r.getUser().getFirstName().equalsIgnoreCase(username)) {
-				result.add(r);
-			}
-		}
-		return result;
-	}
-
-	@Override
 	public void updateReservation(RoomTypeReservation rt2) {
 		RoomTypeReservation actual = null;
 		Optional<RoomTypeReservation> roomtypereservationfound = roomtypereservationDao.findById(rt2.getId());
@@ -82,10 +69,7 @@ public class ReservationServiceImpl implements ReservationService {
 			actual.setInbound(rt2.getInbound());
 			actual.setOutbound(rt2.getOutbound());
 					
-		}
-			
-			roomtypereservationDao.save(actual);
-		
+		}	
 
 	}
 
@@ -95,7 +79,7 @@ public class ReservationServiceImpl implements ReservationService {
 		Optional<RoomTypeReservation> rtr = roomtypereservationDao.findById(id);
 		if (rtr.isPresent() && rfound.get().getType() == rtr.get().getRoomtype() && rfound.get().getHotel()== rtr.get().getHotel()) {
 					rfound.get().setStatus(Status.OCUPADA);
-					roomDao.save(rfound.get());
+					
 					roomreservationDao.save(rr1);
 				} else throw new IncorrectReservationException();
 	
@@ -117,6 +101,8 @@ public class ReservationServiceImpl implements ReservationService {
 		if(! roomtypereservationDao.existsById(gr1.getReservation().getId())) {
 			throw new IncorrectReservationException();
 		}
+		gr1.getGuest().setName(gr1.getGuest().getName().toUpperCase());
+		
 		if(guestDao.existsByDni(gr1.getGuest().getDni())) {
 			Optional<Guest> guest = guestDao.findByDni(gr1.getGuest().getDni());
 			if (guest.isPresent() && guest.get().equals(gr1.getGuest())) {
@@ -143,56 +129,18 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<RoomTypeReservation> findReservationsHotel(Long id) {
-		List<RoomTypeReservation> result = new ArrayList<>();
-		Iterable<RoomTypeReservation> reservations = roomtypereservationDao.findAll();
-		for (RoomTypeReservation r : reservations) {
-			if (r.getHotel().getId() == id) {
-					result.add(r);
-			}
-		}
-		return result;
-	}
-
-	@Override
-	public void updateGuest(GuestReservation gr1) throws InstanceNotFoundException {
-		Optional<GuestReservation> gr = guestReservationDao.findById(gr1.getId());
-		if (! gr.isPresent()) {
-			throw new InstanceNotFoundException("project.entities.guestreservation", gr1.getId());
-		}
-		GuestReservation actual = gr.get();
-		if(guestDao.existsByDni(gr1.getGuest().getDni())) {
-			actual.getGuest().setName(gr1.getGuest().getName());
-			actual.getGuest().setSurname(gr1.getGuest().getSurname());
-			actual.getGuest().setAddress(gr1.getGuest().getAddress());
-			guestDao.save(actual.getGuest());
-		}
-		guestReservationDao.save(actual);
+	public List<RoomTypeReservation> findReservations(Long id, String date, String username) {
 		
-	}
-
-
-	@Override
-	public List<RoomTypeReservation> findReservationHotelDate(Long id, LocalDate date) {
-		List<RoomTypeReservation> result = new ArrayList<>();
-		Iterable<RoomTypeReservation> reservations = roomtypereservationDao.findAll();
-		for (RoomTypeReservation r : reservations) {
-			if (r.getHotel().getId() == id && r.getInbound().equals(date)) {
-					result.add(r);
-			}
-		}
+		List<RoomTypeReservation> result = roomtypereservationDao.find(id, username, date);
 		return result;
 	}
 
-	@Override
-	public List<GuestReservation> findAllGuestReservation (Long hotelid){
-		Iterable<GuestReservation> list = guestReservationDao.findAll();
-		List<GuestReservation> result = new ArrayList<>();
 
-		for (GuestReservation gr : list ) {
-			if(gr.getReservation().getHotel().getId() == hotelid)
-				result.add(gr);
-		}
+	@Override
+	public List<GuestReservation> findAllGuestReservation (Long hotelid, String username){
+		
+		List<GuestReservation> result = guestReservationDao.find(hotelid, username);
+
 		return result;
 	}
 	

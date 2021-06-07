@@ -1,6 +1,5 @@
 package es.udc.hotelapp.backend.model.services;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import es.udc.hotelapp.backend.model.entities.GuestReservation;
@@ -13,11 +12,7 @@ public interface ReservationService {
 	
 	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException;
 	
-	public List<RoomTypeReservation> findReservations(String username);
-	
-	public List<RoomTypeReservation> findReservationsHotel(Long id);
-	
-	public List<RoomTypeReservation> findReservationHotelDate(Long id, LocalDate date);
+	public List<RoomTypeReservation> findReservations(Long id, String date, String username );
 	
 	public void updateReservation (RoomTypeReservation rt2);
 	
@@ -27,11 +22,9 @@ public interface ReservationService {
 	
 	public GuestReservation addGuest(GuestReservation gr1) throws IncorrectReservationException;
 	
-	public void updateGuest(GuestReservation gr1) throws InstanceNotFoundException;
-	
 	public GuestReservation findGuestReservationById(Long id) throws InstanceNotFoundException;
 
-	public List<GuestReservation> findAllGuestReservation (Long hotelid);
+	public List<GuestReservation> findAllGuestReservation (Long hotelid, String username);
 	
 	public void removeReservation (Long reservationid) throws InstanceNotFoundException;
 
