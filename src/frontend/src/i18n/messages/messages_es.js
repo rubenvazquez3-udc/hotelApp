@@ -1,6 +1,6 @@
 export default {
 
-    'project.app.Footer.text': 'Hotel App - Area de Ingeniería Telemática - Universidad de A Coruña',
+    'project.app.Footer.text': 'Hotel App',
     'project.app.Header.home': 'Inicio',
     'project.app.Header.logout': 'Salir',
     'project.app.Home.welcome': '¡Contenido de la página principal de PA Project!',
