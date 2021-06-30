@@ -1,8 +1,15 @@
 package es.udc.hotelapp.backend.model.entities;
 
-import java.util.List;
+
 
 import javax.persistence.Query;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
+
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,7 +21,7 @@ public class CustomizedRoomDaoImpl implements CustomizedRoomDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Room> find(Long hotelid, String status, String type) {
+	public Slice <Room> find(Long hotelid, String status, String type, int page, int size) {
 		
 		String queryString = "SELECT r FROM Room r";
 		
@@ -43,7 +50,9 @@ public class CustomizedRoomDaoImpl implements CustomizedRoomDao {
 			}else queryString += " AND ";
 			queryString += "r.type.name = :type";
 		}
-		Query query = entityManager.createQuery(queryString);
+		queryString += " ORDER BY r.number";
+		
+		Query query = entityManager.createQuery(queryString).setFirstResult(page*size).setMaxResults(size+1);
 		
 		if(hotelid != null) {
 			query.setParameter("hotelid", hotelid);
@@ -58,8 +67,13 @@ public class CustomizedRoomDaoImpl implements CustomizedRoomDao {
 		}
 		
 		List<Room> rooms = query.getResultList();
+		boolean hasNext = rooms.size() == (size +1);
 		
-		return rooms;
+		if(hasNext) {
+			rooms.remove(rooms.size()-1);
+		}
+		
+		return new SliceImpl<>(rooms, PageRequest.of(page, size),hasNext);
 	}
 
 }

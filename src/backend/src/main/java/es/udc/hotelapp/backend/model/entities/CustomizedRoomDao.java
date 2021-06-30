@@ -1,9 +1,9 @@
 package es.udc.hotelapp.backend.model.entities;
 
-import java.util.List;
+import org.springframework.data.domain.Slice;
 
 public interface CustomizedRoomDao {
 	
-	public List<Room> find ( Long hotelid, String status, String type);
+	public Slice<Room> find ( Long hotelid, String status, String type, int page, int size);
 
 }

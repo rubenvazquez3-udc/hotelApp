@@ -22,13 +22,13 @@ const FindRooms = () => {
     const hotelid = hotel1[0].id;
 
     useEffect(() => {
-        dispatch(actions.findRooms(hotelid, status.trim(),""));
+        dispatch(actions.findRooms({hotelid:hotelid, status:status.trim(),type:"", page:0}));
     }, [hotelid,status, dispatch]);
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        dispatch(actions.findRooms(hotelid, status.trim(),""));
+        dispatch(actions.findRooms({hotelid:hotelid, status:status.trim(),type:"", page:0}));
         history.push('/rooms/find-rooms-result');
     }
 

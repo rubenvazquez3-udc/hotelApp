@@ -39,7 +39,7 @@ const UpdateRoom = () => {
                     type: typeName[0],
                     hotel: room.hotel
                 },
-                () => history.push('/rooms/find-rooms-result'),
+                () => history.push('/rooms'),
                 errors => setBackendErrors(errors)
             ));
 

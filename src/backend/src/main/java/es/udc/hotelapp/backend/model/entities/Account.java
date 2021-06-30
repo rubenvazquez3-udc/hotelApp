@@ -3,6 +3,7 @@ package es.udc.hotelapp.backend.model.entities;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -79,4 +80,14 @@ public class Account {
 		return items.stream().map(i -> i.getTotalPrice()).reduce(new BigDecimal(0), (a,b) -> a.add(b));
 	}
 	
+	
+	public void addItem(AccountItem item) {
+		items.add(item);
+		item.setAccount(this);
+	}
+	
+	@Transient
+	public Optional<AccountItem> getItem (String name){
+		return items.stream().filter(item -> item.getName().equals(name)).findFirst();
+	}
 }

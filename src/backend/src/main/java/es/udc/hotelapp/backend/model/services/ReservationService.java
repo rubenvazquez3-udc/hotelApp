@@ -2,6 +2,7 @@ package es.udc.hotelapp.backend.model.services;
 
 import java.util.List;
 
+import es.udc.hotelapp.backend.model.entities.Account;
 import es.udc.hotelapp.backend.model.entities.GuestReservation;
 import es.udc.hotelapp.backend.model.entities.RoomReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
@@ -27,5 +28,9 @@ public interface ReservationService {
 	public List<GuestReservation> findAllGuestReservation (Long hotelid, String username);
 	
 	public void removeReservation (Long reservationid) throws InstanceNotFoundException;
+	
+	public Account createAccount( Account acc) throws IncorrectReservationException;
+	
+	public Account findAccount (Long hotelid, Long userid, String date);
 
 }

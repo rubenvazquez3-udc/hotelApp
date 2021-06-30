@@ -19,6 +19,9 @@ public class StatusConversor {
 		case "SIN_LIMPIAR":
 			status = Status.SIN_LIMPIAR;
 			break;
+		case "NO_UTILIZABLE":
+			status = Status.NO_UTILIZABLE;
+			break;
 		default:
 			status = null;
 			break;
@@ -38,6 +41,9 @@ public class StatusConversor {
 			break;
 		case SIN_LIMPIAR:
 			statusDto = "SIN_LIMPIAR";
+			break;
+		case NO_UTILIZABLE:
+			statusDto = "NO_UTILIZABLE";
 			break;
 		default:
 			statusDto = "";

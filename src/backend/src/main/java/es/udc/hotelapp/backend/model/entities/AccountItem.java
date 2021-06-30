@@ -16,6 +16,7 @@ import javax.persistence.Transient;
 public class AccountItem {
 	
 	private Long id;
+	private String name;
 	private Account account;
 	private int quantity;
 	private BigDecimal itemPrice;
@@ -23,10 +24,11 @@ public class AccountItem {
 	
 	public AccountItem() {	}
 
-	public AccountItem( Account account, int quantity, BigDecimal itemPrice) {
+	public AccountItem( Account account, int quantity, BigDecimal itemPrice, String name) {
 		this.account = account;
 		this.quantity = quantity;
 		this.itemPrice = itemPrice;
+		this.name = name;
 	}
 	
 	
@@ -60,12 +62,18 @@ public class AccountItem {
 	public void setItemPrice(BigDecimal itemPrice) {
 		this.itemPrice = itemPrice;
 	}
-	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	@Transient
 	public BigDecimal getTotalPrice() {
 		return this.getItemPrice().multiply(new BigDecimal(this.getQuantity()));
 	}
-	
 
 }

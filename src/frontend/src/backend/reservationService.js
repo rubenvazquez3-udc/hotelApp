@@ -44,5 +44,5 @@ export const findGuests = (hotelid, username, onSuccess, onErrors) =>{
 }
 
 export const findAvailableRooms = (hotelid, type, onSuccess, onErrors) =>
-    appFetch(`/hotels/${hotelid}/roomassign?type=${type}`, config('GET'),onSuccess, onErrors);
+    appFetch(`/hotels/${hotelid}/rooms/?type=${type}`, config('GET'),onSuccess, onErrors);
 

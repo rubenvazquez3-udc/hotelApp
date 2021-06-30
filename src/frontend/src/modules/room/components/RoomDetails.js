@@ -37,7 +37,7 @@ const RoomDetails = () => {
         event.preventDefault();
 
         dispatch(actions.removeRoom(room, room.id));
-        history.push('/rooms/find-rooms-result');
+        history.push('/rooms');
     }
 
     if (!room) {
@@ -63,7 +63,6 @@ const RoomDetails = () => {
 
     return (
         <div>
-           
 
             <div className="card">
                 <div className="card-header">

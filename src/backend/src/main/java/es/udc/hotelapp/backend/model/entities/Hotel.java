@@ -1,9 +1,13 @@
 package es.udc.hotelapp.backend.model.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Hotel {
@@ -13,6 +17,8 @@ public class Hotel {
 	private String address;
 	private String phonenumber;
 	private String description;
+	
+	private Set<RoomTypePrice> prices = new HashSet<>();
 	
 	public Hotel() {}
 
@@ -71,6 +77,15 @@ public class Hotel {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	@OneToMany(mappedBy="hotel")
+	public Set<RoomTypePrice> getPrices() {
+		return prices;
+	}
+
+	public void setPrices(Set<RoomTypePrice> prices) {
+		this.prices = prices;
 	}
 
 	

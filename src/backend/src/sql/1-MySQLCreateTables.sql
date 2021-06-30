@@ -7,8 +7,8 @@ DROP TABLE RoomReservation;
 DROP TABLE GuestReservation;
 DROP TABLE Room;
 DROP TABLE RoomTypeReservation;
+DROP TABLE RoomTypePrice;
 DROP TABLE RoomType;
---DROP TABLE Reservation;
 DROP TABLE Service;
 DROP TABLE User;
 DROP TABLE Product;
@@ -60,7 +60,10 @@ CREATE TABLE Product (
     name VARCHAR(30) NOT NULL,
     description VARCHAR(75) NOT NULL,
     price DECIMAL(11,2) NOT NULL,
-    CONSTRAINT ProductPK PRIMARY KEY (id)
+    hotelid BIGINT NOT NULL,
+    CONSTRAINT ProductPK PRIMARY KEY (id),
+    CONSTRAINT ProductHotelFK FOREIGN KEY (hotelid)
+    	REFERENCES Hotel(id)
 ) ENGINE = InnoDB;
 
 CREATE INDEX ProductIndexByName ON Product (name);
@@ -86,6 +89,18 @@ CREATE TABLE RoomType (
     name VARCHAR(10) NOT NULL,
     CONSTRAINT RoomTypePK PRIMARY KEY (id),
     CONSTRAINT RoomTypeNameUnique UNIQUE (name)
+) ENGINE = InnoDB;
+
+CREATE TABLE RoomTypePrice(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    hotelid BIGINT NOT NULL,
+    typeid BIGINT NOT NULL,
+    price DECIMAL(11,2) NOT NULL,
+    CONSTRAINT RoomTypePricePK PRIMARY KEY (id),
+    CONSTRAINT HotelPriceFK FOREIGN KEY (hotelid)
+    	REFERENCES Hotel (id),
+    CONSTRAINT TypePriceFK FOREIGN KEY (typeid)
+    	REFERENCES RoomType (id)
 ) ENGINE = InnoDB;
 
 CREATE TABLE RoomTypeReservation (
@@ -168,13 +183,12 @@ CREATE TABLE Account (
 
 CREATE TABLE AccountItem (
     id BIGINT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(25) NOT NULL,
     accountId BIGINT NOT NULL,
     quantity SMALLINT NOT NULL,
     itemPrice DECIMAL(11,2),
-    productId BIGINT NOT NULL,
     CONSTRAINT AccountITemPK PRIMARY KEY (id),
     CONSTRAINT AccountItemAccountFK FOREIGN KEY (accountId)
-        REFERENCES Account (id),
-    CONSTRAINT AccountItemProductFK FOREIGN KEY (productId)
-        REFERENCES Product (id)
+        REFERENCES Account (id)
+    
 ) ENGINE = InnoDB;

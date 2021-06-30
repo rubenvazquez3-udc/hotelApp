@@ -2,6 +2,7 @@ package es.udc.hotelapp.backend.test.model.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,9 +14,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.hotelapp.backend.model.entities.Hotel;
+import es.udc.hotelapp.backend.model.entities.Product;
+import es.udc.hotelapp.backend.model.entities.RoomType;
+import es.udc.hotelapp.backend.model.entities.RoomTypeDao;
+import es.udc.hotelapp.backend.model.entities.RoomTypePrice;
 import es.udc.hotelapp.backend.model.entities.Service;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
+import es.udc.hotelapp.backend.model.exceptions.ProductAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.ServiceAlreadyExistsException;
 import es.udc.hotelapp.backend.model.services.Block;
 import es.udc.hotelapp.backend.model.services.HotelService;
@@ -27,6 +33,9 @@ public class HotelServiceTest {
 
 	@Autowired
 	HotelService hotelService;
+	
+	@Autowired
+	RoomTypeDao typedao;
 	
 	private Hotel createHotel() {
 		return new Hotel("As Arias", "Pedro Gonzalez", " C/ Lonzas, 20", "981723452", "LOrem prego");
@@ -100,19 +109,39 @@ public class HotelServiceTest {
 		Service s1 = new Service("Parking", "Aparcacoches", 23.5, null);
 		Hotel h1 = createHotel();
 		
-		s1.setHotel(h1);
-		
 		hotelService.createHotel(h1);
 		
-		hotelService.addService(s1, h1.getId());
+		Hotel h2 = createHotel();
+		
+		h2.setName("Marcadores");
+		
+		s1.setHotel(h1);
+		
+		hotelService.addService(s1);
 		
 		Service s2 = hotelService.findService(s1.getId());
 		
 		assertEquals(s1,s2);
 		
-		assertThrows(ServiceAlreadyExistsException.class, () -> hotelService.addService(s1, h1.getId()));
+		assertThrows(ServiceAlreadyExistsException.class, () -> hotelService.addService(s1));
 		
-		assertThrows(InstanceNotFoundException.class, () -> hotelService.addService(s1, (long) 5));
+		h2.setId((long) 3);
+		
+		Service s3 = new Service("Parking", "Aparcacoches", 23.5, h2);
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.addService(s3));
+		
+		Hotel h3 = createHotel();
+		
+		h3.setName("Manager");
+		
+		hotelService.createHotel(h3);
+		
+		Service s4 = new Service("Parking", "Aparcacoches", 23.5, h3);
+		hotelService.addService(s4);
+		Service s5 = hotelService.findService(s4.getId());
+		
+		assertEquals(s4,s5);
 		
 		
 	}
@@ -125,7 +154,7 @@ public class HotelServiceTest {
 		s1.setHotel(h1);
 		
 		hotelService.createHotel(h1);
-		hotelService.addService(s1, h1.getId());
+		hotelService.addService(s1);
 		
 		hotelService.removeService(s1.getId());
 		
@@ -140,9 +169,9 @@ public class HotelServiceTest {
 		Hotel h1 = createHotel();
 		hotelService.createHotel(h1);
 		Service s1 = new Service("Parking", "Aparcacoches", 23.5, h1);
-		hotelService.addService(s1, h1.getId());
+		hotelService.addService(s1);
 		Service s2 = new Service("Catering", "Comidas", 23.5, h1);
-		hotelService.addService(s2, h1.getId());
+		hotelService.addService(s2);
 		
 		Block<Service> slice1 = new Block<>(Arrays.asList(s1,s2), false);
 		
@@ -155,11 +184,11 @@ public class HotelServiceTest {
 		
 		Hotel h1 = createHotel();
 		
-		Service s1 = new Service("Parking", "Aparcacoches", 23.5, h1);
-		
 		hotelService.createHotel(h1);
 		
-		hotelService.addService(s1, h1.getId());
+		Service s1 = new Service("Parking", "Aparcacoches", 23.5, h1);
+		
+		hotelService.addService(s1);
 		
 		s1.setName("Marking");
 		
@@ -181,5 +210,150 @@ public class HotelServiceTest {
 		hotelService.createHotel(h1);
 		list.add(h1);
 		assertEquals(list, hotelService.findHotels());
+	}
+	
+	@Test
+	public void testAddRoomTypePrice() throws HotelAlreadyExistsException{
+		
+		Hotel h1 = createHotel();
+		
+		RoomType type = new RoomType("DOBLE");
+		
+		typedao.save(type);
+		
+		hotelService.createHotel(h1);
+		
+		RoomTypePrice price = new RoomTypePrice(h1,type, new BigDecimal(55.0));
+		
+		hotelService.addPrice(price);
+		
+		assertEquals(price, hotelService.findPriceById(price.getId()));
+		
+	}
+	
+	@Test
+	public void testUpdateRoomTypePrice() throws HotelAlreadyExistsException, InstanceNotFoundException {
+		
+		Hotel h1 = createHotel();
+		
+		RoomType type = new RoomType("DOBLE");
+		
+		typedao.save(type);
+		
+		hotelService.createHotel(h1);
+		
+		RoomTypePrice price = new RoomTypePrice(h1,type, new BigDecimal(50.0));
+		
+		hotelService.addPrice(price);
+		
+		price.setPrice(new BigDecimal(56.0));
+		
+		hotelService.updateRoomTypePrice(price);
+		
+		assertEquals(price, hotelService.findPriceById(price.getId()));
+		
+		price.setId((long) 5);
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.updateRoomTypePrice(price));
+		
+	}
+	
+	@Test
+	public void testAddProductFindById() throws HotelAlreadyExistsException, InstanceNotFoundException, ProductAlreadyExistsException {
+		
+		Hotel h1 = createHotel();
+		
+		hotelService.createHotel(h1);
+		
+		Product p1 = new Product("Manzana", "Manzana Golden calidad oro", 2.5, h1);
+		
+		Hotel h2 = createHotel();
+		
+		h2.setName("Marcadores");
+		
+		hotelService.addProduct(p1);
+		
+		Product s2 = hotelService.findProduct(p1.getId());
+		
+		assertEquals(p1,s2);
+		
+		assertThrows(ProductAlreadyExistsException.class, () -> hotelService.addProduct(p1));
+		
+		h2.setId((long) 3);
+		
+		Product p2 = new Product("Manzana", "Manzana Golden calidad oro", 2.5, h2);
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.addProduct(p2));
+		
+		Hotel h3 = createHotel();
+		
+		h3.setName("Manager");
+		
+		hotelService.createHotel(h3);
+		
+		Product s4 = new Product("Manzana", "Manzana Golden calidad oro", 2.5, h3);
+		hotelService.addProduct(s4);
+		Product s5 = hotelService.findProduct(s4.getId());
+		
+		assertEquals(s4,s5);
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.findProduct((long) 16));
+		
+		
+	}
+	
+	@Test
+	public void testRemoveProduct() throws HotelAlreadyExistsException, InstanceNotFoundException, ProductAlreadyExistsException{
+		Hotel h1 = createHotel();
+		hotelService.createHotel(h1);
+		
+		Product p1 = new Product("Manzana", "Manzana Golden calidad oro", 2.5, h1);
+		
+		hotelService.addProduct(p1);
+		
+		hotelService.removeProduct(p1.getId());
+		
+		assertThrows( InstanceNotFoundException.class, () -> hotelService.findProduct(p1.getId()));
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.removeProduct(p1.getId()));
+	}
+	
+	@Test
+	public void testFindProductsByHotelId() throws HotelAlreadyExistsException, InstanceNotFoundException, ProductAlreadyExistsException{
+		
+		Hotel h1 = createHotel();
+		hotelService.createHotel(h1);
+		Product s1 = new Product("Manzana", "Manzana Golden calidad oro", 2.5, h1);
+		hotelService.addProduct(s1);
+		Product s2 = new Product("Peras", "Pera Conferencia calidad oro", 1.5, h1);
+		hotelService.addProduct(s2);
+		
+		Block<Product> slice1 = new Block<>(Arrays.asList(s1,s2), false);
+		
+		assertEquals(slice1, hotelService.findProducts(h1.getId()));
+		
+	}
+	
+	@Test
+	public void testUpdateProduct() throws HotelAlreadyExistsException, InstanceNotFoundException, ProductAlreadyExistsException{
+		
+		Hotel h1 = createHotel();
+		
+		hotelService.createHotel(h1);
+		
+		Product s1 = new Product("Manzana", "Manzana Golden calidad oro", 2.5, h1);
+		
+		hotelService.addProduct(s1);
+		
+		s1.setName("Manpera");
+		
+		Product s2 = hotelService.updateProduct(s1);
+		
+		assertEquals(s1,s2);
+		
+		s2.setId((long) 4);
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.updateProduct(s2));
+		
 	}
 }

@@ -16,7 +16,7 @@ public class CustomizedRoomTypeReservationDaoImpl
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RoomTypeReservation> find(Long hotelid, String username, String date) {
-String queryString = "SELECT rt FROM RoomTypeReservation rt";
+		String queryString = "SELECT rt FROM RoomTypeReservation rt";
 		
 		if(hotelid != null || !username.isEmpty() || !date.isEmpty()) {
 			queryString +=  " WHERE ";

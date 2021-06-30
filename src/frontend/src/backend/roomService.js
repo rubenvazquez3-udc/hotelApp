@@ -6,12 +6,12 @@ export const addRoom = (room, onSuccess, onErrors) =>
 export const findRoom = (hotelid, roomid, onSuccess, onErrors) =>
     appFetch(`/hotels/${hotelid}/rooms/${roomid}`, config('GET'), onSuccess, onErrors);
 
-export const findRooms = (hotelid, status, type, onSuccess, onErrors) => {
-    let path = `/hotels/${hotelid}/rooms/`;
+export const findRooms = ({hotelid, status, type,page}, onSuccess, onErrors) => {
+    let path = `/hotels/${hotelid}/rooms/?page=${page}`;
 
-    path+= status ? `?status=${status}` : "";
+    path+= status ? `&status=${status}` : "";
 
-    path+= type ? `?type=${type}` : "";
+    path+= type ? `&type=${type}` : "";
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }

@@ -22,7 +22,7 @@ const HotelDetails = () => {
     const handleSubmit = event => {
         event.preventDefault();
 
-        dispatch(actions.removeHotel(hotel,hotel.id));
+        dispatch(actions.removeHotel(hotel,hotel.id,() => console.log(hotel.address), error => console.log(error)));
         history.push('/')
     }
 
@@ -67,8 +67,6 @@ const HotelDetails = () => {
                                 <FormattedMessage id="project.hotels.AddRoom.title" />
                             </Link>
                         </div>
-                       
-                  
             
         )
     } else if (user.role === 'USER') {
@@ -76,6 +74,15 @@ const HotelDetails = () => {
             <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/reservations`} >
                 <FormattedMessage id="project.hotels.AddReservation.title" />
             </Link>
+    } else if (user.role === 'HOTEL' && hotel.address === user.address) {
+        adminValues = (
+            <div>
+                <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
+                    <FormattedMessage id="project.hotels.UpdateHotel.title" />
+                </Link>
+            </div>
+        )
+        
     }
 
     return (

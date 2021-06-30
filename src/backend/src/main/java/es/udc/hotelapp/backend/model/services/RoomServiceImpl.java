@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,11 +70,11 @@ public class RoomServiceImpl implements RoomService {
 	}
 
 	@Override
-	public List<Room> findRooms(String status, Long hotelid, String type) {
+	public Block<Room> findRooms(String status, Long hotelid, String type, int page, int size) {
 		
-		List<Room> result = roomDao.find(hotelid, status, type);
+		Slice<Room> result = roomDao.find(hotelid, status, type, page, size);
 		
-		return result;
+		return new Block<>(result.getContent(),result.hasNext());
 
 	}
 

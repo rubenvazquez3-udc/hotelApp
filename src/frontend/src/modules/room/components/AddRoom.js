@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom';
 
 import { Errors } from '../../common';
 import * as actions from '../actions';
+import * as selectors from '../selectors';
+import RoomTypeSelector from './RoomTypeSelector';
 import hotels from '../../hotel';
 
 const AddRoom = () => {
@@ -15,6 +17,7 @@ const AddRoom = () => {
     const [status, setRoomStatus] = useState('');
     const [type, setRoomType] = useState('');
     const hotel = useSelector(hotels.selectors.getHotel);
+    const roomtypes = useSelector(selectors.getRoomTypes);
 
     const [backendErrors, setBackendErrors] = useState(null);
 
@@ -24,6 +27,8 @@ const AddRoom = () => {
 
         event.preventDefault();
 
+        const roomtype = roomtypes.filter(t => t.id === parseInt(type));
+
         if (form.checkValidity()) {
 
             dispatch(actions.addRoom(
@@ -31,7 +36,7 @@ const AddRoom = () => {
                     number: number,
                     status: status.trim(),
                     type: {
-                        name: type.trim()
+                        name: roomtype[0].name.trim()
                     },
                     hotel: hotel
                 },
@@ -95,10 +100,8 @@ const AddRoom = () => {
                                 <FormattedMessage id="project.global.fields.type" />
                             </label>
                             <div className="col-md-4">
-                                <input type="text" id="type" className="form-control"
-                                    value={type}
-                                    onChange={e => setRoomType(e.target.value)}
-                                    required />
+                                <RoomTypeSelector id='type' className='custom-select my-1 mr-sm-2' 
+                                    value={type} onChange={e => setRoomType(e.target.value)} />
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required' />
                                 </div>

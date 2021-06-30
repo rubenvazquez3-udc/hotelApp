@@ -2,8 +2,10 @@ package es.udc.hotelapp.backend.test.model.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
+
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import es.udc.hotelapp.backend.model.entities.Status;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.exceptions.RoomAlreadyExistsException;
+import es.udc.hotelapp.backend.model.services.Block;
 import es.udc.hotelapp.backend.model.services.HotelService;
 
 
@@ -118,14 +121,13 @@ public class RoomServiceTest {
 		roomService.addRoom(r2);
 		Room r3 = new Room(201,type,h2);
 		roomService.addRoom(r3);
-		List<Room> result = new ArrayList<>();
-		result.add(r1); result.add(r2);
+		Block<Room> result = new Block<>(Arrays.asList(r1,r2),false);
 		
-		List<Room> result1 = new ArrayList<>();
+		Block<Room> result1 = new Block<>(new ArrayList<>(),false);
 		
-		assertEquals(result, roomService.findRooms("LIBRE", h1.getId(), ""));
+		assertEquals(result, roomService.findRooms("LIBRE", h1.getId(), "",0,2));
 		
-		assertEquals(result1, roomService.findRooms("OCUPADA", h1.getId(),"DOBLE"));
+		assertEquals(result1, roomService.findRooms("OCUPADA", h1.getId(),"DOBLE",0,1));
 			
 	}
 	
@@ -146,10 +148,10 @@ public class RoomServiceTest {
 		roomService.addRoom(r2);
 		Room r3 = new Room(201,type,h2);
 		roomService.addRoom(r3);
-		List<Room> result = new ArrayList<>();
-		result.add(r1); result.add(r2);
+		Block<Room> result = new Block<>(Arrays.asList(r1,r2),false);
 		
-		assertEquals(result, roomService.findRooms("",h1.getId(),""));
+		
+		assertEquals(result, roomService.findRooms("",h1.getId(),"",0,2));
 	}
 	
 	@Test

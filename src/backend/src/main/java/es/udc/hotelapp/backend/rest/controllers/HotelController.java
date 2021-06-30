@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 import es.udc.hotelapp.backend.model.entities.GuestReservation;
 import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.Room;
+import es.udc.hotelapp.backend.model.entities.RoomTypePrice;
 import es.udc.hotelapp.backend.model.entities.Service;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.exceptions.RoomAlreadyExistsException;
 import es.udc.hotelapp.backend.model.exceptions.ServiceAlreadyExistsException;
+import es.udc.hotelapp.backend.model.services.Block;
 import es.udc.hotelapp.backend.model.services.HotelService;
 import es.udc.hotelapp.backend.model.services.ReservationService;
 import es.udc.hotelapp.backend.model.services.RoomService;
@@ -34,12 +36,14 @@ import es.udc.hotelapp.backend.rest.dtos.GuestReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.HotelDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeDto;
+import es.udc.hotelapp.backend.rest.dtos.RoomTypePriceDto;
 import es.udc.hotelapp.backend.rest.dtos.ServiceDto;
 import static es.udc.hotelapp.backend.rest.dtos.HotelConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.ServiceConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomTypeConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.GuestReservationConversor.*;
+import static es.udc.hotelapp.backend.rest.dtos.RoomTypePriceConversor.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -150,14 +154,14 @@ public class HotelController {
 			throws InstanceNotFoundException, ServiceAlreadyExistsException {
 		Service s = toService(serviceDto);
 		s.getHotel().setId(hotelid);
-		Long id = hotelService.addService(s, hotelid);
+		Long id = hotelService.addService(s);
 		s.setId(id);
 
 		return toServiceDto(s);
 	}
 
 	@PutMapping("/hotels/{hotelid}/services/{id}")
-	public ResponseEntity updateService(@PathVariable Long hotelid, @RequestBody ServiceDto serviceDto)
+	public ResponseEntity<?> updateService(@PathVariable Long hotelid, @RequestBody ServiceDto serviceDto)
 			throws InstanceNotFoundException {
 		Service service = toService(serviceDto);
 		Long id = serviceDto.getId();
@@ -184,9 +188,10 @@ public class HotelController {
 	}
 
 	@GetMapping("/hotels/{hotelid}/rooms")
-	public List<RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam(defaultValue= "") String status, @RequestParam(defaultValue = "") String type) {
-		List<Room> rooms = roomService.findRooms(status, hotelid, type);
-		return toRoomDtos(rooms);
+	public BlockDto <RoomDto> findRooms(@PathVariable Long hotelid, @RequestParam(defaultValue= "") String status, @RequestParam(defaultValue = "") String type,
+			@RequestParam(defaultValue = "0") int page) {
+		Block<Room> rooms = roomService.findRooms(status, hotelid, type, page, 10);
+		return new BlockDto<>(toRoomDtos(rooms.getItems()),rooms.getExistMoreItems());
 	}
 
 	@PutMapping("/hotels/{hotelid}/rooms/{roomid}")
@@ -202,21 +207,21 @@ public class HotelController {
 	}
 
 	@DeleteMapping("/hotels/{hotelid}")
-	public ResponseEntity removeHotel(@PathVariable Long hotelid) throws InstanceNotFoundException {
+	public ResponseEntity<?> removeHotel(@PathVariable Long hotelid) throws InstanceNotFoundException {
 		
 		hotelService.removeHotel(hotelid);
 		
 		return ResponseEntity.noContent().build();
 	}
 	@DeleteMapping("/hotels/{hotelid}/rooms/{id}")
-	public ResponseEntity removeRoom(@PathVariable Long hotelid, @PathVariable Long id) throws InstanceNotFoundException {
+	public ResponseEntity<?> removeRoom(@PathVariable Long hotelid, @PathVariable Long id) throws InstanceNotFoundException {
 		Room r1 = roomService.findRoom(id);
 		roomService.removeRoom(r1);
 		return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping("/hotels/{hotelid}/services/{id}")
-	public ResponseEntity removeService(@PathVariable Long hotelid, @PathVariable Long id) throws InstanceNotFoundException {
+	public ResponseEntity<?> removeService(@PathVariable Long hotelid, @PathVariable Long id) throws InstanceNotFoundException {
 		
 		hotelService.removeService(id);
 		
@@ -235,6 +240,18 @@ public class HotelController {
 			}
 					
 		return result;
+	}
+	
+	@PostMapping("/hotels/{hotelid}/addPrice")
+	public RoomTypePriceDto addRoomTypePrice ( @PathVariable Long hotelid, @RequestBody RoomTypePriceDto priceDto) {
+		
+		RoomTypePrice price = toRoomTypePrice(priceDto);
+		price.getHotel().setId(hotelid);
+		price.getType().setId(priceDto.getType().getId());
+		
+		hotelService.addPrice(price);
+		
+		return toRoomTypePriceDto(price);
 	}
 	
 }

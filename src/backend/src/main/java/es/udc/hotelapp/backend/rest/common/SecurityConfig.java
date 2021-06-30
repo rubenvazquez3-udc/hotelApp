@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET,"/hotels/*").permitAll()
 			.antMatchers(HttpMethod.PUT,"/hotels/*").permitAll()
 			.antMatchers(HttpMethod.DELETE,"/hotels/*").hasRole("ADMIN")
-			.antMatchers(HttpMethod.GET,"/hotels/*/rooms/*").hasAnyRole("MANAGER","HOTEL")
+			//.antMatchers(HttpMethod.GET,"/hotels/*/rooms/*").hasAnyRole("MANAGER","HOTEL")
+			.antMatchers(HttpMethod.GET,"/hotels/*/rooms/*").permitAll()
 			.antMatchers(HttpMethod.POST,"/hotels/*/rooms").hasRole("MANAGER")
 			.antMatchers(HttpMethod.PUT,"/hotels/*/rooms/*").permitAll()
 			.antMatchers(HttpMethod.DELETE,"/hotels/*/rooms/*").permitAll()
@@ -53,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.POST,"/reservations/*/guests").hasAnyRole("MANAGER","HOTEL")
 			.antMatchers(HttpMethod.GET,"/hotels/*/guests").hasAnyRole("MANAGER","HOTEL")
 			.antMatchers(HttpMethod.DELETE,"/reservations/*").permitAll()
-			.antMatchers(HttpMethod.GET, "/hotels/*/roomassign").hasAnyRole("HOTEL","MANAGER")
+			//.antMatchers(HttpMethod.GET, "/hotels/*/roomassign").hasAnyRole("HOTEL","MANAGER")
 			.anyRequest().denyAll();
 
 			

@@ -17,16 +17,28 @@ export const addRoom = (room, onSuccess, onErrors) => dispatch =>
         onErrors
     );
 
+export const previousFindRoomsResultPage = criteria =>
+        findRooms({...criteria, page: criteria.page-1});
+
+export const nextFindRoomsResultPage = criteria => 
+        findRooms({...criteria, page: criteria.page+1});
+
+const clearRooms = () => ({
+    type: actionTypes.CLEAR_ROOMS_COMPLETED
+});
 
 const findRoomsCompleted = rooms => ({
     type: actionTypes.FIND_ROOMS_COMPLETED,
     rooms
 });
 
-export const findRooms = (hotelid, status, type) => dispatch =>
-    backend.roomService.findRooms(hotelid, status,type, rooms => {
-        dispatch(findRoomsCompleted(rooms));
-    });
+export const findRooms = criteria => dispatch =>{
+
+    dispatch(clearRooms());
+    backend.roomService.findRooms(criteria, rooms => 
+        dispatch(findRoomsCompleted({criteria,rooms})));
+}
+    
 
 const findRoomByIdCompleted = room => ({
     type: actionTypes.FIND_ROOM_BY_ID_COMPLETED,

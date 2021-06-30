@@ -1,5 +1,8 @@
 package es.udc.hotelapp.backend.rest.dtos;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import es.udc.hotelapp.backend.model.entities.Hotel;
 
 public class HotelConversor {
@@ -11,6 +14,9 @@ public class HotelConversor {
 	}
 
 	public final static HotelDto toHotelDto(Hotel hotel) {
-		return new HotelDto(hotel.getId(),hotel.getName(),hotel.getManager(), hotel.getAddress(), hotel.getPhonenumber(), hotel.getDescription());
+		List<RoomTypePriceDto> items = 
+				hotel.getPrices().stream().map(i -> RoomTypePriceConversor.toRoomTypePriceDto(i)).collect(Collectors.toList());
+		
+		return new HotelDto(hotel.getId(),hotel.getName(),hotel.getManager(), hotel.getAddress(), hotel.getPhonenumber(), hotel.getDescription(),items);
 	}
 }

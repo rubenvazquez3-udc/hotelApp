@@ -28,17 +28,20 @@ const room = (state = initialState.room, action) => {
 const rooms = (state = initialState.rooms, action) => {
     switch (action.type) {
         case actionTypes.ADD_ROOM_COMPLETED:
-            return [...state, action.authenticatedRoom];
+            return {criteria: {...state.criteria}, rooms: [...state.rooms.items, action.authenticatedRoom]};
         case actionTypes.FIND_ROOMS_COMPLETED:
             return action.rooms;
         case actionTypes.UPDATE_ROOM_COMPLETED:
-            let estado = [...state];
+            console.log(action.room);
+            let estado = [...state.rooms.items];
             estado.splice(estado.findIndex(room => room.id === action.room.id), 1, action.room);
-            return estado;
+            return {criteria: {...state.criteria}, rooms: estado};
         case actionTypes.REMOVE_ROOM_COMPLETED:
-            let list = [...state];
+            let list = [...state.rooms.items];
             let result = list.filter(room => room.id !== action.room);
-            return result;
+            return {criteria: {...state.criteria}, rooms: result};
+        case actionTypes.CLEAR_ROOMS_COMPLETED:
+            return initialState.rooms;
             
         default:
             return state;
