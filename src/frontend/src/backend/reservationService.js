@@ -34,11 +34,11 @@ export const removeReservation = (reservation, onSuccess, onErrors) =>
     
 
 
-export const findGuests = (hotelid, username, onSuccess, onErrors) =>{
+export const findGuests = ({hotelid, username, page}, onSuccess, onErrors) =>{
 
-    let path = `/hotels/${hotelid}/guests`;
+    let path = `/hotels/${hotelid}/guests/?page=${page}`;
 
-    path += username ? `?username=${username}` : "";
+    path += username ? `&username=${username}` : "";
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }

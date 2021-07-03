@@ -1,10 +1,12 @@
 package es.udc.hotelapp.backend.model.services;
 
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +19,8 @@ import es.udc.hotelapp.backend.model.entities.GuestDao;
 import es.udc.hotelapp.backend.model.entities.GuestReservation;
 import es.udc.hotelapp.backend.model.entities.GuestReservationDao;
 import es.udc.hotelapp.backend.model.entities.HotelDao;
+import es.udc.hotelapp.backend.model.entities.Product;
+import es.udc.hotelapp.backend.model.entities.ProductDao;
 import es.udc.hotelapp.backend.model.entities.Room;
 import es.udc.hotelapp.backend.model.entities.RoomDao;
 import es.udc.hotelapp.backend.model.entities.RoomReservation;
@@ -26,6 +30,7 @@ import es.udc.hotelapp.backend.model.entities.RoomTypePrice;
 import es.udc.hotelapp.backend.model.entities.RoomTypePriceDao;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservationDao;
+import es.udc.hotelapp.backend.model.entities.ServiceDao;
 import es.udc.hotelapp.backend.model.entities.Status;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
@@ -54,6 +59,10 @@ public class ReservationServiceImpl implements ReservationService {
 	AccountItemDao itemDao;
 	@Autowired
 	RoomTypePriceDao priceDao;
+	@Autowired
+	ProductDao pDao;
+	@Autowired
+	ServiceDao sDao;
 
 	@Override
 	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException {
@@ -149,11 +158,11 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public List<GuestReservation> findAllGuestReservation(Long hotelid, String username) {
+	public Block<GuestReservation> findAllGuestReservation(Long hotelid, String username, int page, int size) {
 
-		List<GuestReservation> result = guestReservationDao.find(hotelid, username);
+		Slice<GuestReservation> result = guestReservationDao.find(hotelid, username, page,size);
 
-		return result;
+		return new Block<>(result.getContent(),result.hasNext());
 	}
 
 	@Override
@@ -183,7 +192,7 @@ public class ReservationServiceImpl implements ReservationService {
 			AccountItem item = new AccountItem(acc,
 					(int) Duration.between(acc.getReservation().getInbound(), acc.getReservation().getOutbound())
 							.toDays(),
-				 price.get().getPrice(), "Estancia en habitacion " + acc.getReservation().getRoomtype().getName());
+					price.get().getPrice(), "Estancia en habitacion " + acc.getReservation().getRoomtype().getName());
 			itemDao.save(item);
 			acc.addItem(item);
 		}
@@ -192,8 +201,63 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
-	public Account findAccount(Long hotelid, Long userid, String date) {
-		return /* accDao.find(hotelid,userid,date) */ null;
+	public Account findAccount(Long reservationid) {
+		return accDao.findByReservationId(reservationid).get() ;
+	}
+
+	private Account addServiceToAccount(Account acc, es.udc.hotelapp.backend.model.entities.Service p, int quantity) {
+
+		Optional<AccountItem> existingitem = acc.getItem(p.getName());
+
+		if (existingitem.isPresent() && existingitem.get().getItemPrice().equals(new BigDecimal(p.getPrice()))) {
+			existingitem.get().setQuantity(existingitem.get().getQuantity() + quantity);
+		} else {
+			AccountItem item = new AccountItem(acc, quantity, new BigDecimal(p.getPrice()), p.getName());
+			itemDao.save(item);
+
+			acc.addItem(item);
+		}
+
+		return acc;
+	}
+
+	private Account addProductToAccount(Account acc, Product p, int quantity) {
+		Optional<AccountItem> existingitem = acc.getItem(p.getName());
+
+		if (existingitem.isPresent() && existingitem.get().getItemPrice().equals(new BigDecimal(p.getPrice()))) {
+			existingitem.get().setQuantity(existingitem.get().getQuantity() + quantity);
+		} else {
+			AccountItem item = new AccountItem(acc, quantity, new BigDecimal(p.getPrice()), p.getName());
+			itemDao.save(item);
+
+			acc.addItem(item);
+		}
+
+		return acc;
+	}
+
+	@Override
+	public Account addToAccount(Long serviceid, Long productid, Long reservationid, int quantity)
+			throws InstanceNotFoundException {
+		Optional<Account> acc = accDao.findByReservationId(reservationid);
+
+		Optional<Product> pfound = pDao.findById(productid);
+
+		Optional<es.udc.hotelapp.backend.model.entities.Service> sfound = sDao.findById(serviceid);
+
+		if (!sfound.isPresent() && serviceid != null)
+			throw new InstanceNotFoundException("project.entities.service", serviceid);
+
+		if (!pfound.isPresent() && productid != null)
+			throw new InstanceNotFoundException("project.entities.product", productid);
+
+		if (productid != null)
+			addProductToAccount(acc.get(), pfound.get(), quantity);
+
+		if (serviceid != null)
+			addServiceToAccount(acc.get(), sfound.get(), quantity);
+
+		return acc.get();
 	}
 
 }

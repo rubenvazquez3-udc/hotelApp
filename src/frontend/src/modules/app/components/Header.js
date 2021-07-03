@@ -14,7 +14,7 @@ const Header = () => {
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light bg-light border">
-            <Link className="navbar-brand" to="/"><img src='../../../../public/logo512.png' alt='HOTEL App' /></Link>
+            <Link className="navbar-brand" to="/"><img src={process.env.PUBLIC_URL + './logo192.png'} alt='HOTEL App' /></Link>
             <button className="navbar-toggler" type="button"
                 data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"

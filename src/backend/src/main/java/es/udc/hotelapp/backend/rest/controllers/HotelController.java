@@ -229,17 +229,12 @@ public class HotelController {
 	}
 
 	@GetMapping("/hotels/{hotelid}/guests")
-	public List<GuestReservationDto> findGuests (@PathVariable Long hotelid,
-			 @RequestParam( defaultValue = "") String username){
+	public BlockDto<GuestReservationDto> findGuests (@PathVariable Long hotelid,
+			 @RequestParam( defaultValue = "") String username, @RequestParam(defaultValue = "0") int page){
 
-		List<GuestReservationDto> result = new ArrayList<>();
-		List<GuestReservation> list = reservationService.findAllGuestReservation(hotelid, username);
-
-			for (GuestReservation gr : list ) {
-					result.add( toGuestReservationDto(gr));
-			}
+		Block<GuestReservation> list = reservationService.findAllGuestReservation(hotelid, username, page, 10);
 					
-		return result;
+		return new BlockDto<>(toGuestReservationDtos(list.getItems()),list.getExistMoreItems());
 	}
 	
 	@PostMapping("/hotels/{hotelid}/addPrice")

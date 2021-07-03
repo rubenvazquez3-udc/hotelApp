@@ -145,7 +145,7 @@ public class ReservationController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public ResponseEntity removeReservation( @PathVariable Long id) throws InstanceNotFoundException {
+	public ResponseEntity<?> removeReservation( @PathVariable Long id) throws InstanceNotFoundException {
 
 		reservationService.removeReservation(id);
 		

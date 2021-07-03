@@ -1,20 +1,24 @@
 import React from 'react';
 import { FormattedMessage } from "react-intl";
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch} from "react-redux"
+
+import { Pager } from '../../common';
 
 import * as selectors from '../selectors';
+import * as actions from '../actions';
 import Guests from './Guests';
 
 
 const FindGuestResult = () => {
 
     const guestsSearch = useSelector(selectors.getGuests);
+    const dispatch = useDispatch();
 
     if (!guestsSearch) {
         return null;
     }
 
-    if (guestsSearch.length === 0) {
+    if (guestsSearch.guests.items.length === 0) {
         return (
             <div className="alert alert-danger" role="alert" >
                 <FormattedMessage id='project.guests.FindReservationResult.noGuestsFound' />
@@ -24,7 +28,17 @@ const FindGuestResult = () => {
 
     return (
         <div>
-            <Guests guests={guestsSearch} />
+            <Guests guests={guestsSearch.guests.items} />
+            <Pager
+                back={{
+                    enabled: guestsSearch.criteria.page >=1,
+                    onClick: () => dispatch(actions.previousFindGuestResultPage(guestsSearch.criteria))
+                }}
+
+                next = {{
+                    enabled: guestsSearch.guests.existMoreItems,
+                    onClick: () => dispatch(actions.nextFindGuestResultPage(guestsSearch.criteria))
+                }} />
         </div>
 
     );

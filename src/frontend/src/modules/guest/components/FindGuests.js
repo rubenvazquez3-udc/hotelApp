@@ -22,13 +22,13 @@ const FindGuests = () => {
     const hotelid = hotel1[0].id;
 
     useEffect(() => {
-        dispatch(actions.findGuests(hotelid, username.trim()));
+        dispatch(actions.findGuests({hotelid: hotelid, username: username.trim(), page:0}));
     }, [hotelid, username, dispatch]);
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        dispatch(actions.findGuests(hotelid, username.trim()));
+        dispatch(actions.findGuests({hotelid: hotelid, username: username.trim(), page:0}));
         history.push('/guests');
     }
 

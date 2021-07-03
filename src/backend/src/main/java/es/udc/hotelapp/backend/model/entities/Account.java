@@ -1,7 +1,6 @@
 package es.udc.hotelapp.backend.model.entities;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -20,8 +19,6 @@ import javax.persistence.Transient;
 public class Account {
 
 	private Long id;
-	private LocalDateTime inbound;
-	private LocalDateTime outbound;
 	private RoomTypeReservation reservation;
 	private Set<AccountItem> items = new HashSet<>();
 
@@ -59,21 +56,6 @@ public class Account {
 		this.items = items;
 	}
 
-	public LocalDateTime getInbound() {
-		return inbound;
-	}
-
-	public void setInbound(LocalDateTime inbound) {
-		this.inbound = inbound;
-	}
-
-	public LocalDateTime getOutbound() {
-		return outbound;
-	}
-
-	public void setOutbound(LocalDateTime outbound) {
-		this.outbound = outbound;
-	}
 
 	@Transient
 	public BigDecimal getTotalPrice() {

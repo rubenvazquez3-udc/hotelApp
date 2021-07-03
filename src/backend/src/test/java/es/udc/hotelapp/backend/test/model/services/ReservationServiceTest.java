@@ -191,10 +191,19 @@ public class ReservationServiceTest {
 		assertThrows(InstanceNotFoundException.class, () -> reservationService.findGuestReservationById(id3));
 	
 		RoomTypeReservation rt2 = new RoomTypeReservation();
-		rt2.setId((long) 4);
+		rt2.setId(id3+9);
 		GuestReservation gr3 = new GuestReservation(rt2, g1);
 		
-		//assertThrows(IncorrectReservationException.class, () -> reservationService.addGuest(gr3));
+		assertThrows(IncorrectReservationException.class, () -> reservationService.addGuest(gr3));
+		
+		g1.setName("Manolo");
+		g1.setAddress("Lugo");
+		
+		GuestReservation gr4 = new GuestReservation(rt1, g1);
+		
+		reservationService.addGuest(gr4);
+		
+		assertEquals(gr4, reservationService.findGuestReservationById(gr4.getId()));
 		
 	}
 	
@@ -216,6 +225,21 @@ public class ReservationServiceTest {
 		assertEquals(list2, reservationService.findReservations(rt1.getHotel().getId(), "2020-01-01",""));
 		
 		assertEquals(list2, reservationService.findReservations((long) 3,"",""));
+		
+	}
+	
+	@Test
+	public void testRemoveReservation() throws InstanceNotFoundException {
+		RoomTypeReservation rt1 = create("username","DOUBLE");
+		
+		reservationService.addReservation(rt1);
+		
+		reservationService.removeReservation(rt1.getId());
+		
+		assertThrows(InstanceNotFoundException.class, () -> reservationService.findById(rt1.getId()));
+		
+		assertThrows(InstanceNotFoundException.class, () -> reservationService.removeReservation(rt1.getId()+3));
+		
 		
 	}
 	

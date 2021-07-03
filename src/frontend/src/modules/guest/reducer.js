@@ -8,9 +8,12 @@ const initialState = {
 const guests = (state = initialState.guests, action) => {
     switch (action.type) {
         case actionTypes.ADD_GUEST_COMPLETED:
-            return [...state, action.guest];
+            return {criteria: {...state.criteria}, guests: [...state.guests.items, action.guest]};
         case actionTypes.FIND_GUESTS_COMPLETED:
             return action.guests;
+        
+        case actionTypes.CLEAR_GUESTS_COMPLETED:
+            return initialState.guests;
 
         default:
             return state;

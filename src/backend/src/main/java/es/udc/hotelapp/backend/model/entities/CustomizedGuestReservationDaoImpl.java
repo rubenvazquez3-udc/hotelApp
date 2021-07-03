@@ -6,6 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
+
 public class CustomizedGuestReservationDaoImpl implements CustomizedGuestReservationDao {
 
 
@@ -14,7 +18,7 @@ public class CustomizedGuestReservationDaoImpl implements CustomizedGuestReserva
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<GuestReservation> find(Long hotelid, String username) {
+	public Slice<GuestReservation> find(Long hotelid, String username, int page, int size) {
 		
 		String queryString = "SELECT gr FROM GuestReservation gr";
 		
@@ -33,7 +37,9 @@ public class CustomizedGuestReservationDaoImpl implements CustomizedGuestReserva
 			queryString += "gr.guest.name = :username";
 		}
 		
-		Query query = entityManager.createQuery(queryString);
+		queryString += " ORDER BY gr.guest.name";
+		
+		Query query = entityManager.createQuery(queryString).setFirstResult(page*size).setMaxResults(size+1);
 		
 		if(hotelid != null) {
 			query.setParameter("hotelid", hotelid);
@@ -45,8 +51,13 @@ public class CustomizedGuestReservationDaoImpl implements CustomizedGuestReserva
 		
 		
 		List<GuestReservation> guests = query.getResultList();
+		boolean hasNext = guests.size() == (size+1);
 		
-		return guests;
+		if(hasNext) {
+			guests.remove(guests.size()-1);
+		}
+		
+		return new SliceImpl<>(guests, PageRequest.of(page, size),hasNext);
 	}
 
 

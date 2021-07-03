@@ -19,7 +19,21 @@ const findGuestsCompleted = guests => ({
     guests
 });
 
-export const findGuests = (hotelid, username) => dispatch =>
-    backend.reservationService.findGuests(hotelid, username, guests => {
-        dispatch(findGuestsCompleted(guests));
+export const previousFindGuestResultPage = criteria =>
+        findGuests({...criteria, page: criteria.page-1});
+
+export const nextFindGuestResultPage = criteria =>
+        findGuests({...criteria, page: criteria.page +1});
+        
+const clearGuests = () => ({
+    type: actionTypes.CLEAR_GUESTS_COMPLETED
+});
+
+export const findGuests = criteria => dispatch =>{
+    dispatch(clearGuests());
+
+    backend.reservationService.findGuests(criteria, guests => {
+        dispatch(findGuestsCompleted({criteria,guests}));
     });
+}
+    

@@ -1,5 +1,8 @@
 package es.udc.hotelapp.backend.rest.dtos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import es.udc.hotelapp.backend.model.entities.GuestReservation;
 
 public class GuestReservationConversor {
@@ -17,4 +20,12 @@ public class GuestReservationConversor {
 				GuestConversor.toGuestDto(gr.getGuest()));
 	}
 
+	public final static List<GuestReservationDto> toGuestReservationDtos(List<GuestReservation> list){
+		List<GuestReservationDto> result = new ArrayList<>();
+		
+		for(GuestReservation gr : list) {
+			result.add(toGuestReservationDto(gr));
+		}
+		return result;
+	}
 }

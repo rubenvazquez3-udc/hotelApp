@@ -173,8 +173,6 @@ CREATE TABLE RoomService (
 CREATE TABLE Account (
     id BIGINT NOT NULL AUTO_INCREMENT,
     reservationId BIGINT NOT NULL,
-    inbound DATETIME NOT NULL,
-    outbound DATETIME NOT NULL,
     CONSTRAINT AccountPK PRIMARY KEY (id),
     CONSTRAINT AccountReservationFK FOREIGN KEY (reservationId)
         REFERENCES RoomTypeReservation (id)
