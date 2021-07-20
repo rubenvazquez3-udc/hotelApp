@@ -9,9 +9,9 @@ export const findReservations = ( hotelid, username, date, onSuccess, onErrors) 
 
     path+= hotelid ? `?hotelid=${hotelid}` : "";
 
-    path+= username ? `?username=${username}` : "";
+    path+= username ?  hotelid ? `&username=${username}` : `?username=${username}` : "";
 
-    path+= date ? `?date=${date}` : "";
+    path+= date ? `&date=${date}` : "";
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 }
@@ -44,5 +44,5 @@ export const findGuests = ({hotelid, username, page}, onSuccess, onErrors) =>{
 }
 
 export const findAvailableRooms = (hotelid, type, onSuccess, onErrors) =>
-    appFetch(`/hotels/${hotelid}/rooms/?type=${type}`, config('GET'),onSuccess, onErrors);
+    appFetch(`/hotels/${hotelid}/rooms/?type=${type}&status=LIBRE`, config('GET'),onSuccess, onErrors);
 

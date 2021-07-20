@@ -8,12 +8,15 @@ import es.udc.hotelapp.backend.model.entities.RoomReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
+import es.udc.hotelapp.backend.model.exceptions.PermissionException;
 
 public interface ReservationService {
 
-	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException;
+	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException, PermissionException;
 
 	public List<RoomTypeReservation> findReservations(Long id, String date, String username);
+	
+	public List<RoomTypeReservation> findReservations( Long hotelid, Long userid, String date);
 
 	public void updateReservation(RoomTypeReservation rt2);
 

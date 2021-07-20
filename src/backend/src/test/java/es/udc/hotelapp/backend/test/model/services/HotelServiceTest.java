@@ -164,18 +164,36 @@ public class HotelServiceTest {
 	}
 	
 	@Test
-	public void testFindServicesByHotelId() throws HotelAlreadyExistsException, InstanceNotFoundException, ServiceAlreadyExistsException {
+	public void testFindServices() throws HotelAlreadyExistsException, InstanceNotFoundException, ServiceAlreadyExistsException {
 		
 		Hotel h1 = createHotel();
 		hotelService.createHotel(h1);
+		
 		Service s1 = new Service("Parking", "Aparcacoches", 23.5, h1);
 		hotelService.addService(s1);
-		Service s2 = new Service("Catering", "Comidas", 23.5, h1);
+		
+		Service s2 = new Service("Catering", "Comidas", 20.5, h1);
 		hotelService.addService(s2);
 		
-		Block<Service> slice1 = new Block<>(Arrays.asList(s1,s2), false);
+		Block<Service> slice1 = new Block<>(Arrays.asList(s2,s1), false);
 		
-		assertEquals(slice1, hotelService.findServices(h1.getId()));
+		assertEquals(slice1, hotelService.findServices(h1.getId(),0,2));
+		
+	}
+	
+	@Test
+	public void testFindProducts() throws HotelAlreadyExistsException, InstanceNotFoundException, ProductAlreadyExistsException{
+		
+		Hotel h1 = createHotel();
+		hotelService.createHotel(h1);
+		Product s1 = new Product("Manzana", "Manzana Golden calidad oro", 2.5, h1);
+		hotelService.addProduct(s1);
+		Product s2 = new Product("Peras", "Pera Conferencia calidad oro", 1.5, h1);
+		hotelService.addProduct(s2);
+		
+		Block<Product> slice1 = new Block<>(Arrays.asList(s1,s2), false);
+		
+		assertEquals(slice1, hotelService.findProducts(h1.getId(),0,2));
 		
 	}
 	
@@ -252,7 +270,7 @@ public class HotelServiceTest {
 		
 		assertEquals(price, hotelService.findPriceById(price.getId()));
 		
-		price.setId((long) 5);
+		price.setId(price.getId()* 5);
 		
 		assertThrows(InstanceNotFoundException.class, () -> hotelService.updateRoomTypePrice(price));
 		
@@ -318,21 +336,7 @@ public class HotelServiceTest {
 		assertThrows(InstanceNotFoundException.class, () -> hotelService.removeProduct(p1.getId()));
 	}
 	
-	@Test
-	public void testFindProductsByHotelId() throws HotelAlreadyExistsException, InstanceNotFoundException, ProductAlreadyExistsException{
-		
-		Hotel h1 = createHotel();
-		hotelService.createHotel(h1);
-		Product s1 = new Product("Manzana", "Manzana Golden calidad oro", 2.5, h1);
-		hotelService.addProduct(s1);
-		Product s2 = new Product("Peras", "Pera Conferencia calidad oro", 1.5, h1);
-		hotelService.addProduct(s2);
-		
-		Block<Product> slice1 = new Block<>(Arrays.asList(s1,s2), false);
-		
-		assertEquals(slice1, hotelService.findProducts(h1.getId()));
-		
-	}
+	
 	
 	@Test
 	public void testUpdateProduct() throws HotelAlreadyExistsException, InstanceNotFoundException, ProductAlreadyExistsException{

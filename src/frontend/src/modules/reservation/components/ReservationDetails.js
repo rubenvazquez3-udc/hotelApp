@@ -96,7 +96,7 @@ const ReservationDetails = () => {
                     <span className="fas fa-edit fa-2x"></span>
                 </Link>
                 <ConfirmDialog id='removeReservation' icon='eraser fa-3x' headerTitle='Remove Reservation'
-                    bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
+                    bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)}/>
                 </div>
                     {values}
                 </div>

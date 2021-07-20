@@ -11,6 +11,7 @@ public class HotelDto {
 	private String phoneNumber;
 	private String description;
 	private List<RoomTypePriceDto> prices;
+	private List<PhotoDto> photos;
 	
 
 	public Long getId() {
@@ -63,7 +64,7 @@ public class HotelDto {
 
 	
 
-	public HotelDto(Long id, String name, String manager, String address, String phoneNumber, String description, List<RoomTypePriceDto> items) {
+	public HotelDto(Long id, String name, String manager, String address, String phoneNumber, String description, List<RoomTypePriceDto> items, List<PhotoDto> photos) {
 		this.id = id;
 		this.name = name;
 		this.manager = manager;
@@ -71,6 +72,7 @@ public class HotelDto {
 		this.phoneNumber = phoneNumber;
 		this.description = description;
 		this.prices = items;
+		this.photos = photos;
 	}
 
 	public HotelDto() {
@@ -82,6 +84,14 @@ public class HotelDto {
 
 	public void setPrices(List<RoomTypePriceDto> prices) {
 		this.prices = prices;
+	}
+
+	public List<PhotoDto> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<PhotoDto> photos) {
+		this.photos = photos;
 	}
 
 }

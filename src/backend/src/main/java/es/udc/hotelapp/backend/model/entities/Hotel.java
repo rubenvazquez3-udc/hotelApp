@@ -20,6 +20,8 @@ public class Hotel {
 	
 	private Set<RoomTypePrice> prices = new HashSet<>();
 	
+	private Set<Photo> photos = new HashSet<>();
+	
 	public Hotel() {}
 
 	public Hotel(String name, String manager, String address, String phonenumber, String description) {
@@ -88,5 +90,18 @@ public class Hotel {
 		this.prices = prices;
 	}
 
+	@OneToMany(mappedBy="hotel")
+	public Set<Photo> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(Set<Photo> photos) {
+		this.photos = photos;
+	}
+
+	public void addPhoto(Photo item) {
+		photos.add(item);
+		item.setHotel(this);
+	}
 	
 }

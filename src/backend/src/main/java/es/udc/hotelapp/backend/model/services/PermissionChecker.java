@@ -9,4 +9,6 @@ public interface PermissionChecker {
 
 	public User checkUser(Long userId) throws InstanceNotFoundException;
 	
+	public boolean checkIfPossibleToBook(Long hotelid, String in, String out, String type, int quantity);
+	
 }

@@ -1,15 +1,23 @@
 package es.udc.hotelapp.backend.model.services;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Slice;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.stereotype.Service;
 
 import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.HotelDao;
+import es.udc.hotelapp.backend.model.entities.Photo;
+import es.udc.hotelapp.backend.model.entities.PhotoDao;
 import es.udc.hotelapp.backend.model.entities.Product;
 import es.udc.hotelapp.backend.model.entities.ProductDao;
 import es.udc.hotelapp.backend.model.entities.RoomTypePrice;
@@ -30,9 +38,13 @@ public class HotelServiceImpl implements HotelService {
 	private ServiceDao serviceDao;
 	@Autowired
 	private ProductDao productDao;
-	
 	@Autowired 
 	private RoomTypePriceDao priceDao;
+	
+	@Autowired
+	private PhotoDao photoDao;
+	
+	private final static String UPLOAD_DIR = "\\home\\ruben\\Escritorio\\hotelApp\\hotelapp\\src\\frontend\\public\\images";
 
 	@Override
 	public Long createHotel(Hotel hotel) throws HotelAlreadyExistsException {
@@ -119,9 +131,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Block<es.udc.hotelapp.backend.model.entities.Service> findServices(Long hotelid) {
+	public Block<es.udc.hotelapp.backend.model.entities.Service> findServices(Long hotelid, int page, int size) {
 		
-		Slice<es.udc.hotelapp.backend.model.entities.Service> slice = serviceDao.findByHotelId(hotelid);
+		Slice<es.udc.hotelapp.backend.model.entities.Service> slice = serviceDao.find(hotelid, page, size);
 		
 		return new Block<>(slice.getContent(), slice.hasNext());
 	}
@@ -164,7 +176,8 @@ public class HotelServiceImpl implements HotelService {
 	public Long addPrice(RoomTypePrice price){
 		
 		if(hotelDao.existsByName(price.getHotel().getName())) {
-			priceDao.save(price);
+			if(! priceDao.findByTypeIdAndHotelId(price.getType().getId(), price.getHotel().getId()).isPresent())
+				priceDao.save(price);
 		}
 		
 		return price.getId();
@@ -217,9 +230,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Block<Product> findProducts(Long hotelid) throws InstanceNotFoundException {
+	public Block<Product> findProducts(Long hotelid, int page, int size) {
 		
-		Slice<Product> slice = productDao.findByHotelId(hotelid);
+		Slice<Product> slice = productDao.find(hotelid, page, size);
 		
 		return new Block<>(slice.getContent(), slice.hasNext());
 	}
@@ -259,5 +272,32 @@ public class HotelServiceImpl implements HotelService {
 		
 		return priceDao.findById(id).get();
 	}
+
+	@Override
+	public boolean uploadPhoto(MultipartFile file, Long hotelid) {
+		boolean f = false;
+
+		Optional<Hotel> hotel = hotelDao.findById(hotelid);
+
+		if (hotel.isPresent()) {
+
+			try {
+				Photo photo = new Photo(file.getOriginalFilename(), hotel.get());
+				Files.copy(file.getInputStream(), Paths.get(UPLOAD_DIR + File.separator + file.getOriginalFilename()),
+						StandardCopyOption.REPLACE_EXISTING);
+				f = true;
+				photoDao.save(photo);
+				hotel.get().addPhoto(photo);
+
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		return f;
+	}
+
+	
 
 }

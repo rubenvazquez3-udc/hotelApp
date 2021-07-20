@@ -1,9 +1,10 @@
 package es.udc.hotelapp.backend.rest.controllers;
 
-import static es.udc.hotelapp.backend.rest.dtos.GuestReservationConversor.toGuestReservation;
-import static es.udc.hotelapp.backend.rest.dtos.RoomReservationConversor.toRoomReservation;
-import static es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationConversor.toRoomTypeReservation;
-import static es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationConversor.toRoomTypeReservationDto;
+import static es.udc.hotelapp.backend.rest.dtos.GuestReservationConversor.*;
+import static es.udc.hotelapp.backend.rest.dtos.RoomReservationConversor.*;
+import static es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationConversor.*;
+import static es.udc.hotelapp.backend.rest.dtos.AccountConversor.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,13 +27,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.udc.hotelapp.backend.model.entities.Account;
 import es.udc.hotelapp.backend.model.entities.GuestReservation;
 import es.udc.hotelapp.backend.model.entities.RoomReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
+import es.udc.hotelapp.backend.model.exceptions.PermissionException;
 import es.udc.hotelapp.backend.model.services.ReservationService;
 import es.udc.hotelapp.backend.rest.common.ErrorsDto;
+import es.udc.hotelapp.backend.rest.dtos.AccountDto;
+import es.udc.hotelapp.backend.rest.dtos.AddToAccountParams;
 import es.udc.hotelapp.backend.rest.dtos.GuestReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationDto;
@@ -62,7 +67,7 @@ public class ReservationController {
 	
 	@PostMapping("")
 	public RoomTypeReservationDto addReservation(@RequestBody RoomTypeReservationDto rtrDto)
-			throws InstanceNotFoundException {
+			throws InstanceNotFoundException, PermissionException, IncorrectReservationException {
 
 		RoomTypeReservation typer = toRoomTypeReservation(rtrDto);
 		
@@ -71,6 +76,8 @@ public class ReservationController {
 		typer.getRoomtype().setId(rtrDto.getRoomtype().getId());
 		
 		reservationService.addReservation(typer);
+		
+		reservationService.createAccount(new Account(typer));		
 		
 		rtrDto.setId(typer.getId());
 
@@ -150,5 +157,29 @@ public class ReservationController {
 		reservationService.removeReservation(id);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/{id}/account")
+	public AccountDto getAccount ( @PathVariable Long id) {
+		return toAccountDto(reservationService.findAccount(id));
+	}
+	
+	@GetMapping("/account")
+	public List<RoomTypeReservationDto> findReservations(@RequestParam(required = true) Long hotelid,
+			@RequestParam(required = true) Long userid, @RequestParam(defaultValue = "") String date) {
+		List<RoomTypeReservationDto> result = new ArrayList<>();
+		List<RoomTypeReservation> list = reservationService.findReservations(hotelid, userid, date);
+		
+		for (RoomTypeReservation r : list) {
+			result.add(toRoomTypeReservationDto(r));
+		}
+
+		return result;
+	}
+	
+	@PostMapping("/{id}/account")
+	public AccountDto addToAccount( @PathVariable Long id, @RequestBody AddToAccountParams params) throws InstanceNotFoundException {
+		
+		return toAccountDto(reservationService.addToAccount(params.getServiceId(), params.getProductId(), id, params.getQuantity()));
 	}
 }

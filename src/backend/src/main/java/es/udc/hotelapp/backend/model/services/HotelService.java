@@ -2,6 +2,8 @@ package es.udc.hotelapp.backend.model.services;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.Product;
 import es.udc.hotelapp.backend.model.entities.RoomTypePrice;
@@ -19,7 +21,7 @@ public interface HotelService {
 	
 	public Service findService(Long id) throws InstanceNotFoundException;
 	
-	public Block<Service> findServices(Long hotelid);
+	public Block<Service> findServices(Long hotelid, int page, int size);
 
 	public Hotel findById(Long id) throws InstanceNotFoundException;
 
@@ -43,11 +45,13 @@ public interface HotelService {
 	
 	public Product findProduct( Long id) throws InstanceNotFoundException;
 	
-	public Block<Product> findProducts(Long hotelid) throws InstanceNotFoundException;
+	public Block<Product> findProducts(Long hotelid, int page, int size);
 	
 	public Product updateProduct ( Product p) throws InstanceNotFoundException;
 	
 	public void removeProduct (Long productid) throws InstanceNotFoundException;
+	
+	public boolean uploadPhoto ( MultipartFile file, Long hotelid);
 	
 
 }

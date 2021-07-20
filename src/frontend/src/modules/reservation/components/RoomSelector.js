@@ -14,7 +14,7 @@ const RoomSelector = (selectProps) => {
                 {message => (<option value="">{message}</option>)}
             </FormattedMessage>
 
-            {rooms && rooms.map(room => 
+            {rooms && rooms.items.map(room => 
                 <option key={room.id} value={room.id}>{room.number}</option>)}
         </select>
     );

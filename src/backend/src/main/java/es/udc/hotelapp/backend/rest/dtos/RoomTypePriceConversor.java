@@ -8,7 +8,7 @@ public class RoomTypePriceConversor {
 
 	public final static RoomTypePriceDto toRoomTypePriceDto(RoomTypePrice price) {
 
-		return new RoomTypePriceDto(price.getId(), HotelConversor.toHotelDto(price.getHotel()),
+		return new RoomTypePriceDto(price.getId(),
 				RoomTypeConversor.toRoomTypeDto(price.getType()), price.getPrice());
 	}
 

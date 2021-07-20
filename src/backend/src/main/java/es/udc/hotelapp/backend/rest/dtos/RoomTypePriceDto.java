@@ -8,6 +8,7 @@ public class RoomTypePriceDto {
 	private HotelDto hotel;
 	private RoomTypeDto type;
 	private BigDecimal price;
+	
 	public Long getId() {
 		return id;
 	}
@@ -39,6 +40,14 @@ public class RoomTypePriceDto {
 		this.price = price;
 	}
 	public RoomTypePriceDto() {	}
+	
+	public RoomTypePriceDto(Long id, RoomTypeDto type, BigDecimal price) {
+		this.id = id;
+		this.type = type;
+		this.price = price;
+	}
+	
+	
 	
 	
 	

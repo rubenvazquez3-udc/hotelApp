@@ -17,6 +17,8 @@ public class HotelConversor {
 		List<RoomTypePriceDto> items = 
 				hotel.getPrices().stream().map(i -> RoomTypePriceConversor.toRoomTypePriceDto(i)).collect(Collectors.toList());
 		
-		return new HotelDto(hotel.getId(),hotel.getName(),hotel.getManager(), hotel.getAddress(), hotel.getPhonenumber(), hotel.getDescription(),items);
+		List<PhotoDto> photos = hotel.getPhotos().stream().map(i -> PhotoConversor.toPhotoDto(i)).collect(Collectors.toList());
+		
+		return new HotelDto(hotel.getId(),hotel.getName(),hotel.getManager(), hotel.getAddress(), hotel.getPhonenumber(), hotel.getDescription(), items,photos);
 	}
 }

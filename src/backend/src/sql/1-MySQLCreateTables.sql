@@ -5,6 +5,7 @@ DROP TABLE Account;
 DROP TABLE RoomService;
 DROP TABLE RoomReservation;
 DROP TABLE GuestReservation;
+DROP TABLE Photo;
 DROP TABLE Room;
 DROP TABLE RoomTypeReservation;
 DROP TABLE RoomTypePrice;
@@ -68,6 +69,14 @@ CREATE TABLE Product (
 
 CREATE INDEX ProductIndexByName ON Product (name);
 
+CREATE TABLE Photo(
+	id BIGINT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(250) NOT NULL,
+	hotelid BIGINT NOT NULL,
+	CONSTRAINT PhotoPK PRIMARY KEY (id),
+	CONSTRAINT PhotoHotelFK FOREIGN KEY (hotelid)
+		REFERENCES Hotel(id)
+) ENGINE = InnoDB;
 
 
 CREATE TABLE Service (
@@ -181,7 +190,7 @@ CREATE TABLE Account (
 
 CREATE TABLE AccountItem (
     id BIGINT NOT NULL AUTO_INCREMENT,
-    name VARCHAR(25) NOT NULL,
+    name VARCHAR(250) NOT NULL,
     accountId BIGINT NOT NULL,
     quantity SMALLINT NOT NULL,
     itemPrice DECIMAL(11,2),
