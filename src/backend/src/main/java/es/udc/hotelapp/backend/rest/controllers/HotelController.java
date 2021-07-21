@@ -164,7 +164,7 @@ public class HotelController {
 	}
 	
 	@PostMapping("/hotels/{hotelid}/upload-photo")
-	public ResponseEntity<?> uploadPhoto( @PathVariable Long hotelid, @RequestParam MultipartFile file){
+	public ResponseEntity<?> uploadPhoto( @PathVariable Long hotelid, @RequestParam("file") MultipartFile file){
 
 	    if( file.isEmpty()){
 	        return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -172,7 +172,7 @@ public class HotelController {
 	    boolean f = hotelService.uploadPhoto(file, hotelid);
 
 	    if(f){
-	        return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.NO_CONTENT);
+	        return ResponseEntity.noContent().build();
 	    }
 
 	    return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
