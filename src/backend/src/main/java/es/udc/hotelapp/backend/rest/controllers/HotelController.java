@@ -261,6 +261,21 @@ public class HotelController {
 		
 		return pricedto;
 	}
+
+	@DeleteMapping("/hotels/{hotelid}/prices/{id}")
+	public ResponseEntity<?> removePrice(@PathVariable Long hotelid, @PathVariable Long id) throws InstanceNotFoundException {
+
+		hotelService.removePrice(id);
+
+		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/hotels/{hotelid}/prices/{id}")
+	public RoomTypePriceDto findPrice(@PathVariable Long hotelid, @PathVariable Long id) throws InstanceNotFoundException {
+
+		return toRoomTypePriceDto(hotelService.findPriceById(id));
+
+	}
 		
 	/******************************************** PRODUCTS & SERVICES *****************************************/
 	
