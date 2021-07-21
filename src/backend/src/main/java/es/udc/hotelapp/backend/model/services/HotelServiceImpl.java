@@ -188,7 +188,7 @@ public class HotelServiceImpl implements HotelService {
 		Optional<RoomTypePrice> pricefound = priceDao.findById(price.getId());
 		
 		if(!pricefound.isPresent()) {
-			throw new InstanceNotFoundException("project.entities.RoomTyoePrice", price.getId());
+			throw new InstanceNotFoundException("project.entities.roomtypeprice", price.getId());
 		}
 		
 		RoomTypePrice priceActual = pricefound.get();
@@ -298,6 +298,16 @@ public class HotelServiceImpl implements HotelService {
 		return f;
 	}
 
+	@Override
+	public void removePrice (Long priceid) throws InstanceNotFoundException{
+		Optional<RoomTypePrice> pfound = priceDao.findById(priceid);
+
+		if(! pfound.isPresent()) {
+			throw new InstanceNotFoundException("project.entities.roomtypeprice", priceid);
+		}
+
+		priceDao.delete(pfound.get());
+	}
 	
 
 }
