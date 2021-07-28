@@ -52,9 +52,11 @@ const removeReservationCompleted = id =>({
     id
 });
 
-export const removeReservation = (reservation, id, onSuccess, onErrors) => dispatch => 
-    backend.reservationService.removeReservation(reservation,
-        dispatch(removeReservationCompleted(id)), onErrors);
+export const removeReservation = (reservation, onSuccess, onErrors) => dispatch => 
+    backend.reservationService.removeReservation(reservation,() =>{
+        dispatch(removeReservationCompleted(reservation.id));
+        onSuccess();
+    }, onErrors);
 
     
 const findAvailableRoomsCompleted = rooms => ({

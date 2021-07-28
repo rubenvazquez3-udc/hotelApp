@@ -17,11 +17,17 @@ export const addRoom = (room, onSuccess, onErrors) => dispatch =>
         onErrors
     );
 
-export const previousFindRoomsResultPage = criteria =>
-        findRooms({...criteria, page: criteria.page-1});
+export const previousFindRoomsResultPage = criteria =>dispatch =>{
+    dispatch(clearRooms());
+    findRooms({...criteria, page: criteria.page-1});
+}
+        
 
-export const nextFindRoomsResultPage = criteria => 
-        findRooms({...criteria, page: criteria.page+1});
+export const nextFindRoomsResultPage = criteria => dispatch =>{
+    dispatch(clearRooms());
+    findRooms({...criteria, page: criteria.page+1});
+} 
+        
 
 const clearRooms = () => ({
     type: actionTypes.CLEAR_ROOMS_COMPLETED
@@ -33,8 +39,6 @@ const findRoomsCompleted = rooms => ({
 });
 
 export const findRooms = criteria => dispatch =>{
-
-    dispatch(clearRooms());
     backend.roomService.findRooms(criteria, rooms => 
         dispatch(findRoomsCompleted({criteria,rooms})));
 }
@@ -83,6 +87,8 @@ const removeRoomCompleted = room => ({
     room
 });
 
-export const removeRoom = (room,roomid, onSuccess, onErrors) => dispatch => 
-    backend.roomService.removeRoom(room.hotel.id, room.id,
-        dispatch(removeRoomCompleted(roomid)), onErrors);
+export const removeRoom = (room, onSuccess, onErrors) => dispatch => 
+    backend.roomService.removeRoom(room,() => {
+        dispatch(removeRoomCompleted(room.id));
+        onSuccess();
+    }, onErrors);

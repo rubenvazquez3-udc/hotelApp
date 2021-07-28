@@ -4,13 +4,14 @@ import { Link, useParams, useHistory } from 'react-router-dom';
 import * as selectors from "../selectors";
 import * as actions from '../actions';
 import users from '../../users';
-import {FindServices} from '../../service';
 
 import { BackLink, ConfirmDialog } from '../../common';
 import { FormattedMessage } from 'react-intl';
 
 
-const HotelDetails = () => {
+//COMPROBAR QUE FUNCIONA
+
+const PriceDetails = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -18,50 +19,36 @@ const HotelDetails = () => {
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
 
+    const price = hotel.prices.filter(price => price.id === parseInt(id));
+
+    const hotelid = hotel.id;
+
     let adminValues = null;
 
-    const handleDelete = event => {
+    const handleSubmit = event => {
         event.preventDefault();
 
-        dispatch(actions.removeHotel(hotel,() => history.push('/'), error => console.log(error)));
-        
+        dispatch(actions.removeHotel(hotel,hotel.id,() => console.log(hotel.address), error => console.log(error)));
+        history.push('/')
     }
 
 
     useEffect(() => {
-        const hotelid = Number(id);
+        const priceid = Number(id);
 
         if (!Number.isNaN(id)) {
-            dispatch(actions.findHotelById(hotelid));
+            dispatch(actions.findPriceById(hotelid, priceid));
         }
-    }, [id, dispatch]);
+    }, [hotelid,id, dispatch]);
 
-    if (!hotel) {
+    if (!price) {
         return null;
     }
 
-    if (user.role === 'ADMIN') {
-        adminValues = (
-            <div className="card-footer">
-                <div className="form-group row">
-                    <ul id='admin'>
-                        <li id='managerbutton'>
-                            <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
-                                <span className="fas fa-edit fa-2x"></span>
-                            </Link>
-                        </li>
-                        <li id='managerbutton'>
-                            <ConfirmDialog id='removeHotel' icon='eraser fa-3x' headerTitle='Remove Hotel'
-                                bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        )
-    } else if (user.role === 'MANAGER' && hotel.address === user.address) {
+    if (user.role === 'MANAGER' && hotel.address === user.address) {
         adminValues = (
                         <div>
-                            <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
+                            <Link className="nav-link" to={`/hotels/hotel-details/${price.id}/update`}>
                                 <FormattedMessage id="project.hotels.UpdateHotel.title" />
                             </Link>
                             <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/add-rooms`} >
@@ -70,20 +57,6 @@ const HotelDetails = () => {
                         </div>
             
         )
-    } else if (user.role === 'USER') {
-        adminValues =
-            <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/reservations`} >
-                <FormattedMessage id="project.hotels.AddReservation.title" />
-            </Link>
-    } else if (user.role === 'HOTEL' && hotel.address === user.address) {
-        adminValues = (
-            <div>
-                <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
-                    <FormattedMessage id="project.hotels.UpdateHotel.title" />
-                </Link>
-            </div>
-        )
-        
     }
 
     return (
@@ -92,7 +65,7 @@ const HotelDetails = () => {
             <div className="card">
 
                 <div className="card-header">
-                    <BackLink />  <h5 className="card-title text-center">{hotel.name}</h5>
+                    <BackLink /> 
                 </div>
 
                 <div className="card-body text-center">
@@ -104,8 +77,6 @@ const HotelDetails = () => {
                     <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {hotel.description}</p>
 
                     <p className="card-text"> <span className="fas fa-phone-square"/>  {hotel.phoneNumber}</p>
-
-                    <FindServices/>
                 </div>
 
                 <div className="card-footer text-center">
@@ -119,4 +90,4 @@ const HotelDetails = () => {
 };
 
 
-export default HotelDetails;
+export default PriceDetails;

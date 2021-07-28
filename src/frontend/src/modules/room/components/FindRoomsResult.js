@@ -25,6 +25,8 @@ const FindRoomsResult = () => {
         );
     }
 
+    //console.log(roomSearch.rooms.items);
+
     return (
         <div>
             <Rooms rooms={roomSearch.rooms.items} />
@@ -39,7 +41,6 @@ const FindRoomsResult = () => {
                     onClick: () => dispatch(actions.nextFindRoomsResultPage(roomSearch.criteria))
                 }} />
         </div>
-
     );
 
 }

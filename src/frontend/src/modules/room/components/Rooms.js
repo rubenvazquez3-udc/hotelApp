@@ -20,7 +20,7 @@ const Rooms = ({ rooms }) => (
                 </th>
             </tr>
         </thead>
-
+        
         <tbody>
             {rooms.map(room =>
                 <tr key={room.id}>
@@ -36,7 +36,7 @@ const Rooms = ({ rooms }) => (
 );
 
 Rooms.propTypes = {
-    rooms: PropTypes.array.isRequired
+    rooms: PropTypes.array
 };
 
 export default Rooms;

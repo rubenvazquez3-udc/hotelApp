@@ -7,6 +7,7 @@ import { Errors } from '../../common';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
 import RoomTypeSelector from './RoomTypeSelector';
+import StatusSelector from './StatusSelector';
 import hotels from '../../hotel';
 
 const AddRoom = () => {
@@ -28,7 +29,7 @@ const AddRoom = () => {
         event.preventDefault();
 
         const roomtype = roomtypes.filter(t => t.id === parseInt(type));
-
+        
         if (form.checkValidity()) {
 
             dispatch(actions.addRoom(
@@ -53,7 +54,6 @@ const AddRoom = () => {
         }
 
     }
-
 
     return (
         <div>
@@ -86,10 +86,8 @@ const AddRoom = () => {
                                 <FormattedMessage id="project.global.fields.roomStatus" />
                             </label>
                             <div className="col-md-4">
-                                <input type="text" id="status" className="form-control"
-                                    value={status}
-                                    onChange={e => setRoomStatus(e.target.value)}
-                                    required />
+                            <StatusSelector id='status' className='custom-select my-1 mr-sm-2' 
+                                    value={status} onChange={e => setRoomStatus(e.target.value)} />
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required' />
                                 </div>

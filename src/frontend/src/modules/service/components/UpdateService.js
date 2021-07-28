@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-//import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { Errors } from '../../common';
 import * as actions from '../actions';
 import * as selectors from '../selectors';
-import RoomTypeSelector from './RoomTypeSelector';
-import StatusSelector from './StatusSelector';
 
-const UpdateRoom = () => {
+const UpdateService = () => {
 
-    const room = useSelector(selectors.getRoom);
-    const types = useSelector(selectors.getRoomTypes);
-    const rooms = useSelector(selectors.getRooms);
-
+    const service = useSelector(selectors.getService);
     const dispatch = useDispatch();
-    //const history = useHistory();
-    const [number, setNumber] = useState(room.number);
-    const [status, setRoomStatus] = useState(room.status);
-    const [type, setRoomType] = useState(room.type.id);
+    const [name, setName] = useState(service.name);
+    const [description, setDescription] = useState(service.description);
+    const [price, setPrice] = useState(service.price);
 
     const [backendErrors, setBackendErrors] = useState(null);
 
@@ -31,20 +25,21 @@ const UpdateRoom = () => {
 
         if (form.checkValidity()) {
 
-            const typeName = {...types.filter(rt => rt.id === parseInt(type,10))};
-            
-            dispatch(actions.updateRoom(
+            dispatch(actions.updateService(
                 {
-                    id: room.id,
-                    number: number,
-                    status: status.trim(),
-                    type: typeName[0],
-                    hotel: room.hotel
+                    id: service.id,
+                    name: name.trim(),
+                    description: description.trim(),
+                    price: price,
+                    hotel: service.hotel
                 },
-                () => {
-                    console.log(rooms);
-                    //history.push('/rooms');
-                },
+                () => ( <div>
+                            <div className="alert alert-success" role="alert" >
+                                <FormattedMessage id='project.room.FindRoomsResult.noRoomsFound' />
+                            </div>
+                            <UpdateService/>
+                        </div>
+                    ),
                 errors => setBackendErrors(errors)
             ));
 
@@ -64,20 +59,20 @@ const UpdateRoom = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.room.UpdateRoom.title" />
+                    <FormattedMessage id="project.services.UpdateService.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
                         className="needs-validation" noValidate
                         onSubmit={e => handleSubmit(e)}>
                         <div className="form-group row">
-                            <label htmlFor="number" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.roomNumber" />
+                            <label htmlFor="name" className="col-md-3 col-form-label">
+                                <FormattedMessage id="project.global.fields.service" />
                             </label>
                             <div className="col-md-4">
-                                <input type="number" id="number" className="form-control" disabled
-                                    value={number}
-                                    onChange={e => setNumber(e.target.value)}
+                                <input type="text" id="name" className="form-control"
+                                    value={name}
+                                    onChange={e => setName(e.target.value)}
                                     autoFocus
                                     required />
                                 <div className="invalid-feedback">
@@ -86,24 +81,28 @@ const UpdateRoom = () => {
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label htmlFor="status" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.roomStatus" />
+                            <label htmlFor="description" className="col-md-3 col-form-label">
+                                <FormattedMessage id="project.global.fields.description" />
                             </label>
                             <div className="col-md-4">
-                                <StatusSelector id='status' className='custom-select my-1 mr-sm-2' 
-                                    value={status} onChange={e => setRoomStatus(e.target.value)} />
+                            <textarea id="description" maxLength="249" placeholder="Descripcion" className="form-control"
+                                    value={description}
+                                    onChange={e => setDescription(e.target.value)}
+                                    required />
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required' />
                                 </div>
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label htmlFor="type" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.type" />
+                            <label htmlFor="price" className="col-md-3 col-form-label">
+                                <FormattedMessage id="project.global.fields.price" />
                             </label>
                             <div className="col-md-4">
-                                <RoomTypeSelector id='type' className='custom-select my-1 mr-sm-2' 
-                                    value={type} onChange={e => setRoomType(e.target.value)} />
+                                <input type="number" id="price" className="form-control"
+                                    value={price}
+                                    onChange={e => setPrice(e.target.value)}
+                                    required />
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required' />
                                 </div>
@@ -112,7 +111,7 @@ const UpdateRoom = () => {
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
-                                    <FormattedMessage id="project.room.UpdateRoom.title" />
+                                    <FormattedMessage id="project.services.UpdateService.title" />
                                 </button>
                             </div>
                         </div>
@@ -124,4 +123,4 @@ const UpdateRoom = () => {
 
 }
 
-export default UpdateRoom;
+export default UpdateService;

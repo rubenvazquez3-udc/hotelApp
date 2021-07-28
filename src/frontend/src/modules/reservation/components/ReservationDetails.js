@@ -44,7 +44,7 @@ const ReservationDetails = () => {
     const handleDelete = event => {
         event.preventDefault();
 
-       dispatch(actions.removeReservation(reservation, reservation.id));
+       dispatch(actions.removeReservation(reservation));
         history.push('/reservations');
     }
 

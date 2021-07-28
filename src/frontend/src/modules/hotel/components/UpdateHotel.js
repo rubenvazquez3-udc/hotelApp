@@ -11,8 +11,6 @@ const UpdateHotel = () => {
 
     const hotel = useSelector(selectors.getHotel);
 
-    //console.log(hotel);
-
     const dispatch = useDispatch();
     const history = useHistory();
     const [name, setHotelName] = useState(hotel.name);

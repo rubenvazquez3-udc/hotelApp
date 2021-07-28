@@ -46,3 +46,12 @@ export const findGuests = ({hotelid, username, page}, onSuccess, onErrors) =>{
 export const findAvailableRooms = (hotelid, type, onSuccess, onErrors) =>
     appFetch(`/hotels/${hotelid}/rooms/?type=${type}&status=LIBRE`, config('GET'),onSuccess, onErrors);
 
+
+export const addToAccount = (reservationid, addToAccountParams, onSuccess, onErrors) =>
+    appFetch(`/reservations/${reservationid}/account`, config('POST', addToAccountParams), onSuccess, onErrors);
+
+export const findReservationsByUserAndDate = (hotelid, userid, date, onSuccess, onErrors) =>
+    appFetch(`/reservations/account/?hotelid=${hotelid}&userid=${userid}$date=${date}`, config('GET'), onSuccess, onErrors );
+
+export const findAccount = (reservationid, onSuccess, onErrors) =>
+    appFetch(`/reservations/${reservationid}/account`, config('GET'), onSuccess, onErrors);

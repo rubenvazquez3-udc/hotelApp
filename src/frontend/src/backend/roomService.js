@@ -23,5 +23,5 @@ export const findAllRoomTypes = (onSuccess) =>
 export const updateRoom = (room, onSuccess, onErrors) => 
     appFetch(`/hotels/${room.hotel.id}/rooms/${room.id}`, config('PUT', room), onSuccess, onErrors);
 
-export const removeRoom = (hotelid, roomid, onSuccess, onErrors) => 
-    appFetch(`/hotels/${hotelid}/rooms/${roomid}`, config('DELETE'), onSuccess, onErrors);
+export const removeRoom = (room, onSuccess, onErrors) => 
+    appFetch(`/hotels/${room.hotel.id}/rooms/${room.id}`, config('DELETE'), onSuccess, onErrors);

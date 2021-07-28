@@ -36,9 +36,13 @@ export default {
     'project.global.fields.date.out': 'Salida',
     'project.global.fields.quantity': 'Habitaciones',
     'project.global.fields.id': 'ID',
+    'project.global.fields.service': 'Servicio',
+    'project.global.fields.price':'Precio',
+    'project.global.fields.shopping.quantity': 'Cantidad',
     'project.global.validator.email': 'Introduzca una dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'Las contraseñas no coinciden',
     'project.global.validator.required': 'Campo obligatorio',
+    'project.global.validator.incorrectQuantity': 'Cantidad incorrecta',
 
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirmar contraseña nueva',
     'project.users.ChangePassword.fields.newPassword': 'Contraseña nueva',
@@ -73,7 +77,9 @@ export default {
     'project.reservations.RemoveReservation.title': 'Eliminar reserva',
 
     'project.guest.FindGuest.title': 'Clientes',
-    'project.guests.FindReservationResult.noGuestsFound': 'No hay clientes, por favor inténtelo de nuevo'
+    'project.guests.FindReservationResult.noGuestsFound': 'No hay clientes, por favor inténtelo de nuevo',
+    
+    'project.services.AddToAccount.title': 'Añadir a Cuenta'
 
 
     

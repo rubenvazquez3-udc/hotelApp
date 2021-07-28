@@ -36,8 +36,8 @@ const RoomDetails = () => {
     const handleDelete = event => {
         event.preventDefault();
 
-        dispatch(actions.removeRoom(room, room.id));
-        history.push('/rooms');
+        dispatch(actions.removeRoom(room,() => history.push('/rooms'), error => console.log(error)));
+       // history.push('/rooms');
     }
 
     if (!room) {
@@ -78,7 +78,6 @@ const RoomDetails = () => {
                 <div className="card-footer text-center">
                     {adminValues}
                 </div>
-               
             </div>
 
         </div>

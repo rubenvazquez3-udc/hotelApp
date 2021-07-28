@@ -36,6 +36,8 @@ export default {
     'project.global.fields.date.out': 'Departure',
     'project.global.fields.quantity': 'Rooms',
     'project.global.fields.id': 'ID',
+    'project.global.fields.service': 'Service',
+    'project.global.fields.price':'Price',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',
     'project.global.validator.required': 'Required field',

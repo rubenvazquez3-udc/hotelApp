@@ -1,8 +1,7 @@
 import React, { useState, useEffect  } from 'react';
-import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import FindRoomsResult from './FindRoomsResult';
+import StatusSelector from './StatusSelector';
 
 import * as actions from '../actions';
 
@@ -13,7 +12,6 @@ import users from "../../users";
 const FindRooms = () => {
 
     const dispatch = useDispatch();
-    const history = useHistory();
     const [status, setStatus] = useState('');
     const hotels = useSelector(hotel.selectors.getHotels);
     const user = useSelector(users.selectors.getUser);
@@ -25,24 +23,14 @@ const FindRooms = () => {
         dispatch(actions.findRooms({hotelid:hotelid, status:status.trim(),type:"", page:0}));
     }, [hotelid,status, dispatch]);
 
-    const handleSubmit = event => {
-        event.preventDefault();
-
-        dispatch(actions.findRooms({hotelid:hotelid, status:status.trim(),type:"", page:0}));
-        history.push('/rooms/find-rooms-result');
-    }
 
     return (
     <div>
         <div className="formulario">
-        <form className="form-inline mt-2 mt-md-0" onSubmit={e => handleSubmit(e)}>
+        <form className="form-inline mt-2 mt-md-0">
 
-            <input id="status" type="text" className="form-control mr-sm-2" placeholder="LIBRE"
-                value={status} onChange={e => setStatus(e.target.value)} />
-
-            <button type="submit" className="btn btn-primary my-2 my-sm-0">
-                <FormattedMessage id='project.global.buttons.search' />
-            </button>
+        <StatusSelector id='status' className='custom-select my-1 mr-sm-2' 
+            value={status} onChange={e => setStatus(e.target.value)} />
         </form>
         </div>
         <br/>
