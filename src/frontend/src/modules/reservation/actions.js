@@ -81,3 +81,13 @@ export const assignRoom = (roomreservation, onErrors) => dispatch =>
     }, onErrors);
 
 
+const findAccountCompleted = account =>({
+    type: actionTypes.FIND_ACCOUNT_COMPLETED,
+    account
+});
+
+export const findAccount = reservationid => dispatch =>
+    backend.reservationService.findAccount(reservationid, account =>{
+        dispatch(findAccountCompleted(account));
+    });
+
