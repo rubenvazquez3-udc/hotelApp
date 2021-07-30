@@ -7,6 +7,7 @@ export {default as AddHotel} from "./components/addhotel";
 export {default as HotelDetails} from "./components/HotelDetails";
 export {default as UpdateHotel} from "./components/UpdateHotel";
 export {default as FindHotelsResult} from './components/FindHotelsResult';
+export {default as UploadPhoto} from './components/UploadPhoto';
 
 
 
