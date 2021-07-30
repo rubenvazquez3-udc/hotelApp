@@ -71,7 +71,7 @@ export const findAvailableRooms = (hotelid, type) => dispatch => {
     }
 
 
-const assignRoomCompleted = roomreservation => ({
+const assignRoomCompleted = () => ({
     type: actionTypes.ASSIGN_ROOM_COMPLETED
 });
 
@@ -86,7 +86,7 @@ const findAccountCompleted = account =>({
     account
 });
 
-export const findAccount = reservationid => dispatch =>
+export const findAccount = (reservationid) => dispatch =>
     backend.reservationService.findAccount(reservationid, account =>{
         dispatch(findAccountCompleted(account));
     });
