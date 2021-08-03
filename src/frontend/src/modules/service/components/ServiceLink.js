@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 const ServiceLink = ({id, name}) => {
 
     return (
-        <Link to={`/services/service/${id}`}> 
+        <Link to={`/services/details/${id}`}> 
         {name}
         </Link>
     );
