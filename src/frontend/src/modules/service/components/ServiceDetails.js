@@ -54,7 +54,7 @@ const ServiceDetails = () => {
                 <div className="form-group row">
                     <ul id='admin'>
                         <li id='managerbutton'>
-                            <Link className="nav-link" to={`/services/service-details/${service.id}/update`}>
+                            <Link className="nav-link" to={`/services/details/${service.id}/update`}>
                                 <span className="fas fa-edit fa-2x"></span>
                             </Link>
                         </li>
@@ -67,7 +67,7 @@ const ServiceDetails = () => {
         )
     } else if (user.role === 'HOTEL' && service.hotel.address === user.address) {
         adminValues =
-                    <Link className="nav-link" to={`/services/service-details/${service.id}/update`}>
+                    <Link className="nav-link" to={`/services/details/${service.id}/update`}>
                         <FormattedMessage id="project.hotels.UpdateHotel.title" />
                     </Link>            
     }
