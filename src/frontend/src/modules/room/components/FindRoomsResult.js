@@ -25,7 +25,6 @@ const FindRoomsResult = () => {
         );
     }
 
-    //console.log(roomSearch.rooms.items);
 
     return (
         <div>

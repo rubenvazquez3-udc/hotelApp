@@ -125,7 +125,7 @@ public class HotelServiceTest {
 		
 		assertThrows(ServiceAlreadyExistsException.class, () -> hotelService.addService(s1));
 		
-		h2.setId((long) 3);
+		h2.setId( h1.getId()*3);
 		
 		Service s3 = new Service("Parking", "Aparcacoches", 23.5, h2);
 		

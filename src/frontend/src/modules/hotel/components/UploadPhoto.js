@@ -82,7 +82,7 @@ const UploadPhoto = () => {
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
-                                    <FormattedMessage id="project.hotels.AddReservation.title" />
+                                    <FormattedMessage id="project.global.buttons.save" />
                                 </button>
                             </div>
                         </div>

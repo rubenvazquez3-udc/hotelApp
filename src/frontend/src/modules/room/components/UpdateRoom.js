@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-//import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { Errors } from '../../common';
 import * as actions from '../actions';
@@ -13,10 +13,10 @@ const UpdateRoom = () => {
 
     const room = useSelector(selectors.getRoom);
     const types = useSelector(selectors.getRoomTypes);
-    const rooms = useSelector(selectors.getRooms);
+    //const rooms = useSelector(selectors.getRooms);
 
     const dispatch = useDispatch();
-    //const history = useHistory();
+    const history = useHistory();
     const [number, setNumber] = useState(room.number);
     const [status, setRoomStatus] = useState(room.status);
     const [type, setRoomType] = useState(room.type.id);
@@ -41,10 +41,10 @@ const UpdateRoom = () => {
                     type: typeName[0],
                     hotel: room.hotel
                 },
-                () => {
-                    console.log(rooms);
-                    //history.push('/rooms');
-                },
+                () =>
+                    //console.log(rooms);
+                    history.push('/rooms')
+                ,
                 errors => setBackendErrors(errors)
             ));
 

@@ -22,7 +22,7 @@ const Rooms = ({ rooms }) => (
         </thead>
         
         <tbody>
-            {rooms.map(room =>
+            {rooms && rooms.map(room =>
                 <tr key={room.id}>
                     <td><RoomLink id={room.id} name={room.number} /></td>
                     <td>{room.type.name}</td>

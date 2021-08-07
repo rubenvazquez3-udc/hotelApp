@@ -64,9 +64,9 @@ export const removeHotel = (hotel, onSuccess, onErrors) => dispatch =>
     },           
     onErrors);
 
-const uploadPhotoCompleted = () =>{
+const uploadPhotoCompleted = () =>({
     type: actionTypes.UPLOAD_PHOTO_COMPLETED
-}
+});
 
 export const uploadPhoto = (hotelid, file, onSuccess, onErrors) => dispatch =>
     backend.hotelService.uploadPhoto(hotelid,file, () =>{
