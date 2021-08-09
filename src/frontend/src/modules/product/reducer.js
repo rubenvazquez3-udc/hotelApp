@@ -35,9 +35,9 @@ const products = (state = initialState.products, action) => {
         case actionTypes.UPDATE_PRODUCT_COMPLETED:
             let estado = [...state.products.items];
             estado.splice(estado.findIndex(product => product.id === action.product.id), 1, action.product);
-            return {criteria: {...state.criteria}, services: estado};
+            return {criteria: {...state.criteria}, products: estado};
         case actionTypes.REMOVE_PRODUCT_COMPLETED:
-            let list = [...state.services.items];
+            let list = [...state.products.items];
             let result = list.filter(product => product.id !== action.product);
             return {criteria: {...state.criteria}, products: result};
         case actionTypes.CLEAR_PRODUCTS_COMPLETED:

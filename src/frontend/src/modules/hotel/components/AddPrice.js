@@ -40,8 +40,8 @@ const AddPrice = () => {
             dispatch(actions.addPrice(
                 {
                     price: price,
-                    hotel: hotel1,
-                    type: typename
+                    hotel: hotel1[0],
+                    type: typename[0]
                 },
                 () => history.push('/'),
                 errors => setBackendErrors(errors)

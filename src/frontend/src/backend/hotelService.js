@@ -54,7 +54,7 @@ export const updateService = (service, onSuccess, onErrors) =>
     appFetch(`/hotels/${service.hotel.id}/services/${service.id}`, config('PUT', service), onSuccess, onErrors);
 
 export const updateProduct = (product, onSuccess, onErrors) =>
-    appFetch(`/hotels/${product.hotel.id}/product/${product.id}`, config('PUT', product), onSuccess, onErrors);
+    appFetch(`/hotels/${product.hotel.id}/products/${product.id}`, config('PUT', product), onSuccess, onErrors);
 
 export const removeService = (hotelid, serviceid, onSuccess, onErrors) =>
     appFetch(`/hotels/${hotelid}/services/${serviceid}`, config('DELETE'), onSuccess, onErrors);

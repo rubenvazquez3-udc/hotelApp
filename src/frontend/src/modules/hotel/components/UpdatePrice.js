@@ -15,7 +15,7 @@ const UpdatePrice = () => {
     const history = useHistory();
     const price = useSelector(selectors.getPrice);
     const [priceunit, setPrice] = useState(price.price);
-    const [type, setType] = useState(price.type.id);
+    const [type] = useState(price.type.id);
     const hotel = useSelector(selectors.getHotel);
 
     const [backendErrors, setBackendErrors] = useState(null);
@@ -28,7 +28,7 @@ const UpdatePrice = () => {
 
         if (form.checkValidity()) {
 
-            dispatch(actions.addPrice(
+            dispatch(actions.updatePrice(
                 {
                     id: price.id,
                     price: priceunit,
@@ -55,7 +55,7 @@ const UpdatePrice = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.hotels.AddPrice.title" />
+                    <FormattedMessage id="project.hotels.UpdatePrice.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
@@ -82,7 +82,7 @@ const UpdatePrice = () => {
                             </label>
                             <div className="col-md-4">
                                 <RoomTypeSelector id='type' className='custom-select my-1 mr-sm-2' 
-                                    value={type}/>
+                                    value={type} readOnly/>
                                 <div className="invalid-feedback">
                                     <FormattedMessage id='project.global.validator.required' />
                                 </div>

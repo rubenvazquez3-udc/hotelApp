@@ -7,7 +7,7 @@ import users from '../../users';
 
 import { BackLink, ConfirmDialog } from '../../common';
 import { FormattedMessage } from 'react-intl';
-import AddToAccount from '../../reservation';
+import {AddToAccount} from '../../reservation';
 
 
 const ProductDetails = () => {
@@ -57,7 +57,7 @@ const ProductDetails = () => {
                 <div className="form-group row">
                     <ul id='admin'>
                         <li id='managerbutton'>
-                            <Link className="nav-link" to={`/services/details/${product.id}/update`}>
+                            <Link className="nav-link" to={`/products/details/${product.id}/update`}>
                                 <span className="fas fa-edit fa-2x"/>
                             </Link>
                         </li>
@@ -70,7 +70,7 @@ const ProductDetails = () => {
         )
     } else if (user.role === 'HOTEL' && product.hotel.address === user.address) {
         adminValues =
-                    <Link className="nav-link" to={`/services/details/${product.id}/update`}>
+                    <Link className="nav-link" to={`/products/details/${product.id}/update`}>
                         <FormattedMessage id="project.hotels.UpdateService.title" />
                     </Link>            
     }

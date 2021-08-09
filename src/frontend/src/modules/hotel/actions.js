@@ -93,3 +93,15 @@ const findPriceByIdCompleted = price => ({
 export const findPriceById = (hotelid, priceid) => dispatch =>
     backend.hotelService.findPriceById(hotelid, priceid, price =>
         dispatch(findPriceByIdCompleted(price)));
+
+const updatePriceCompleted = () => ({
+    type: actionTypes.UPDATE_PRICE_COMPLETED
+});
+
+export const updatePrice = (price, onSuccess, onErrors) => dispatch =>
+    backend.hotelService.updatePrice(price, price =>{
+        dispatch(updatePriceCompleted(price));
+        onSuccess();
+    }, onErrors);
+
+

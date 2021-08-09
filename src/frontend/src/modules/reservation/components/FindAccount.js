@@ -10,13 +10,13 @@ import FindAccountResult from './FindAccountResult';
 const FindAccount = () => {
 
     const dispatch = useDispatch();
-    const reservationid = useSelector(selectors.getReservation).id;
+    const reservation = useSelector(selectors.getReservation);
 
     useEffect(() => {
         
-            dispatch(actions.findAccount(reservationid));
+            dispatch(actions.findAccount(reservation.id));
        
-    }, [reservationid, dispatch]);
+    }, [reservation.id, dispatch]);
 
     
 

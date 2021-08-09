@@ -6,3 +6,4 @@ export const REMOVE_HOTEL_COMPLETED = "project/hotel/removeHotelCompleted";
 export const UPLOAD_PHOTO_COMPLETED = "project/hotel/uploadPhotoCompleted";
 export const ADD_PRICE_COMPLETED = 'project/hotel/addPriceCompleted';
 export const FIND_PRICE_BY_ID_COMPLETED = 'project/hotel/findPriceByIdCompleted';
+export const UPDATE_PRICE_COMPLETED = 'project/hotel/updatePriceCompleted';

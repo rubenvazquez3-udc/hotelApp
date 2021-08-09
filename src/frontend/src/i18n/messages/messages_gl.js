@@ -38,6 +38,7 @@ export default {
     'project.global.fields.service': 'Servizo',
     'project.global.fields.price':'Prezo',
     'project.global.fields.shopping.quantity': 'Cantidade',
+    'project.global.fields.product':'Producto',
     'project.global.validator.email': 'Introduzca unha dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'As contrasinais non coinciden',
     'project.global.validator.required': 'Campo obrigatorio',
@@ -64,6 +65,8 @@ export default {
     'project.hotels.AddReservation.title': 'Reservar',
     'project.hotels.AddGuest.title': 'Engadir cliente',
     'project.hotels.UploadPhoto.title': 'Engadir Foto',
+    'project.hotels.AddPrice.title': 'Engadir Prezo',
+    'project.hotels.UpdatePrice.title': 'Actualizar Prezo',
 
     'project.room.FindRoomsResult.noRoomsFound': 'Non hai habitacions',
     'project.room.UpdateRoom.title': 'Actualizar habitación',
@@ -80,6 +83,10 @@ export default {
     'project.guests.FindReservationResult.noGuestsFound': 'Non hai clientes, por favor intenteo de novo',
 
     'project.services.AddToAccount.title': 'Engadir a Conta',
-    'project.service.UpdateService.title': 'Actualizar Servizo'
+    'project.service.UpdateService.title': 'Actualizar Servizo',
+    'project.service.AddService.title': 'Engadir Servicio',
+
+    'project.product.UpdateProduct.title': 'Actualizar Producto',
+    'project.product.AddProduct.title': 'Engadir Producto'
 
 }

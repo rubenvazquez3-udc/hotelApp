@@ -1,19 +1,12 @@
 import React, { useState, useEffect  } from 'react';
-//import { FormattedMessage } from "react-intl";
-//import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import FindServicesResult from './FindServicesResult';
-
 import * as actions from '../actions';
-
 import hotel from "../../hotel";
-
-
 
 const FindServices = () => {
 
     const dispatch = useDispatch();
-    //const history = useHistory();
     const [name, setName] = useState('');
     const hotels = useSelector(hotel.selectors.getHotel);
     
@@ -27,7 +20,6 @@ const FindServices = () => {
         event.preventDefault();
 
         dispatch(actions.findServices({hotelid:hotelid,page:0}));
-        //history.push('/rooms/find-rooms-result');
     }
 
     /*

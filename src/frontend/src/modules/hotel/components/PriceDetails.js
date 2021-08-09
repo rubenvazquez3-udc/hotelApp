@@ -19,12 +19,12 @@ const PriceDetails = () => {
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
 
-    const price = hotel.prices.filter(price => price.id === parseInt(id));
+    const price = hotel.prices.filter(price => price.id === parseInt(id))[0];
 
     //const price = useSelector(selectors.getPrice);
 
     const hotelid = hotel.id;
-
+    console.log(price);
     let adminValues = null;
 
     const handleDelete = event => {
@@ -48,14 +48,20 @@ const PriceDetails = () => {
     }
 
     if (user.role === 'MANAGER' && hotel.address === user.address) {
-        adminValues = (
-                        <div>
-                            <Link className="nav-link" to={`/hotels/hotel-details/${price.id}/update`}>
-                                <FormattedMessage id="project.hotels.UpdateHotel.title" />
+            adminValues = (
+                <div className="form-group row">
+                    <ul id='admin'>
+                        <li id='managerbutton'>
+                            <Link className="nav-link" to={`/prices/details/${price.id}/update`}>
+                                <span className="fas fa-edit fa-2x"/>
                             </Link>
-                            <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/add-rooms`} >
-                                <FormattedMessage id="project.hotels.AddRoom.title" />
-                            </Link>
+                        </li>
+                        <li id='managerbutton'>
+                            <ConfirmDialog id='removePrice' icon='eraser fa-3x' headerTitle='Remove Price'
+                                           bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
+                        </li>
+                    </ul>
+
                         </div>
             
         )

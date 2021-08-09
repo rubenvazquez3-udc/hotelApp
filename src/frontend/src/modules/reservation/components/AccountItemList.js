@@ -29,8 +29,8 @@ const AccountItemList = ({ list }) => (
                 <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.quantity}</td>
-                    <td><FormattedNumber value={item.price}/></td>
-                    <td><FormattedNumber value={item.quantity*item.price}/></td>
+                    <td><FormattedNumber value={item.itemPrice}/></td>
+                    <td><FormattedNumber value={item.quantity*item.itemPrice}/></td>
                 </tr>
             )}
         </tbody>

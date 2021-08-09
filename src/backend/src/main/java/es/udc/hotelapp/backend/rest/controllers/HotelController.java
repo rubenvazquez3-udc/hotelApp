@@ -99,7 +99,7 @@ public class HotelController {
 	@ExceptionHandler(ProductAlreadyExistsException.class)
 	@ResponseStatus(HttpStatus.CONFLICT)
 	@ResponseBody
-	public ErrorsDto handleProductAlreadyExistsException(ServiceAlreadyExistsException exception, Locale locale) {
+	public ErrorsDto handleProductAlreadyExistsException(ProductAlreadyExistsException exception, Locale locale) {
 		String errorMessage = messageSource.getMessage(PRODUCT_ALREADY_EXISTS_EXCEPTION_CODE, null,
 				PRODUCT_ALREADY_EXISTS_EXCEPTION_CODE, locale);
 		return new ErrorsDto(errorMessage);

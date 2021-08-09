@@ -10,6 +10,7 @@ const PricesHotel = ({prices}) => (
 
         <thead>
             <tr>
+                <th scope='col'/>
                 <th scope="col">
                     <FormattedMessage id='project.global.fields.type'/>
                 </th>
@@ -20,7 +21,7 @@ const PricesHotel = ({prices}) => (
         </thead>
         
         <tbody>
-            {prices.map(price =>
+            {prices && prices.map(price =>
                 <tr key={price.id}>
                     <td><PriceLink id={price.id} name={price.id}/></td>
                     <td>{price.type.name}</td>

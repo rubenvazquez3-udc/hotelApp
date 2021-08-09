@@ -11,6 +11,7 @@ const UpdateProduct = () => {
 
     const product = useSelector(selectors.getProduct);
     const dispatch = useDispatch();
+    const history = useHistory();
     const [name, setName] = useState(product.name);
     const [description, setDescription] = useState(product.description);
     const [price, setPrice] = useState(product.price);
@@ -33,13 +34,7 @@ const UpdateProduct = () => {
                     price: price,
                     hotel: product.hotel
                 },
-                () => ( <div>
-                            <div className="alert alert-success" role="alert" >
-                                <FormattedMessage id='project.room.FindRoomsResult.noRoomsFound' />
-                            </div>
-                            <UpdateService/>
-                        </div>
-                    ),
+                () => history.push(`/hotels/hotel-details/${product.hotel.id}`),
                 errors => setBackendErrors(errors)
             ));
 
@@ -59,7 +54,7 @@ const UpdateProduct = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.service.UpdateProduct.title" />
+                    <FormattedMessage id="project.product.UpdateProduct.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
@@ -111,7 +106,7 @@ const UpdateProduct = () => {
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
-                                    <FormattedMessage id="project.service.UpdateProduct.title" />
+                                    <FormattedMessage id="project.product.UpdateProduct.title" />
                                 </button>
                             </div>
                         </div>

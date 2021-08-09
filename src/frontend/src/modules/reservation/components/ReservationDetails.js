@@ -93,7 +93,10 @@ const ReservationDetails = () => {
                 <div className="card-footer text-center">
                 <div className="navbar-nav">
                 <Link className="nav-link" to={`/reservations/reservation-details/${reservation.id}/update`}>
-                    <span className="fas fa-edit fa-2x"></span>
+                    <span className="fas fa-edit fa-2x"/>
+                </Link>
+                <Link className="nav-link" to={`/reservations/reservation-details/${reservation.id}/account`}>
+                    <span className="fas fa-file-alt fa-2x"/>
                 </Link>
                 <ConfirmDialog id='removeReservation' icon='eraser fa-3x' headerTitle='Remove Reservation'
                     bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)}/>

@@ -53,7 +53,7 @@ const findProductByIdCompleted = product =>({
 });
 
 export const findProductById = (hotelid, productid) => dispatch =>
-    backend.hotelService.findServiceById(hotelid, productid, product => {
+    backend.hotelService.findProductById(hotelid, productid, product => {
         dispatch(findProductByIdCompleted(product));
     });
 

@@ -1,4 +1,4 @@
-const getModuleState = state => state.services;
+const getModuleState = state => state.products;
 
 export const getProducts = state => 
     getModuleState(state).products;

@@ -5,12 +5,14 @@ import * as selectors from "../selectors";
 import * as actions from '../actions';
 import users from '../../users';
 import {FindServices} from '../../service';
+import {FindProducts} from "../../product";
 import Images from './Images';
 import PricesHotel from './PricesHotel';
 import Prices from './Prices';
 
 import { BackLink, ConfirmDialog } from '../../common';
 import { FormattedMessage } from 'react-intl';
+
 
 
 const HotelDetails = () => {
@@ -52,7 +54,7 @@ const HotelDetails = () => {
                     <ul id='admin'>
                         <li id='managerbutton'>
                             <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
-                                <span className="fas fa-edit fa-2x"></span>
+                                <span className="fas fa-edit fa-2x"/>
                             </Link>
                         </li>
                         <li id='managerbutton'>
@@ -119,8 +121,7 @@ const HotelDetails = () => {
                     <br/>
                     
                     <FindServices/>
-                    
-                   
+                    <FindProducts/>
                     </div>
                 </div>
                 </div>

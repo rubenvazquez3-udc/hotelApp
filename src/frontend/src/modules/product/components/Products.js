@@ -10,7 +10,7 @@ const Products = ({products}) => (
         <thead>
             <tr>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.service'/>
+                    <FormattedMessage id='project.global.fields.product'/>
                 </th>
                 <th scope="col">
                     <FormattedMessage id='project.global.fields.price'/>
@@ -19,7 +19,7 @@ const Products = ({products}) => (
         </thead>
         
         <tbody>
-            {products.map(service =>
+            {products && products.map(service =>
                 <tr key={service.id}>
                     <td><ProductLink id={service.id} name={service.name}/></td>
                     <td>{service.price}</td>

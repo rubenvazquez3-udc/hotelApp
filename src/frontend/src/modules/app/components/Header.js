@@ -61,6 +61,16 @@ const Header = () => {
                     : user === "MANAGER" ?
                         <ul className="navbar-nav">
                             <li className="nav-item">
+                                <Link className="nav-link" to="/hotels/prices">
+                                    <FormattedMessage id="project.hotels.AddPrice.title" />
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/products/add">
+                                    <FormattedMessage id="project.product.AddProduct.title" />
+                                </Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link" to="/services/add">
                                     <FormattedMessage id="project.service.AddService.title" />
                                 </Link>

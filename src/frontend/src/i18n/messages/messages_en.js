@@ -38,6 +38,7 @@ export default {
     'project.global.fields.service': 'Service',
     'project.global.fields.price':'Price',
     'project.global.fields.shopping.quantity': 'Quantity',
+    'project.global.fields.product':'Product',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',
     'project.global.validator.required': 'Required field',
@@ -64,6 +65,8 @@ export default {
     'project.hotels.AddReservation.title': 'Book',
     'project.hotels.AddGuest.title': 'Add Guest',
     'project.hotels.UploadPhoto.title': 'Upload Photo',
+    'project.hotels.AddPrice.title': 'Add Price',
+    'project.hotels.UpdatePrice.title': 'Update Price',
 
     'project.room.FindRoomsResult.noRoomsFound': 'No rooms found',
     'project.room.UpdateRoom.title': 'Update Room',
@@ -80,6 +83,10 @@ export default {
     'project.guests.FindReservationResult.noGuestsFound': 'No guests found, please try again',
 
     'project.services.AddToAccount.title': 'Add To Account',
-    'project.service.UpdateService.title': 'Update Service'
+    'project.service.UpdateService.title': 'Update Service',
+    'project.service.AddService.title': 'Add Service',
+
+    'project.product.UpdateProduct.title': 'Update Product',
+    'project.product.AddProduct.title': 'Add Product'
 
 }
