@@ -34,7 +34,7 @@ const Reservations = ({ reservations }) => (
         </thead>
 
         <tbody>
-            {reservations.map(reservation =>
+            {reservations && reservations.map(reservation =>
                 <tr key={reservation.id}>
                     <td><ReservationLink id={reservation.id} name={reservation.id}/></td>
                     <td>{reservation.roomtype.name}</td>

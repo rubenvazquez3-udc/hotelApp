@@ -12,6 +12,7 @@ import users from '../../users';
 const AddService = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -36,15 +37,9 @@ const AddService = () => {
                     name: name.trim(),
                     description: description.trim(),
                     price: price,
-                    hotel: hotel
+                    hotel: hotel[0]
                 },
-                () => ( <div>
-                            <div className="alert alert-success" role="alert" >
-                                <FormattedMessage id='project.room.FindRoomsResult.noRoomsFound' />
-                            </div>
-                            <AddService/>
-                        </div>
-                    ),
+                () => history.push(`/hotels/hotel-details/${hotel[0].id}`),
                 errors => setBackendErrors(errors)
             ));
 
@@ -64,7 +59,7 @@ const AddService = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.hotels.AddService.title" />
+                    <FormattedMessage id="project.service.AddService.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}

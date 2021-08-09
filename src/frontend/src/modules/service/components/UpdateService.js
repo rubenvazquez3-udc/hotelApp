@@ -11,6 +11,7 @@ const UpdateService = () => {
 
     const service = useSelector(selectors.getService);
     const dispatch = useDispatch();
+    const history = useHistory();
     const [name, setName] = useState(service.name);
     const [description, setDescription] = useState(service.description);
     const [price, setPrice] = useState(service.price);
@@ -33,13 +34,7 @@ const UpdateService = () => {
                     price: price,
                     hotel: service.hotel
                 },
-                () => ( <div>
-                            <div className="alert alert-success" role="alert" >
-                                <FormattedMessage id='project.room.FindRoomsResult.noRoomsFound' />
-                            </div>
-                            <UpdateService/>
-                        </div>
-                    ),
+                () => history.push(`/hotels/hotel-details/${service.hotel.id}`),
                 errors => setBackendErrors(errors)
             ));
 

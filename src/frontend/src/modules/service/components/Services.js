@@ -19,7 +19,7 @@ const Services = ({services}) => (
         </thead>
         
         <tbody>
-            {services.map(service =>
+            {services && services.map(service =>
                 <tr key={service.id}>
                     <td><ServiceLink id={service.id} name={service.name}/></td>
                     <td>{service.price}</td>

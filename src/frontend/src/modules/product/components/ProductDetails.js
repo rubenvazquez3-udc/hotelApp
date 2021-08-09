@@ -22,40 +22,43 @@ const ProductDetails = () => {
 
     let adminValues = null;
 
-    const hotelid = {... products.filter(product => product.id === parseInt(id))}.hotel.id;
-
-    const handleDelete = event => {
-        event.preventDefault();
-
-        dispatch(actions.removeProduct(product));
-        //history.push('/')
-    }
-
-    const today = new Date().toJSON().split('T')[0];
-    const userid = user.id;
+    const hotelid = products.products.items && products.products.items.filter(product => product.id === parseInt(id))[0].hotel.id;
 
     const loggedAsUser = user.role === 'USER';
 
     useEffect(() => {
         const productid = Number(id);
+        const today = new Date().toJSON().split('T')[0];
+        const userid = user.id;
 
         if (!Number.isNaN(id)) {
             dispatch(actions.findProductById(hotelid,productid));
         }
-            dispatch(actions.findReservationsByUserAndDate(hotelid,userid,today));
-    }, [id,hotelid,userid,today, dispatch]);
+        if(loggedAsUser) {
+            dispatch(actions.findReservationsByUserAndDate(hotelid, userid, today));
+        }
+    }, [id,hotelid,user.id,loggedAsUser, dispatch]);
+
+    const handleDelete = event => {
+        event.preventDefault();
+
+        dispatch(actions.removeProduct(product,
+            () => history.push(`/hotels/hotel-details/${product.hotel.id}`),
+            error => console.log(error)));
+
+    }
 
     if (!product) {
         return null;
     }
 
-    if (user.role === 'HOTEL' && product.hotel.address === user.address) {
+    if (user.role === 'MANAGER' && product.hotel.address === user.address) {
         adminValues = (
                 <div className="form-group row">
                     <ul id='admin'>
                         <li id='managerbutton'>
                             <Link className="nav-link" to={`/services/details/${product.id}/update`}>
-                                <span className="fas fa-edit fa-2x"></span>
+                                <span className="fas fa-edit fa-2x"/>
                             </Link>
                         </li>
                         <li id='managerbutton'>
@@ -87,11 +90,11 @@ const ProductDetails = () => {
                     <br/>
                     <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {product.description}</p>
 
-                    { loggedAsUser &&
+                    { loggedAsUser && reservation &&
                         <div>
                             <br/>
 
-                            <AddToAccount productId={product.id} serviceId={null} reservationId={reservation.id}/>
+                            <AddToAccount productId={product.id} serviceId={null} reservationId={reservation[0].id}/>
                         
                         </div>
 

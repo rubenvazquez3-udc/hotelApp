@@ -25,7 +25,7 @@ const AccountItemList = ({ list }) => (
         </thead>
 
         <tbody>
-            {list.map(item =>
+            {list && list.map(item =>
                 <tr key={item.id}>
                     <td>{item.name}</td>
                     <td>{item.quantity}</td>

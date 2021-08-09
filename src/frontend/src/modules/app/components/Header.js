@@ -19,7 +19,7 @@ const Header = () => {
                 data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                <span className="navbar-toggler-icon"/>
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -41,7 +41,7 @@ const Header = () => {
                         </li>
                         <li className="nav-item dropdown">
                             <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
-                                <span className="fas fa-user"></span>&nbsp;
+                                <span className="fas fa-user"/>&nbsp;
                                     {userName}
                             </a>
                             <div className="dropdown-menu dropdown-menu-right">
@@ -51,7 +51,7 @@ const Header = () => {
                                 <Link className="dropdown-item" to="/users/change-password">
                                     <FormattedMessage id="project.users.ChangePassword.title" />
                                 </Link>
-                                <div className="dropdown-divider"></div>
+                                <div className="dropdown-divider"/>
                                 <Link className="dropdown-item" to="/users/logout">
                                     <FormattedMessage id="project.app.Header.logout" />
                                 </Link>
@@ -60,6 +60,16 @@ const Header = () => {
                     </ul>
                     : user === "MANAGER" ?
                         <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/services/add">
+                                    <FormattedMessage id="project.service.AddService.title" />
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/hotels/upload-photo">
+                                    <FormattedMessage id="project.hotels.UploadPhoto.title" />
+                                </Link>
+                            </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/guests">
                                     <FormattedMessage id="project.guest.FindGuest.title" />
@@ -82,7 +92,7 @@ const Header = () => {
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
-                                    <span className="fas fa-user"></span>&nbsp;
+                                    <span className="fas fa-user"/>&nbsp;
                                     {userName}
                                 </a>
                                 <div className="dropdown-menu dropdown-menu-right">
@@ -92,7 +102,7 @@ const Header = () => {
                                     <Link className="dropdown-item" to="/users/change-password">
                                         <FormattedMessage id="project.users.ChangePassword.title" />
                                     </Link>
-                                    <div className="dropdown-divider"></div>
+                                    <div className="dropdown-divider"/>
                                     <Link className="dropdown-item" to="/users/logout">
                                         <FormattedMessage id="project.app.Header.logout" />
                                     </Link>
@@ -118,7 +128,7 @@ const Header = () => {
                                 </li>
                                 <li className="nav-item dropdown">
                                     <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
-                                        <span className="fas fa-user"></span>&nbsp;
+                                        <span className="fas fa-user"/>&nbsp;
                                     {userName}
                                     </a>
                                     <div className="dropdown-menu dropdown-menu-right">
@@ -128,7 +138,7 @@ const Header = () => {
                                         <Link className="dropdown-item" to="/users/change-password">
                                             <FormattedMessage id="project.users.ChangePassword.title" />
                                         </Link>
-                                        <div className="dropdown-divider"></div>
+                                        <div className="dropdown-divider"/>
                                         <Link className="dropdown-item" to="/users/logout">
                                             <FormattedMessage id="project.app.Header.logout" />
                                         </Link>
@@ -144,7 +154,7 @@ const Header = () => {
                                     </li>
                                     <li className="nav-item dropdown">
                                         <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
-                                            <span className="fas fa-user"></span>&nbsp;
+                                            <span className="fas fa-user"/>&nbsp;
                                     {userName}
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-right">
@@ -154,7 +164,7 @@ const Header = () => {
                                             <Link className="dropdown-item" to="/users/change-password">
                                                 <FormattedMessage id="project.users.ChangePassword.title" />
                                             </Link>
-                                            <div className="dropdown-divider"></div>
+                                            <div className="dropdown-divider"/>
                                             <Link className="dropdown-item" to="/users/logout">
                                                 <FormattedMessage id="project.app.Header.logout" />
                                             </Link>

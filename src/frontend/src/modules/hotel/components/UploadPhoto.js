@@ -18,9 +18,7 @@ const UploadPhoto = () => {
     const user = useSelector(users.selectors.getUser);
     const hotels = useSelector(selectors.getHotels);
 
-
     const [file, setFile] = useState('');
-
     const [backendErrors, setBackendErrors] = useState(null);
 
     let form;
@@ -35,10 +33,7 @@ const UploadPhoto = () => {
         if (form.checkValidity()) {
 
             dispatch(actions.uploadPhoto(hotel1[0].id, file),
-                () => {
-                dispatch(actions.getHotels());
-                history.push('/');
-                },
+                () => history.push('/'),
                 errors => setBackendErrors(errors)
             );
 
@@ -57,10 +52,10 @@ const UploadPhoto = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.hotels.AddReservation.title" />
+                    <FormattedMessage id="project.hotels.UploadPhoto.title" />
                 </h5>
                 <div className="card-body">
-                    <form ref={node => form = node}
+                    <form ref={node => form = node} encType="multipart/form-data"
                           className="needs-validation" noValidate
                           onSubmit={e => handleSubmit(e)}>
 
@@ -93,6 +88,5 @@ const UploadPhoto = () => {
     );
 
 }
-
 
 export default UploadPhoto;

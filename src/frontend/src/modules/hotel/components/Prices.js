@@ -19,7 +19,7 @@ const Prices = ({prices}) => (
         </thead>
         
         <tbody>
-            {prices.map(price =>
+            {prices && prices.map(price =>
                 <tr key={price.id}>
                     <td>{price.type.name}</td>
                     <td>{price.price}</td>

@@ -25,7 +25,7 @@ const Hotels = ({hotels}) => (
         </thead>
         
         <tbody>
-            {hotels.map(hotel =>
+            {hotels && hotels.map(hotel =>
                 <tr key={hotel.id}>
                     <td><HotelLink id={hotel.id} name={hotel.name}/></td>
                     <td>{hotel.manager}</td>

@@ -6,14 +6,11 @@ import AppGlobalComponents from './AppGlobalComponents';
 import Home from './Home';
 import {Login, SignUp, UpdateProfile, ChangePassword, Logout} from '../../users';
 import users from '../../users';
-import {HotelDetails, AddHotel, UpdateHotel} from '../../hotel';
+import {HotelDetails, AddHotel, UpdateHotel, UploadPhoto} from '../../hotel';
 import {AddRoom, FindRooms, FindRoomsResult, RoomDetails, UpdateRoom} from '../../room';
 import {AddReservation, FindReservationsHotel, FindReservationsUser, ReservationDetails, UpdateReservation,AssignRoom} from '../../reservation';
 import { AddGuest, FindGuests } from '../../guest';
-
-
-
-
+import {AddService,UpdateService,ServiceDetails} from "../../service";
 
 
 const Body = () => {
@@ -29,6 +26,7 @@ const Body = () => {
             <Switch>
                 <Route exact path="/"><Home/></Route>
                 <Route exact path="/hotels/hotel-details/:id"><HotelDetails/></Route>
+                <Route exact path="/hotels/upload-photo"><UploadPhoto/></Route>
                 <Route exact path='/hotels/hotel-details/:id/update'><UpdateHotel/></Route>
                 <Route exact path='/rooms'><FindRooms/></Route>
                 <Route exact path='/rooms/find-rooms-result'><FindRoomsResult/></Route>
@@ -43,6 +41,9 @@ const Body = () => {
                 <Route exact path='/reservations/reservation-details/:id/assignRoom'><AssignRoom/></Route>
                 <Route exact path='/reservations/reservation-details/:id/addGuest'><AddGuest/></Route>
                 <Route exact path='/guests'><FindGuests/></Route>
+                <Route exact path='/services/details/:id'><ServiceDetails/></Route>
+                <Route exact path='/services/add'><AddService/></Route>
+                <Route exact path='/services/details/:id/update'><UpdateService/></Route>
                 {loggedIn && <Route exact path="/users/update-profile"><UpdateProfile/></Route>}
                 {loggedIn && <Route exact path="/users/change-password"><ChangePassword/></Route>}
                 {loggedIn && <Route exact path="/users/logout"><Logout/></Route>}

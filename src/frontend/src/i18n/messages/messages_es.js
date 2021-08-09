@@ -63,6 +63,7 @@ export default {
     'project.hotels.AddRoom.title': 'Añadir habitación',
     'project.hotels.AddReservation.title': 'Reservar',
     'project.hotels.AddGuest.title': 'Añadir Cliente',
+    'project.hotels.UploadPhoto.title': 'Añadir Foto',
 
     'project.room.FindRoomsResult.noRoomsFound': 'No hay habitaciones',
     'project.room.UpdateRoom.title': 'Actualizar habitación',
@@ -79,7 +80,8 @@ export default {
     'project.guests.FindReservationResult.noGuestsFound': 'No hay clientes, por favor inténtelo de nuevo',
     
     'project.services.AddToAccount.title': 'Añadir a Cuenta',
-    'project.service.UpdateService.title': 'Actualizar Servicio'
+    'project.service.UpdateService.title': 'Actualizar Servicio',
+    'project.service.AddService.title': 'Añadir Servicio'
 
 
     

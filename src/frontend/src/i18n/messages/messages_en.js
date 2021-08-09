@@ -63,6 +63,7 @@ export default {
     'project.hotels.AddRoom.title': 'Add Room',
     'project.hotels.AddReservation.title': 'Book',
     'project.hotels.AddGuest.title': 'Add Guest',
+    'project.hotels.UploadPhoto.title': 'Upload Photo',
 
     'project.room.FindRoomsResult.noRoomsFound': 'No rooms found',
     'project.room.UpdateRoom.title': 'Update Room',

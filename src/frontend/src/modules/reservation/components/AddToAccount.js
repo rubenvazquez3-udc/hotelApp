@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 //import { useHistory } from 'react-router-dom';
 
-import { Errors, Success } from '../../common';
+import { Errors } from '../../common';
 import * as actions from '../actions';
 
 
@@ -29,7 +29,7 @@ const AddToAccount = ({productId, reservationId, serviceId}) => {
                 serviceId: serviceId,
                 quantity: quantity
             },
-            () => console.log('Success'),//<Success message ={"Added Succesfully"} onClose={}/>,
+            () => console.log('Success'),
             errors => setBackendErrors(errors)
             ));
 

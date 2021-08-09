@@ -63,6 +63,7 @@ export default {
     'project.hotels.AddRoom.title': 'Engadir habitación',
     'project.hotels.AddReservation.title': 'Reservar',
     'project.hotels.AddGuest.title': 'Engadir cliente',
+    'project.hotels.UploadPhoto.title': 'Engadir Foto',
 
     'project.room.FindRoomsResult.noRoomsFound': 'Non hai habitacions',
     'project.room.UpdateRoom.title': 'Actualizar habitación',
