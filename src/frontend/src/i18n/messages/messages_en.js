@@ -3,7 +3,6 @@ export default {
     'project.app.Footer.text': 'Hotel App',
     'project.app.Header.home': 'Home',
     'project.app.Header.logout': 'Logout',
-    'project.app.Home.welcome': 'MiniPortal main page content!',
 
     'project.common.ErrorDialog.title': 'Error',
 
@@ -38,9 +37,11 @@ export default {
     'project.global.fields.id': 'ID',
     'project.global.fields.service': 'Service',
     'project.global.fields.price':'Price',
+    'project.global.fields.shopping.quantity': 'Quantity',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',
     'project.global.validator.required': 'Required field',
+    'project.global.validator.incorrectQuantity': 'Wrong Quantity',
 
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirm new password',
     'project.users.ChangePassword.fields.newPassword': 'New password',
@@ -75,6 +76,9 @@ export default {
     'project.reservations.RemoveReservation.title': 'Remove reservation',
 
     'project.guest.FindGuest.title': 'Guests',
-    'project.guests.FindReservationResult.noGuestsFound': 'No guests found, please try again'
+    'project.guests.FindReservationResult.noGuestsFound': 'No guests found, please try again',
+
+    'project.services.AddToAccount.title': 'Add To Account',
+    'project.service.UpdateService.title': 'Update Service'
 
 }

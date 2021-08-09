@@ -3,7 +3,6 @@ export default {
     'project.app.Footer.text': 'Hotel App',
     'project.app.Header.home': 'Inicio',
     'project.app.Header.logout': 'Saír',
-    'project.app.Home.welcome': '¡Contido da páxina principal de PA Project!',
     
     'project.common.ErrorDialog.title': 'Erro',
 
@@ -38,9 +37,11 @@ export default {
     'project.global.fields.id': 'ID',
     'project.global.fields.service': 'Servizo',
     'project.global.fields.price':'Prezo',
+    'project.global.fields.shopping.quantity': 'Cantidade',
     'project.global.validator.email': 'Introduzca unha dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'As contrasinais non coinciden',
     'project.global.validator.required': 'Campo obrigatorio',
+    'project.global.validator.incorrectQuantity': 'Cantidade erronea',
 
     'project.users.ChangePassword.fields.confirmNewPassword': 'Confirmar contrasinal nova',
     'project.users.ChangePassword.fields.newPassword': 'Contrasinal nova',
@@ -75,6 +76,9 @@ export default {
     'project.reservations.RemoveReservation.title': 'Eliminar reserva',
 
     'project.guest.FindGuest.title': 'Clientes',
-    'project.guests.FindReservationResult.noGuestsFound': 'Non hai clientes, por favor intenteo de novo'
+    'project.guests.FindReservationResult.noGuestsFound': 'Non hai clientes, por favor intenteo de novo',
+
+    'project.services.AddToAccount.title': 'Engadir a Conta',
+    'project.service.UpdateService.title': 'Actualizar Servizo'
 
 }

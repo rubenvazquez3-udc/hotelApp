@@ -36,8 +36,8 @@ const RoomDetails = () => {
     const handleDelete = event => {
         event.preventDefault();
 
-        dispatch(actions.removeRoom(room,() => history.push('/rooms'), error => console.log(error)));
-       // history.push('/rooms');
+        dispatch(actions.removeRoom(room,() => history.push('/rooms/find-rooms-result'), error => console.log(error)));
+        //history.push('/rooms/find-rooms-result');
     }
 
     if (!room) {

@@ -33,6 +33,7 @@ const rooms = (state = initialState.rooms, action) => {
             return action.rooms;
         case actionTypes.UPDATE_ROOM_COMPLETED:
             console.log(action.room);
+            console.log(state.rooms);
             let estado = [...state.rooms.items];
             estado.splice(estado.findIndex(room => room.id === action.room.id), 1, action.room);
             return {criteria: {...state.criteria}, rooms: estado};

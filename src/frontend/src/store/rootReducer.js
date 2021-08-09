@@ -7,6 +7,7 @@ import rooms from '../modules/room';
 import reservations from '../modules/reservation';
 import guests from '../modules/guest';
 import services from '../modules/service';
+import products from '../modules/product';
 
 const rootReducer = combineReducers({
     app: app.reducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     reservations: reservations.reducer,
     guests: guests.reducer,
     services: services.reducer,
+    products: products.reducer,
 
 });
 

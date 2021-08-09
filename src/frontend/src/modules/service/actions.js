@@ -78,13 +78,3 @@ export const findReservationsByUserAndDate = (hotelid, userid, date) => dispatch
         dispatch(findReservationsByUserAndDateCompleted(reservations));
     });
 
-const addToAccountCompleted = account => ({
-    type: actionTypes.ADD_TO_ACCOUNT_COMPLETED,
-    account
-});
-
-export const AddToAccount = (reservationid, params, onSuccess, onErrors) => dispatch =>
-    backend.reservationService.addToAccount(reservationid,params, account => {
-        dispatch(addToAccountCompleted(account));
-        onSuccess();
-    }, onErrors);

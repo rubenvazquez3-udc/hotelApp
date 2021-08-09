@@ -58,19 +58,38 @@ const removeHotelCompleted = hotelid => ({
 });
 
 export const removeHotel = (hotel, onSuccess, onErrors) => dispatch =>
-    backend.hotelService.removeHotel(hotel,() =>{
+    backend.hotelService.removeHotel(hotel, () => {
         dispatch(removeHotelCompleted(hotel.id));
         onSuccess();
-    },           
-    onErrors);
+    },
+        onErrors);
 
-const uploadPhotoCompleted = () =>({
+const uploadPhotoCompleted = () => ({
     type: actionTypes.UPLOAD_PHOTO_COMPLETED
 });
 
 export const uploadPhoto = (hotelid, file, onSuccess, onErrors) => dispatch =>
-    backend.hotelService.uploadPhoto(hotelid,file, () =>{
+    backend.hotelService.uploadPhoto(hotelid, file, () => {
         dispatch(uploadPhotoCompleted());
         onSuccess();
     }, onErrors);
 
+
+const addPriceCompleted = () => ({
+    type: actionTypes.ADD_PRICE_COMPLETED
+});
+
+export const addPrice = (price, onSuccess, onErrors) => dispatch =>
+    backend.hotelService.addPrice(price, () => {
+        dispatch(addPriceCompleted());
+        onSuccess();
+    }, onErrors);
+
+const findPriceByIdCompleted = price => ({
+    type: actionTypes.FIND_PRICE_BY_ID_COMPLETED,
+    price
+});
+
+export const findPriceById = (hotelid, priceid) => dispatch =>
+    backend.hotelService.findPriceById(hotelid, priceid, price =>
+        dispatch(findPriceByIdCompleted(price)));

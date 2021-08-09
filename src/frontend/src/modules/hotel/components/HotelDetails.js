@@ -5,6 +5,9 @@ import * as selectors from "../selectors";
 import * as actions from '../actions';
 import users from '../../users';
 import {FindServices} from '../../service';
+import Images from './Images';
+import PricesHotel from './PricesHotel';
+import Prices from './Prices';
 
 import { BackLink, ConfirmDialog } from '../../common';
 import { FormattedMessage } from 'react-intl';
@@ -17,6 +20,8 @@ const HotelDetails = () => {
     const hotel = useSelector(selectors.getHotel);
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
+
+    const userroles = ['HOTEL', 'MANAGER'];
 
     let adminValues = null;
 
@@ -94,25 +99,36 @@ const HotelDetails = () => {
                 <div className="card-header">
                     <BackLink />  <h5 className="card-title text-center">{hotel.name}</h5>
                 </div>
-
-                <div className="card-body text-center">
+                <div className="card-body">
+                <div className="col-md-5" style={{display:'inline-grid'}}>
+                    <Images images={hotel.photos}/>
+                </div>
+                <div className="col-md-7" style={{display:'inline-block'}}>
 
                     <h6 className="card-subtitle"><FormattedMessage id="project.global.fields.address" /> : {hotel.address}</h6>
                     <br/>
                     <p className="card-text">  <FormattedMessage id="project.global.fields.hotelManager" /> : {hotel.manager}</p>
-
                     <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {hotel.description}</p>
-
                     <p className="card-text"> <span className="fas fa-phone-square"/>  {hotel.phoneNumber}</p>
 
+                    {userroles.includes(user.role) && user.address === hotel.address ?
+                    <PricesHotel prices={hotel.prices}/>
+                    :
+                    <Prices prices={hotel.prices}/>
+                    }
+                    <br/>
+                    
                     <FindServices/>
+                    
+                   
+                    </div>
+                </div>
                 </div>
 
                 <div className="card-footer text-center">
                     {adminValues}
                 </div>
                 
-            </div>
 
         </div>
     );

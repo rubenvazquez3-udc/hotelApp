@@ -9,7 +9,7 @@ import * as actions from '../actions';
 import hotels from '../../hotel';
 import users from '../../users';
 
-const AddService = () => {
+const AddProduct = () => {
 
     const dispatch = useDispatch();
     const [name, setName] = useState('');
@@ -31,7 +31,7 @@ const AddService = () => {
 
         if (form.checkValidity()) {
 
-            dispatch(actions.addService(
+            dispatch(actions.addProduct(
                 {
                     name: name.trim(),
                     description: description.trim(),
@@ -64,7 +64,7 @@ const AddService = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.hotels.AddService.title" />
+                    <FormattedMessage id="project.hotels.AddProduct.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
@@ -72,7 +72,7 @@ const AddService = () => {
                         onSubmit={e => handleSubmit(e)}>
                         <div className="form-group row">
                             <label htmlFor="name" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.service" />
+                                <FormattedMessage id="project.global.fields.product" />
                             </label>
                             <div className="col-md-4">
                                 <input type="text" id="name" className="form-control"
@@ -128,4 +128,4 @@ const AddService = () => {
 
 }
 
-export default AddService;
+export default AddProduct;

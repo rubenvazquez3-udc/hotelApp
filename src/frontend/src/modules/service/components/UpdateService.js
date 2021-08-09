@@ -59,7 +59,7 @@ const UpdateService = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.services.UpdateService.title" />
+                    <FormattedMessage id="project.service.UpdateService.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
@@ -111,7 +111,7 @@ const UpdateService = () => {
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
-                                    <FormattedMessage id="project.services.UpdateService.title" />
+                                    <FormattedMessage id="project.service.UpdateService.title" />
                                 </button>
                             </div>
                         </div>

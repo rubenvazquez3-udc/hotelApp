@@ -21,11 +21,13 @@ const PriceDetails = () => {
 
     const price = hotel.prices.filter(price => price.id === parseInt(id));
 
+    //const price = useSelector(selectors.getPrice);
+
     const hotelid = hotel.id;
 
     let adminValues = null;
 
-    const handleSubmit = event => {
+    const handleDelete = event => {
         event.preventDefault();
 
         dispatch(actions.removeHotel(hotel,hotel.id,() => console.log(hotel.address), error => console.log(error)));
@@ -63,20 +65,13 @@ const PriceDetails = () => {
         <div>
             
             <div className="card">
-
-                <div className="card-header">
-                    <BackLink /> 
-                </div>
-
                 <div className="card-body text-center">
 
-                    <h6 className="card-subtitle"><FormattedMessage id="project.global.fields.address" /> : {hotel.address}</h6>
+                <BackLink /> 
+
+                    <h6 className="card-text"><FormattedMessage id="project.global.fields.type" /> : {price.type.name}</h6>
                     <br/>
-                    <p className="card-text">  <FormattedMessage id="project.global.fields.hotelManager" /> : {hotel.manager}</p>
-
-                    <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {hotel.description}</p>
-
-                    <p className="card-text"> <span className="fas fa-phone-square"/>  {hotel.phoneNumber}</p>
+                    <p className="card-text">  <FormattedMessage id="project.global.fields.price" /> : {price.price}</p>
                 </div>
 
                 <div className="card-footer text-center">

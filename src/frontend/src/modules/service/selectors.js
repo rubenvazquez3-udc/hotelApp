@@ -1,7 +1,7 @@
 const getModuleState = state => state.services;
 
 export const getServices = state => 
-    getModuleState(state).service;
+    getModuleState(state).services;
 
 export const getService = state =>
     getModuleState(state).service;

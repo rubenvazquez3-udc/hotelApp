@@ -7,3 +7,4 @@ export const REMOVE_RESERVATION_COMPLETED = 'project/reservation/removeReservati
 export const FIND_AVAILABLE_ROOMS_COMPLETED = 'project/reservation/findAvailableRoomsCompleted';
 export const ASSIGN_ROOM_COMPLETED = 'project/reservation/assignRoomCompleted';
 export const FIND_ACCOUNT_COMPLETED = 'project/reservation/findAccountCompleted';
+export const ADD_TO_ACCOUNT_COMPLETED = 'project/reservation/addToAccountCompleted';

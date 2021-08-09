@@ -6,3 +6,6 @@ export const getHotels = state =>
 
 export const getHotel = state =>
     getModuleState(state).hotel;
+
+export const getPrice = state =>
+    getModuleState(state).price;

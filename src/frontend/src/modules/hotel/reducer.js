@@ -3,7 +3,8 @@ import * as actionTypes from './actionTypes';
 
 const initialState = {
     hotels: null,
-    hotel: null
+    hotel: null,
+    price: null
 };
 
 const hotels = (state = initialState.hotels, action) => {
@@ -30,8 +31,15 @@ const hotel = (state = initialState.hotel, action) => {
     switch (action.type) {
         case actionTypes.GET_HOTEL_BY_ID_COMPLETED:
             return action.hotel;
-        case actionTypes.REMOVE_HOTEL_COMPLETED:
-            return initialState.hotel;
+        default:
+            return state;
+    }
+}
+
+const price = (state= initialState.price, action) => {
+    switch (action.type) {
+        case actionTypes.FIND_PRICE_BY_ID_COMPLETED:
+            return action.price;
         default:
             return state;
     }
@@ -39,7 +47,8 @@ const hotel = (state = initialState.hotel, action) => {
 
 const reducer = combineReducers({
     hotels,
-    hotel
+    hotel,
+    price
 });
 
 export default reducer;

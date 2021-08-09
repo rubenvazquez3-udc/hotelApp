@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { FormattedMessage } from 'react-intl';
+import ProductLink from './ProductLink';
 
-const Prices = ({prices}) => (
-
+const Products = ({products}) => (
 
     <table className="table table-striped table-hover">
 
         <thead>
             <tr>
                 <th scope="col">
-                    <FormattedMessage id='project.global.fields.type'/>
+                    <FormattedMessage id='project.global.fields.service'/>
                 </th>
                 <th scope="col">
                     <FormattedMessage id='project.global.fields.price'/>
@@ -19,10 +19,10 @@ const Prices = ({prices}) => (
         </thead>
         
         <tbody>
-            {prices.map(price =>
-                <tr key={price.id}>
-                    <td>{price.type.name}</td>
-                    <td>{price.price}</td>
+            {products.map(service =>
+                <tr key={service.id}>
+                    <td><ProductLink id={service.id} name={service.name}/></td>
+                    <td>{service.price}</td>
                 </tr>
             )}
         </tbody>
@@ -30,8 +30,8 @@ const Prices = ({prices}) => (
    
 );
 
-Prices.propTypes = {
-    prices: PropTypes.array.isRequired
+Products.propTypes = {
+    products: PropTypes.array.isRequired
 };
 
-export default Prices;
+export default Products;

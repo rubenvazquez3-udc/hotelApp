@@ -5,19 +5,15 @@ import { useHistory } from 'react-router-dom';
 
 import { Errors } from '../../common';
 import * as actions from '../actions';
+import * as selectors from '../selectors';
 
-import hotels from '../../hotel';
-import users from '../../users';
+const UpdateProduct = () => {
 
-const AddService = () => {
-
+    const product = useSelector(selectors.getProduct);
     const dispatch = useDispatch();
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const hotelList = useSelector(hotels.selectors.getHotels);
-    const user = useSelector(users.selectors.getUser);
-    
+    const [name, setName] = useState(product.name);
+    const [description, setDescription] = useState(product.description);
+    const [price, setPrice] = useState(product.price);
 
     const [backendErrors, setBackendErrors] = useState(null);
 
@@ -27,22 +23,21 @@ const AddService = () => {
 
         event.preventDefault();
 
-        const hotel = hotelList.filter(h => h.address === user.address);
-
         if (form.checkValidity()) {
 
-            dispatch(actions.addService(
+            dispatch(actions.updateProduct(
                 {
+                    id: product.id,
                     name: name.trim(),
                     description: description.trim(),
                     price: price,
-                    hotel: hotel
+                    hotel: product.hotel
                 },
                 () => ( <div>
                             <div className="alert alert-success" role="alert" >
                                 <FormattedMessage id='project.room.FindRoomsResult.noRoomsFound' />
                             </div>
-                            <AddService/>
+                            <UpdateService/>
                         </div>
                     ),
                 errors => setBackendErrors(errors)
@@ -64,7 +59,7 @@ const AddService = () => {
             <Errors errors={backendErrors} onClose={() => setBackendErrors(null)} />
             <div className="card bg-light border-dark">
                 <h5 className="card-header">
-                    <FormattedMessage id="project.hotels.AddService.title" />
+                    <FormattedMessage id="project.service.UpdateProduct.title" />
                 </h5>
                 <div className="card-body">
                     <form ref={node => form = node}
@@ -72,7 +67,7 @@ const AddService = () => {
                         onSubmit={e => handleSubmit(e)}>
                         <div className="form-group row">
                             <label htmlFor="name" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.service" />
+                                <FormattedMessage id="project.global.fields.product" />
                             </label>
                             <div className="col-md-4">
                                 <input type="text" id="name" className="form-control"
@@ -116,7 +111,7 @@ const AddService = () => {
                         <div className="form-group row">
                             <div className="offset-md-3 col-md-2">
                                 <button type="submit" className="btn btn-primary">
-                                    <FormattedMessage id="project.global.buttons.save" />
+                                    <FormattedMessage id="project.service.UpdateProduct.title" />
                                 </button>
                             </div>
                         </div>
@@ -128,4 +123,4 @@ const AddService = () => {
 
 }
 
-export default AddService;
+export default UpdateProduct;

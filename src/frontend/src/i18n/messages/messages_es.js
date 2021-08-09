@@ -3,7 +3,6 @@ export default {
     'project.app.Footer.text': 'Hotel App',
     'project.app.Header.home': 'Inicio',
     'project.app.Header.logout': 'Salir',
-    'project.app.Home.welcome': '¡Contenido de la página principal de PA Project!',
     
     'project.common.ErrorDialog.title': 'Error',
 
@@ -79,7 +78,8 @@ export default {
     'project.guest.FindGuest.title': 'Clientes',
     'project.guests.FindReservationResult.noGuestsFound': 'No hay clientes, por favor inténtelo de nuevo',
     
-    'project.services.AddToAccount.title': 'Añadir a Cuenta'
+    'project.services.AddToAccount.title': 'Añadir a Cuenta',
+    'project.service.UpdateService.title': 'Actualizar Servicio'
 
 
     

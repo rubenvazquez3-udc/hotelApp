@@ -8,3 +8,6 @@ export const getReservation = state =>
 
 export const getAvailableRooms = state =>
     getModuleState(state).availableRooms;
+
+export const getAccount = state =>
+    getModuleState(state).account;

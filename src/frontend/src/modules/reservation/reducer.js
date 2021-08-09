@@ -4,7 +4,8 @@ import * as actionTypes from './actionTypes';
 const initialState = {
     reservations: null,
     reservation: null,
-    availableRooms: null
+    availableRooms: null,
+    account: null
 };
 
 const reservations = ( state = initialState.reservations, action ) => {
@@ -54,10 +55,25 @@ const availableRooms = (state = initialState.availableRooms, action) =>{
 
 }
 
+const account = (state= initialState.account, action) => {
+
+    switch (action.type) {
+        case actionTypes.ADD_TO_ACCOUNT_COMPLETED:
+            return action.account;
+        
+        case actionTypes.FIND_ACCOUNT_COMPLETED:
+            return action.account;
+        default:
+            return state;
+    }
+
+}
+
 const reducer = combineReducers({
     reservations,
     reservation,
-    availableRooms
+    availableRooms,
+    account
 });
 
 export default reducer;

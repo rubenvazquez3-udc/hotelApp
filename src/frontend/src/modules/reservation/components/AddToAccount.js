@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 
 import { Errors, Success } from '../../common';
 import * as actions from '../actions';
-//import * as selectors from '../selectors';
+
 
 const AddToAccount = ({productId, reservationId, serviceId}) => {
 
     const dispatch = useDispatch();
-    const history = useHistory();
+    //const history = useHistory();
     const [quantity, setQuantity] = useState(1);
     const [backendErrors, setBackendErrors] = useState(null);
 
@@ -29,7 +29,7 @@ const AddToAccount = ({productId, reservationId, serviceId}) => {
                 serviceId: serviceId,
                 quantity: quantity
             },
-            () => <Success message ={"Added Succesfully"} onClose={}/>,
+            () => console.log('Success'),//<Success message ={"Added Succesfully"} onClose={}/>,
             errors => setBackendErrors(errors)
             ));
 

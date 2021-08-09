@@ -10,24 +10,24 @@ import { FormattedMessage } from 'react-intl';
 import AddToAccount from '../../reservation';
 
 
-const ServiceDetails = () => {
+const ProductDetails = () => {
 
     const dispatch = useDispatch();
     const history = useHistory();
-    const services = useSelector(selectors.getServices);
-    const service = useSelector(selectors.getService);
+    const products = useSelector(selectors.getProducts);
+    const product = useSelector(selectors.getProduct);
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
     const reservation = useSelector(selectors.getReservation);
 
     let adminValues = null;
 
-    const hotelid = {... services.filter(service => service.id === parseInt(id))}.hotel.id;
+    const hotelid = {... products.filter(product => product.id === parseInt(id))}.hotel.id;
 
     const handleDelete = event => {
         event.preventDefault();
 
-        dispatch(actions.removeService(service));
+        dispatch(actions.removeProduct(product));
         //history.push('/')
     }
 
@@ -37,37 +37,37 @@ const ServiceDetails = () => {
     const loggedAsUser = user.role === 'USER';
 
     useEffect(() => {
-        const serviceid = Number(id);
+        const productid = Number(id);
 
         if (!Number.isNaN(id)) {
-            dispatch(actions.findServiceById(hotelid,serviceid));
+            dispatch(actions.findProductById(hotelid,productid));
         }
             dispatch(actions.findReservationsByUserAndDate(hotelid,userid,today));
     }, [id,hotelid,userid,today, dispatch]);
 
-    if (!service) {
+    if (!product) {
         return null;
     }
 
-    if (user.role === 'HOTEL' && service.hotel.address === user.address) {
+    if (user.role === 'HOTEL' && product.hotel.address === user.address) {
         adminValues = (
                 <div className="form-group row">
                     <ul id='admin'>
                         <li id='managerbutton'>
-                            <Link className="nav-link" to={`/services/details/${service.id}/update`}>
+                            <Link className="nav-link" to={`/services/details/${product.id}/update`}>
                                 <span className="fas fa-edit fa-2x"></span>
                             </Link>
                         </li>
                         <li id='managerbutton'>
-                            <ConfirmDialog id='removeService' icon='eraser fa-3x' headerTitle='Remove Service'
+                            <ConfirmDialog id='removeProduct' icon='eraser fa-3x' headerTitle='Remove Product'
                                 bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
                         </li>
                     </ul>
                 </div>
         )
-    } else if (user.role === 'HOTEL' && service.hotel.address === user.address) {
+    } else if (user.role === 'HOTEL' && product.hotel.address === user.address) {
         adminValues =
-                    <Link className="nav-link" to={`/services/details/${service.id}/update`}>
+                    <Link className="nav-link" to={`/services/details/${product.id}/update`}>
                         <FormattedMessage id="project.hotels.UpdateService.title" />
                     </Link>            
     }
@@ -78,20 +78,20 @@ const ServiceDetails = () => {
             <div className="card">
 
                 <div className="card-header">
-                    <BackLink />  <h5 className="card-title text-center">{service.name}</h5>
+                    <BackLink />  <h5 className="card-title text-center">{product.name}</h5>
                 </div>
 
                 <div className="card-body text-center">
 
-                    <h6 className="card-subtitle"><FormattedMessage id="project.global.fields.price" /> : {service.price}€</h6>
+                    <h6 className="card-subtitle"><FormattedMessage id="project.global.fields.price" /> : {product.price}€</h6>
                     <br/>
-                    <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {service.description}</p>
+                    <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {product.description}</p>
 
                     { loggedAsUser &&
                         <div>
                             <br/>
 
-                            <AddToAccount productId={null} serviceId={service.id} reservationId={reservation.id}/>
+                            <AddToAccount productId={product.id} serviceId={null} reservationId={reservation.id}/>
                         
                         </div>
 
@@ -109,4 +109,4 @@ const ServiceDetails = () => {
 };
 
 
-export default ServiceDetails;
+export default ProductDetails;
