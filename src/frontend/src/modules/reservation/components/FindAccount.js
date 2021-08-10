@@ -13,10 +13,10 @@ const FindAccount = () => {
     const reservation = useSelector(selectors.getReservation);
 
     useEffect(() => {
-        
+        if(reservation)
             dispatch(actions.findAccount(reservation.id));
        
-    }, [reservation.id, dispatch]);
+    }, [reservation, dispatch]);
 
     
 

@@ -478,7 +478,7 @@ public class ReservationServiceTest {
 		
 		reservationService.addToAccount(s1.getId(), null, rt4.getId(), 1);
 		
-		assertEquals(2, acc2.getItem(s1.getName()).get().getQuantity());
+		assertEquals(1, acc2.getItem(s1.getName()).get().getQuantity());
 		
 		
 		assertEquals(acc2.getItems(), reservationService.findAccount(rt4.getId()).getItems());

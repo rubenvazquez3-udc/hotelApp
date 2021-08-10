@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
@@ -26,6 +26,12 @@ const AddReservation = () => {
     const [backendErrors, setBackendErrors] = useState(null);
 
     let form;
+    const username = user.firstName;
+
+    useEffect(() => {
+        dispatch(actions.findReservations('',username,''));
+
+    }, [username, dispatch]);
 
     const handleSubmit = event => {
         

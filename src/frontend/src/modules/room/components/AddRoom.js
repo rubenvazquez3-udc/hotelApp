@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
@@ -23,6 +23,12 @@ const AddRoom = () => {
     const [backendErrors, setBackendErrors] = useState(null);
 
     let form;
+    const hotelid = hotel.id;
+
+    useEffect(() => {
+            dispatch(actions.findRooms({hotelid:hotelid, status:'', type:'', page:0}));
+
+    }, [hotelid, dispatch]);
 
     const handleSubmit = event => {
 
@@ -41,7 +47,7 @@ const AddRoom = () => {
                     },
                     hotel: hotel
                 },
-                () => history.push('/rooms/find-rooms-result'),
+                () => history.push('/rooms'),
                 errors => setBackendErrors(errors)
             ));
 

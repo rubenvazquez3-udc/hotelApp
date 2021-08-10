@@ -18,7 +18,7 @@ const AccountItemList = ({ list }) => (
                     <FormattedMessage id='project.global.fields.price' />
                 </th>
                 <th scope="col" style={{width:'20%'}}>
-                    <FormattedMessage id='project.global.fields.TotalPrice' />
+                    <FormattedMessage id='project.global.fields.totalPrice' />
                 </th>
 
             </tr>

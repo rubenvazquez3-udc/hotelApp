@@ -48,7 +48,7 @@ const RoomDetails = () => {
         adminValues = (
             <div className="navbar-nav">
                 <Link className="nav-link" to={`/hotels/room-details/${room.id}/update`}>
-                    <span className="fas fa-edit fa-2x"></span>
+                    <span className="fas fa-edit fa-2x"/>
                 </Link>
                 <ConfirmDialog id='removeRoom' icon='eraser fa-3x' headerTitle='Remove Room'
                     bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />

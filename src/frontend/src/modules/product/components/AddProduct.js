@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
@@ -18,17 +18,19 @@ const AddProduct = () => {
     const [price, setPrice] = useState('');
     const hotelList = useSelector(hotels.selectors.getHotels);
     const user = useSelector(users.selectors.getUser);
-    
-
     const [backendErrors, setBackendErrors] = useState(null);
-
     let form;
+    const hotel = hotelList.filter(h => h.address === user.address);
+    const hotelid = hotel[0].id;
+
+    useEffect(() => {
+        dispatch(actions.findProducts({hotelid:hotelid, page:0}));
+
+    }, [hotelid, dispatch]);
 
     const handleSubmit = event => {
 
         event.preventDefault();
-
-        const hotel = hotelList.filter(h => h.address === user.address);
 
         if (form.checkValidity()) {
 

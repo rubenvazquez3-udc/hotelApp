@@ -39,6 +39,8 @@ export default {
     'project.global.fields.price':'Precio',
     'project.global.fields.shopping.quantity': 'Cantidad',
     'project.global.fields.product':'Producto',
+    'project.global.fields.item': 'Item',
+    'project.global.fields.totalPrice': 'Total',
     'project.global.validator.email': 'Introduzca una dirección de correo electrónico correcta',
     'project.global.validator.passwordsDoNotMatch': 'Las contraseñas no coinciden',
     'project.global.validator.required': 'Campo obligatorio',

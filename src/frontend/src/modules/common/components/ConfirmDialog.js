@@ -7,7 +7,7 @@ const ConfirmDialog = ({id, icon, headerTitle, bodyTitle, onConfirm}) => (
     <span>
         <button type="button" className="btn btn-link btn-sm" 
             data-toggle="modal" data-target={"#" + id}>
-            <span className={"fas fa-" + icon}></span>
+            <span className={"fas fa-" + icon}/>
         </button>
         <div id={id} className="modal fade" tabIndex="-1" role="dialog">
             <div className="modal-dialog" role="document">

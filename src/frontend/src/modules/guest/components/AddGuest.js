@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
@@ -19,11 +19,16 @@ const AddGuest = () => {
     const [address, setAddress] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const reservation1 = useSelector(reservation.selectors.getReservation);
-    
+
+    const hotelid = reservation1.hotel.id;
 
     const [backendErrors, setBackendErrors] = useState(null);
 
     let form;
+
+    useEffect(() => {
+        dispatch(actions.findGuests({hotelid: hotelid, username: '', page:0}));
+    }, [hotelid, dispatch]);
 
     const handleSubmit = event => {
         
