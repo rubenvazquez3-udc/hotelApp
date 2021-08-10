@@ -34,10 +34,12 @@ import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
 import es.udc.hotelapp.backend.model.exceptions.PermissionException;
+import es.udc.hotelapp.backend.model.services.Block;
 import es.udc.hotelapp.backend.model.services.ReservationService;
 import es.udc.hotelapp.backend.rest.common.ErrorsDto;
 import es.udc.hotelapp.backend.rest.dtos.AccountDto;
 import es.udc.hotelapp.backend.rest.dtos.AddToAccountParams;
+import es.udc.hotelapp.backend.rest.dtos.BlockDto;
 import es.udc.hotelapp.backend.rest.dtos.GuestReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomReservationDto;
 import es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationDto;
@@ -86,16 +88,14 @@ public class ReservationController {
 	}
 
 	@GetMapping("")
-	public List<RoomTypeReservationDto> findAllReservations(@RequestParam(required = false) Long hotelid,
-			@RequestParam(defaultValue = "") String username, @RequestParam(defaultValue = "") String date) {
-		List<RoomTypeReservationDto> result = new ArrayList<>();
-		List<RoomTypeReservation> list = reservationService.findReservations(hotelid, date, username);
-		
-		for (RoomTypeReservation r : list) {
-			result.add(toRoomTypeReservationDto(r));
-		}
+	public BlockDto<RoomTypeReservationDto> findAllReservations(@RequestParam(required = false) Long hotelid,
+			@RequestParam(defaultValue = "") String username, @RequestParam(defaultValue = "") String date, @RequestParam(defaultValue = "0") int page) {
 
-		return result;
+		Block<RoomTypeReservation> list = reservationService.findReservations(hotelid, date, username, page, 10);
+		
+
+
+		return new BlockDto<>(toRoomTypeReservationDtos(list.getItems()),list.getExistMoreItems());
 	}
 
 	@GetMapping("/{id}")

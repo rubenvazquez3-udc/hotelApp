@@ -14,7 +14,7 @@ const FindReservationsUser = () => {
 
     useEffect(() => {
         
-            dispatch(actions.findReservations("",userName,""));
+            dispatch(actions.findReservations({hotelid:"",username:userName, date:"", page:0}));
        
     }, [userName, dispatch]);
 

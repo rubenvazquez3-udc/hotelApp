@@ -20,7 +20,7 @@ public class CustomizedRoomTypeReservationDaoImpl
 
 	
 	@Override
-	public List<RoomTypeReservation> find(Long hotelid, String username, String date) { //Paginar
+	public Slice<RoomTypeReservation> find(Long hotelid, String username, String date, int page, int size) { //Paginar
 		String queryString = "SELECT rt FROM RoomTypeReservation rt";
 		
 		if(hotelid != null || !username.isEmpty() || !date.isEmpty()) {
@@ -63,8 +63,13 @@ public class CustomizedRoomTypeReservationDaoImpl
 		}
 		
 		List<RoomTypeReservation> reservations = query.getResultList();
+		boolean hasNext = reservations.size() == (size+1);
 		
-		return reservations;
+		if(hasNext) {
+			reservations.remove(reservations.size()-1);
+		}
+		
+		return new SliceImpl<>(reservations, PageRequest.of(page, size),hasNext);
 
 	}
 

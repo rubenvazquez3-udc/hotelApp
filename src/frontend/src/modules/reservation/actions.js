@@ -20,10 +20,25 @@ const findReservationsCompleted = reservations => ({
     reservations
 });
 
-export const findReservations = (hotelid, username, date) => dispatch =>
-    backend.reservationService.findReservations(hotelid, username, date, reservations => {
-        dispatch(findReservationsCompleted(reservations));
+export const clearReservations = () => ({
+    type: actionTypes.CLEAR_RESERVATIONS_COMPLETED
+});
+
+export const previousFindReservationsResultPage = criteria => 
+    findReservations({... criteria, page: criteria.page-1});
+
+export const nextFindReservationsResultPage = criteria =>
+    findReservations({... criteria, page: criteria.page+1});
+
+export const findReservations = criteria => dispatch =>{
+
+    dispatch(clearReservations());
+
+    backend.reservationService.findReservations(criteria, reservations => {
+        dispatch(findReservationsCompleted({criteria,reservations}));
     });
+}
+   
 
 const findReservationByIdCompleted = reservation => ({
     type: actionTypes.FIND_RESERVATION_BY_ID_COMPLETED,

@@ -6,7 +6,7 @@ import org.springframework.data.domain.Slice;
 
 public interface CustomizedRoomTypeReservationDao {
 	
-	List<RoomTypeReservation> find( Long hotelid, String username, String date);
+	Slice<RoomTypeReservation> find( Long hotelid, String username, String date, int page, int size);
 	
 	Slice<RoomTypeReservation> findConflicts( Long hotelid, String type, String date, int page, int size);
 	

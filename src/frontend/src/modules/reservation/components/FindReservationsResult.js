@@ -1,8 +1,10 @@
 import React from 'react';
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux"
+import { Pager } from '../../common';
 
 import * as selectors from '../selectors';
+import * as actions from '../actions';
 import Reservations from './Reservations';
 
 
@@ -14,7 +16,7 @@ const FindReservationsResult = () => {
         return null;
     }
 
-    if (reservationSearch.length === 0) {
+    if (reservationSearch.reservations.items.length === 0) {
         return (
             <div className="alert alert-danger" role="alert" >
                 <FormattedMessage id='project.reservations.FindReservationResult.noReservationsFound' />
@@ -24,7 +26,18 @@ const FindReservationsResult = () => {
 
     return (
         <div>
-            <Reservations reservations={reservationSearch} />
+            <Reservations reservations={reservationSearch.reservations.items} />
+            <Pager
+                back = {{
+                    enabled : reservationSearch.criteria.page>=1,
+                    onclick: () => dispatch(actions.previousFindReservationsResultPage(reservationSearch.criteria))
+                }}
+
+                next = {{
+                    enabled: reservationSearch.reservations.existMoreItems,
+                    onclick: () => dispatch(actions.nextFindReservationsResultPage(reservationSearch.criteria))
+
+                }} />
         </div>
 
     );

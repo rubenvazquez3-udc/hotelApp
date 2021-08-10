@@ -4,10 +4,10 @@ export const addReservation = (reservation, onSuccess, onErrors) =>
     appFetch(`/reservations`, config('POST', reservation), onSuccess, onErrors);
 
 
-export const findReservations = ( hotelid, username, date, onSuccess, onErrors) => {
-    let path = `/reservations/`;
+export const findReservations = ({hotelid, username, date, page}, onSuccess, onErrors) => {
+    let path = `/reservations/?page=${page}`;
 
-    path+= hotelid ? `?hotelid=${hotelid}` : "";
+    path+= hotelid ? `&hotelid=${hotelid}` : "";
 
     path+= username ?  hotelid ? `&username=${username}` : `?username=${username}` : "";
 

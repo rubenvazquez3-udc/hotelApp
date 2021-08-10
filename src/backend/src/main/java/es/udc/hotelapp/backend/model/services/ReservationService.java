@@ -14,7 +14,7 @@ public interface ReservationService {
 
 	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException, PermissionException;
 
-	public List<RoomTypeReservation> findReservations(Long id, String date, String username);
+	public Block<RoomTypeReservation> findReservations(Long id, String date, String username, int page, int size);
 	
 	public List<RoomTypeReservation> findReservations( Long hotelid, Long userid, String date);
 

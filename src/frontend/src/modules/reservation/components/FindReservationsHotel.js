@@ -25,31 +25,20 @@ const FindReservationsHotel = () => {
 
     
     useEffect(() => {
-            dispatch(actions.findReservations(hotelid,userName,date));
+            dispatch(actions.findReservations({hotelid:hotelid, username:userName, date:date, page:0}));
     }, [hotelid,userName,date, dispatch]);
 
-    const handleSearch = event => {
-
-        event.preventDefault();
-
-        dispatch(actions.findReservations(hotelid, userName.trim(),date));
-        history.push('/reservations');
-    }
     
     return (
         <div>
             <div className="formulario">
-            <form className="form-inline mt-2 mt-md-0" onSubmit={e => handleSearch(e)}>
+            <form className="form-inline mt-2 mt-md-0">
     
                 <input id="username" type="text" className="form-control mr-sm-2"
                     value={userName} onChange={e => setUserName(e.target.value)} />
     
                 <input id="date" type="date" className="form-control mr-sm-2"
                     value={date} onChange={e => setDate(e.target.value)} />
-    
-                <button type="submit" className="btn btn-primary my-2 my-sm-0">
-                    <FormattedMessage id='project.global.buttons.search' />
-                </button>
             </form>
             </div>
             <br/>
