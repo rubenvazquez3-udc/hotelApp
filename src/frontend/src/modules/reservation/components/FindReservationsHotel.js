@@ -1,6 +1,4 @@
 import React, { useState, useEffect  } from 'react';
-import { FormattedMessage } from "react-intl";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 
 import * as actions from '../actions';
@@ -13,7 +11,6 @@ import FindReservationsResult from './FindReservationsResult';
 const FindReservationsHotel = () => {
 
     const dispatch = useDispatch();
-    const history = useHistory();
     const [userName, setUserName] = useState('');
     const [date, setDate] = useState('');
     const hotels = useSelector(hotel.selectors.getHotels);

@@ -197,8 +197,7 @@ public class ReservationServiceTest {
 		RoomTypeReservation rt2 = create("mongolo","INDIVIDUAL");
 		rt2.setUser(rt1.getUser());
 		rt2.setRooms(1);
-		List<RoomTypeReservation> result = new ArrayList<>();
-		List<RoomTypeReservation> result2 = new ArrayList<>();
+
 		Room r1 = new Room(202, rt1.getRoomtype(), rt1.getHotel());
 		Room r2 = new Room(212,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel());
 		Room r3 = new Room(222, rt2.getRoomtype(), rt2.getHotel());
@@ -207,11 +206,11 @@ public class ReservationServiceTest {
 		roomDao.save(r3);
 		reservationService.addReservation(rt1);
 		reservationService.addReservation(rt2);
-		result.add(rt1);
-		result.add(rt2);
-		
-		assertEquals(result, reservationService.findReservations(null,"","firstName"));
-		assertEquals(result2, reservationService.findReservations(null,"","lastName"));
+		Block<RoomTypeReservation> result = new Block<>(Arrays.asList(rt1,rt2),false);
+		Block<RoomTypeReservation> result2 = new Block<>(new ArrayList<>(),false);
+
+		assertEquals(result, reservationService.findReservations(null,"","firstName",0,2));
+		assertEquals(result2, reservationService.findReservations(null,"","lastName",0,1));
 	}
 	
 	@Test
@@ -308,8 +307,7 @@ public class ReservationServiceTest {
 	
 	@Test
 	public void testFindReservationsHotel() throws InstanceNotFoundException, PermissionException {
-		List<RoomTypeReservation> list = new ArrayList<>();
-		List<RoomTypeReservation> list2 = new ArrayList<>();
+
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		
 		Room r1 = new Room(202, rt1.getRoomtype(), rt1.getHotel());
@@ -320,19 +318,22 @@ public class ReservationServiceTest {
 		roomDao.save(r3);
 		
 		reservationService.addReservation(rt1);
-		list.add(rt1);
+		Block<RoomTypeReservation> list = new Block<>(Arrays.asList(rt1),false);
+		Block<RoomTypeReservation> list2 = new Block<>(new ArrayList<>(),false);
+		List<RoomTypeReservation> list3 = new ArrayList<>();
+		list3.add(rt1);
 		
-		assertEquals(list, reservationService.findReservations(rt1.getHotel().getId(),"",""));
+		assertEquals(list, reservationService.findReservations(rt1.getHotel().getId(),"","",0,1));
 		
-		assertEquals(list, reservationService.findReservations(rt1.getHotel().getId(), rt1.getInbound().toString(),""));
+		assertEquals(list, reservationService.findReservations(rt1.getHotel().getId(), rt1.getInbound().toString(),"",0,1));
 	
-		assertEquals(list2, reservationService.findReservations((long) 8, rt1.getInbound().toString(),""));
+		assertEquals(list2, reservationService.findReservations((long) 8, rt1.getInbound().toString(),"",0,1));
 		
-		assertEquals(list2, reservationService.findReservations(rt1.getHotel().getId(), "2020-01-01",""));
+		assertEquals(list2, reservationService.findReservations(rt1.getHotel().getId(), "2020-01-01","",0,1));
 		
-		assertEquals(list2, reservationService.findReservations((long) 3,"",""));
+		assertEquals(list2, reservationService.findReservations((long) 3,"","",0,1));
 		
-		assertEquals(list, reservationService.findReservations(rt1.getHotel().getId(), rt1.getUser().getId(), rt1.getInbound().toString()));
+		assertEquals(list3, reservationService.findReservations(rt1.getHotel().getId(), rt1.getUser().getId(), rt1.getInbound().toString()));
 		
 	}
 	

@@ -31,6 +31,7 @@ const UploadPhoto = () => {
         event.preventDefault();
 
         if (form.checkValidity()) {
+            console.log(file);
 
             dispatch(actions.uploadPhoto(hotel1[0].id, file),
                 () => history.push('/'),

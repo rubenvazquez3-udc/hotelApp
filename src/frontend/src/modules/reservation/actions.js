@@ -25,10 +25,10 @@ export const clearReservations = () => ({
 });
 
 export const previousFindReservationsResultPage = criteria => 
-    findReservations({... criteria, page: criteria.page-1});
+    findReservations({...criteria, page: criteria.page-1});
 
 export const nextFindReservationsResultPage = criteria =>
-    findReservations({... criteria, page: criteria.page+1});
+    findReservations({...criteria, page: criteria.page+1});
 
 export const findReservations = criteria => dispatch =>{
 

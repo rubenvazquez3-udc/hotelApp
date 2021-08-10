@@ -48,7 +48,7 @@ public class CustomizedRoomTypeReservationDaoImpl
 			}else queryString += " AND ";
 			queryString += "rt.inbound = :date";
 		}
-		Query query = entityManager.createQuery(queryString);
+		Query query = entityManager.createQuery(queryString).setFirstResult(page*size).setMaxResults(size+1);
 		
 		if(hotelid != null) {
 			query.setParameter("hotelid", hotelid);

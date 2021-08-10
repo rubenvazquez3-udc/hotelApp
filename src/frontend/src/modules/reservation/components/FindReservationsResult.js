@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from "react-intl";
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Pager } from '../../common';
 
 import * as selectors from '../selectors';
@@ -11,6 +11,7 @@ import Reservations from './Reservations';
 const FindReservationsResult = () => {
 
     const reservationSearch = useSelector(selectors.getReservations);
+    const dispatch = useDispatch();
 
     if (!reservationSearch) {
         return null;
