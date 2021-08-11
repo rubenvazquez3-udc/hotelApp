@@ -13,13 +13,13 @@ const FindServices = () => {
     const hotelid = hotels.id;
 
     useEffect(() => {
-        dispatch(actions.findServices({hotelid:hotelid, page:0}));
-    }, [hotelid, dispatch]);
+        dispatch(actions.findServices({hotelid:hotelid, name: name.trim(), page:0}));
+    }, [hotelid, name, dispatch]);
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        dispatch(actions.findServices({hotelid:hotelid,page:0}));
+        dispatch(actions.findServices({hotelid:hotelid, name: name.trim(), page:0}));
     }
 
     /*

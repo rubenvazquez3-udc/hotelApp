@@ -6,7 +6,6 @@ import Header from './Header';
 import Body from './Body';
 import Footer from './Footer';
 import users from '../../users';
-import hotels from "../../hotel";
 import rooms from '../../room';
 
 const App = () => {
@@ -18,7 +17,6 @@ const App = () => {
         dispatch(users.actions.tryLoginFromServiceToken(
             () => dispatch(users.actions.logout())));
 
-        dispatch(hotels.actions.getHotels());
         dispatch(rooms.actions.findAllRoomTypes());
     });
 

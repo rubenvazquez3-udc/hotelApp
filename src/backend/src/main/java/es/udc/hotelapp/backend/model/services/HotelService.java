@@ -24,7 +24,7 @@ public interface HotelService {
 
 	public void removeHotel(Long hotelid) throws InstanceNotFoundException;
 
-	public List<Hotel> findHotels();
+	public Block<Hotel> findHotels(String name, String address, int page, int size);
 
 	/*************************** PRODUCTS & SERVICES **********************************/
 	public Long addService(Service service)
@@ -32,7 +32,7 @@ public interface HotelService {
 	
 	public Service findService(Long id) throws InstanceNotFoundException;
 	
-	public Block<Service> findServices(Long hotelid, int page, int size);
+	public Block<Service> findServices(Long hotelid, String name, int page, int size);
 
 	public Service updateService (Service service1) throws InstanceNotFoundException;
 	
@@ -42,7 +42,7 @@ public interface HotelService {
 
 	public Product findProduct( Long id) throws InstanceNotFoundException;
 
-	public Block<Product> findProducts(Long hotelid, int page, int size);
+	public Block<Product> findProducts(Long hotelid,String name, int page, int size);
 
 	public Product updateProduct ( Product p) throws InstanceNotFoundException;
 

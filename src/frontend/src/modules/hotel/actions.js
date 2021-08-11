@@ -1,16 +1,27 @@
 import * as actionTypes from './actionTypes';
 import backend from '../../backend';
 
-
 export const getHotelsCompleted = hotelResult => ({
     type: actionTypes.GET_HOTELS_COMPLETED,
     hotelResult
 });
 
-export const getHotels = () => dispatch => {
+export const previousFindHotelsResultPage = criteria =>
+    getHotels({...criteria, page: criteria.page-1});
 
-    backend.hotelService.getHotels(hotelResult =>
-        dispatch(getHotelsCompleted(hotelResult)));
+export const nextFindHotelsResultPage = criteria =>
+    getHotels({...criteria, page: criteria.page +1});
+
+const clearHotels = () => ({
+    type: actionTypes.CLEAR_HOTELS_COMPLETED
+});
+
+
+export const getHotels = criteria => dispatch => {
+    dispatch(clearHotels());
+
+    backend.hotelService.getHotels(criteria,hotelResult =>
+        dispatch(getHotelsCompleted({criteria,hotelResult})));
 };
 
 const findHotelByIdCompleted = hotel => ({

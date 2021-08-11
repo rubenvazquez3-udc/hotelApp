@@ -18,20 +18,33 @@ public class CustomizedProductDaoImpl implements CustomizedProductDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Slice<Product> find(Long hotelid, int page, int size) {
+	public Slice<Product> find(Long hotelid,String name, int page, int size) {
 		String queryString = "SELECT p FROM Product p";
 		
-		if( hotelid != null) {
+		if( hotelid != null || !name.isEmpty()) {
 			queryString += " WHERE ";
-			
+		}
+
+		if(hotelid != null){
 			queryString += "p.hotel.id = :hotelid";
+		}
+
+		if(! name.isEmpty()){
+			if(hotelid != null){
+				queryString += " AND ";
+			}
+			queryString += "p.name LIKE :name";
 		}
 		
 		queryString += " ORDER BY p.name";
 		
 		Query query = entityManager.createQuery(queryString).setFirstResult(page*size).setMaxResults(size+1);
-		
-		query.setParameter("hotelid", hotelid);
+
+		if(hotelid != null)
+			query.setParameter("hotelid", hotelid);
+
+		if(! name.isEmpty())
+			query.setParameter("name",  "%"+name+"%");
 		
 		List<Product> result = query.getResultList();
 		boolean hasNext = result.size() == (size +1);

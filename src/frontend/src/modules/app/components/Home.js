@@ -1,11 +1,11 @@
 import React from 'react';
-import {FindHotelsResult} from '../../hotel';
+import { FindHotels } from '../../hotel';
 
 
 const Home = () =>(
     <div className="text-center">
 
-        <FindHotelsResult/>
+        <FindHotels/>
     </div>
 );
 

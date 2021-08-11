@@ -5,8 +5,14 @@ export const addHotel = (hotel, onSuccess, onErrors) =>
     appFetch(`/hotels`, config('POST', hotel), onSuccess, onErrors);
 
 
-export const getHotels = (onSuccess) => {
-    appFetch(`/hotels/`, config('GET'), onSuccess);
+export const getHotels = ({name, address, page}, onSuccess, onErrors) => {
+
+    let path = `/hotels/?page=${page}`;
+
+    path += name ? `&name=${name}`: '';
+    path += address ? `&address=${address}` : '';
+
+    appFetch(path, config('GET'), onSuccess, onErrors);
 }
 
 export const getHotelsById = (hotelid, onSuccess, onErrors) => {
@@ -29,18 +35,22 @@ export const addProduct = (product, onSuccess, onErrors) =>{
     appFetch(`/hotels/${product.hotel.id}/products`, config('POST', product), onSuccess,onErrors);
 }
 
-export const findServices = ({hotelid, page}, onSuccess, onErrors) =>{
+export const findServices = ({hotelid,name, page}, onSuccess, onErrors) =>{
 
     let path = `/hotels/${hotelid}/services/?page=${page}`;
+
+    path += name ? `&name=${name}`: '';
 
     appFetch(path, config('GET'), onSuccess, onErrors);
 
 }
 
-export const findProducts = ({hotelid, page}, onSuccess, onErrors) =>{
+export const findProducts = ({hotelid,name, page}, onSuccess, onErrors) =>{
     
     let path = `/hotels/${hotelid}/products/?page=${page}`;
-    
+
+    path += name ? `&name=${name}`: '';
+
     appFetch(path, config('GET'), onSuccess, onErrors);
 
 }

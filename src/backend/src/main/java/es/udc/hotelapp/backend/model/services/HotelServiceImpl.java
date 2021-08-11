@@ -129,9 +129,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Block<es.udc.hotelapp.backend.model.entities.Service> findServices(Long hotelid, int page, int size) {
+	public Block<es.udc.hotelapp.backend.model.entities.Service> findServices(Long hotelid,String name, int page, int size) {
 		
-		Slice<es.udc.hotelapp.backend.model.entities.Service> slice = serviceDao.find(hotelid, page, size);
+		Slice<es.udc.hotelapp.backend.model.entities.Service> slice = serviceDao.find(hotelid, name, page, size);
 		
 		return new Block<>(slice.getContent(), slice.hasNext());
 	}
@@ -166,8 +166,10 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<Hotel> findHotels() {
-		return (List<Hotel>) hotelDao.findAll();
+	public Block<Hotel> findHotels(String name, String address, int page, int size) {
+		Slice<Hotel> slice = hotelDao.find(name,address, page, size);
+
+		return new Block<>(slice.getContent(), slice.hasNext());
 	}
 
 	@Override
@@ -228,9 +230,9 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public Block<Product> findProducts(Long hotelid, int page, int size) {
+	public Block<Product> findProducts(Long hotelid,String name, int page, int size) {
 		
-		Slice<Product> slice = productDao.find(hotelid, page, size);
+		Slice<Product> slice = productDao.find(hotelid, name, page, size);
 		
 		return new Block<>(slice.getContent(), slice.hasNext());
 	}

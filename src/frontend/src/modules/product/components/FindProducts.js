@@ -13,13 +13,13 @@ const FindProducts = () => {
     const hotelid = hotels.id;
 
     useEffect(() => {
-        dispatch(actions.findProducts({hotelid:hotelid, page:0}));
-    }, [hotelid, dispatch]);
+        dispatch(actions.findProducts({hotelid:hotelid, name: name.trim(), page:0}));
+    }, [hotelid,name, dispatch]);
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        dispatch(actions.findProducts({hotelid:hotelid,page:0}));
+        dispatch(actions.findProducts({hotelid:hotelid, name:name.trim() ,page:0}));
     }
 
     /*

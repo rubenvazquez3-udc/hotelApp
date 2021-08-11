@@ -147,12 +147,12 @@ public class HotelController {
 	}
 
 	@GetMapping("/hotels")
-	public List<HotelDto> findAllHotels() {
-		List<HotelDto> list = new ArrayList<>();
-		for (Hotel h : hotelService.findHotels()) {
-			list.add(toHotelDto(h));
-		}
-		return list;
+	public BlockDto<HotelDto> findAllHotels(@RequestParam(defaultValue= "") String name,
+					@RequestParam(defaultValue= "") String address, @RequestParam(defaultValue= "0") int page) {
+
+		Block<Hotel> hotels = hotelService.findHotels(name, address, page, 10);
+
+		return new BlockDto<>(toHotelDtos(hotels.getItems()),hotels.getExistMoreItems());
 	}
 	
 	@DeleteMapping("/hotels/{hotelid}")
@@ -328,17 +328,17 @@ public class HotelController {
 	}
 	
 	@GetMapping("/hotels/{hotelid}/products")
-	public BlockDto<ProductDto> findAllProducts(@PathVariable Long hotelid, @RequestParam(defaultValue = "0") int page) throws InstanceNotFoundException {
+	public BlockDto<ProductDto> findAllProducts(@PathVariable Long hotelid,@RequestParam(defaultValue="") String name, @RequestParam(defaultValue = "0") int page) throws InstanceNotFoundException {
 		
-		Block<Product> products = hotelService.findProducts(hotelid,page, 5);
+		Block<Product> products = hotelService.findProducts(hotelid,name,page, 5);
 
 		return new BlockDto<>(toProductDtos(products.getItems()),products.getExistMoreItems());
 
 	}
 	@GetMapping("/hotels/{hotelid}/services")
-	public BlockDto<ServiceDto> findAllServices(@PathVariable Long hotelid, @RequestParam(defaultValue = "0") int page) {
+	public BlockDto<ServiceDto> findAllServices(@PathVariable Long hotelid,@RequestParam(defaultValue="") String name, @RequestParam(defaultValue = "0") int page) {
 
-		Block<Service> services = hotelService.findServices(hotelid,page, 5);
+		Block<Service> services = hotelService.findServices(hotelid,name,page, 5);
 
 		return new BlockDto<>(toServiceDtos(services.getItems()),services.getExistMoreItems());
 

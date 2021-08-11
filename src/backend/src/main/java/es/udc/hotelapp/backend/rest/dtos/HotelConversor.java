@@ -21,4 +21,8 @@ public class HotelConversor {
 		
 		return new HotelDto(hotel.getId(),hotel.getName(),hotel.getManager(), hotel.getAddress(), hotel.getPhonenumber(), hotel.getDescription(), items,photos);
 	}
+
+	public final static List<HotelDto> toHotelDtos(List<Hotel> hotels){
+		return hotels.stream().map(h-> toHotelDto(h)).collect(Collectors.toList());
+	}
 }

@@ -176,9 +176,12 @@ public class HotelServiceTest {
 		hotelService.addService(s2);
 		
 		Block<Service> slice1 = new Block<>(Arrays.asList(s2,s1), false);
+		Block<Service> slice2 = new Block<>(Arrays.asList(s2), false);
 		
-		assertEquals(slice1, hotelService.findServices(h1.getId(),0,2));
-		
+		assertEquals(slice1, hotelService.findServices(h1.getId(),"",0,2));
+		assertEquals(slice1, hotelService.findServices(h1.getId(),"ing",0,2));
+		assertEquals(slice2, hotelService.findServices(h1.getId(),"Catering",0,1));
+		assertEquals(new Block<>(new ArrayList<>(), false), hotelService.findServices(h1.getId(),"Platano",0,1));
 	}
 	
 	@Test
@@ -192,8 +195,15 @@ public class HotelServiceTest {
 		hotelService.addProduct(s2);
 		
 		Block<Product> slice1 = new Block<>(Arrays.asList(s1,s2), false);
+
+		Block<Product> slice2 = new Block<>(Arrays.asList(s1), false);
 		
-		assertEquals(slice1, hotelService.findProducts(h1.getId(),0,2));
+		assertEquals(slice1, hotelService.findProducts(h1.getId(),"",0,2));
+		assertEquals(slice1, hotelService.findProducts(h1.getId(),"a",0,2));
+
+		assertEquals(slice2, hotelService.findProducts(h1.getId(),"Manzana",0,1));
+
+		assertEquals(new Block<>(new ArrayList<>(), false), hotelService.findProducts(h1.getId(),"Platano",0,1));
 		
 	}
 	
@@ -223,11 +233,12 @@ public class HotelServiceTest {
 	@Test
 	public void testFindAllHotels() throws HotelAlreadyExistsException {
 		
-		List<Hotel> list = new ArrayList<>();
+
 		Hotel h1 = createHotel();
 		hotelService.createHotel(h1);
-		list.add(h1);
-		assertEquals(list, hotelService.findHotels());
+		Block<Hotel> slice1 = new Block<>(Arrays.asList(h1), false);
+
+		assertEquals(slice1, hotelService.findHotels("","",0,1));
 	}
 	
 	@Test
