@@ -20,7 +20,7 @@ const RoomDetails = () => {
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
 
-    const hotel1 = {...hotelResult.filter(hotel => hotel.address === user.address)};
+    const hotel1 = {...hotelResult.hotelResult.items.filter(hotel => hotel.address === user.address)};
 
     const hotelid = hotel1[0].id;
     let adminValues = null;

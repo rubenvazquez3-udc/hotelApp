@@ -17,7 +17,7 @@ const FindRoomsResult = () => {
         return null;
     }
 
-    if (roomSearch.length === 0) {
+    if (roomSearch.rooms.items.length === 0) {
         return (
             <div className="alert alert-danger" role="alert" >
                 <FormattedMessage id='project.room.FindRoomsResult.noRoomsFound' />

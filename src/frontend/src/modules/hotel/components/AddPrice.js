@@ -23,7 +23,7 @@ const AddPrice = () => {
 
     const user = useSelector(users.selectors.getUser);
 
-    const hotel1 = {...hotels.filter(h => h.address === user.address)};
+    const hotel1 = {...hotels.hotelResult.items.filter(h => h.address === user.address)};
 
     const [backendErrors, setBackendErrors] = useState(null);
 

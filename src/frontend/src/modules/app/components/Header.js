@@ -10,7 +10,6 @@ const Header = () => {
     const userName = useSelector(users.selectors.getUserName);
 
     const user = useSelector(users.selectors.getUserRole);
-
     return (
 
         <nav className="navbar navbar-expand-lg navbar-light bg-light border">

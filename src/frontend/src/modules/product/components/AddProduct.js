@@ -20,7 +20,9 @@ const AddProduct = () => {
     const user = useSelector(users.selectors.getUser);
     const [backendErrors, setBackendErrors] = useState(null);
     let form;
-    const hotel = hotelList.filter(h => h.address === user.address);
+
+    //console.log(hotelList);
+    const hotel = hotelList.hotelResult.items.filter(h => h.address === user.address);
     const hotelid = hotel[0].id;
 
     useEffect(() => {

@@ -9,7 +9,7 @@ export const findReservations = ({hotelid, username, date, page}, onSuccess, onE
 
     path+= hotelid ? `&hotelid=${hotelid}` : "";
 
-    path+= username ?  hotelid ? `&username=${username}` : `?username=${username}` : "";
+    path+= username ?  hotelid ? `&username=${username}` : `&username=${username}` : "";
 
     path+= date ? `&date=${date}` : "";
 

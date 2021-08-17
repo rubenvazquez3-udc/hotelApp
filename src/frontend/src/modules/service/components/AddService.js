@@ -24,7 +24,7 @@ const AddService = () => {
 
     let form;
 
-    const hotel = hotelList.filter(h => h.address === user.address);
+    const hotel = hotelList.hotelResult.items.filter(h => h.address === user.address);
 
     const hotelid = hotel[0].id;
 

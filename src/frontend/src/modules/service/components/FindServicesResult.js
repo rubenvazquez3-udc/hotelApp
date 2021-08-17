@@ -17,7 +17,7 @@ const FindServicesResult = () => {
         return null;
     }
 
-    if (serviceSearch.length === 0) {
+    if (serviceSearch.services.items.length === 0) {
         return (
             <div className="alert alert-danger" role="alert" >
                 <FormattedMessage id='project.service.FindServicesResult.noServicesFound' />

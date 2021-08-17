@@ -21,12 +21,11 @@ const ReservationDetails = () => {
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
 
-    let hotel1 = {...reservations.filter(reservation => reservation.id === parseInt(id))};
-
+    let hotel1 = {...reservations.reservations.items.filter(reservation => reservation.id === parseInt(id))};
     let hotelid = hotel1[0].hotel.id;
 
     if(user.role !== 'USER'){
-        hotel1 = {...hotelResult.filter(hotel => hotel.address === user.address)};
+        hotel1 = {...hotelResult.hotelResult.items.filter(hotel => hotel.address === user.address)};
         hotelid = hotel1[0].id;
     }
     

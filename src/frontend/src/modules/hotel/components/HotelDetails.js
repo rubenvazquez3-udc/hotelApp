@@ -23,17 +23,16 @@ const HotelDetails = () => {
     const { id } = useParams();
     const user = useSelector(users.selectors.getUser);
 
-    const userroles = ['HOTEL', 'MANAGER'];
-
     let adminValues = null;
 
     const handleDelete = event => {
         event.preventDefault();
 
-        dispatch(actions.removeHotel(hotel,() => history.push('/'), error => console.log(error)));
+        dispatch(actions.removeHotel(hotel,
+            () => history.push('/'),
+            error => console.log(error)));
         
     }
-
 
     useEffect(() => {
         const hotelid = Number(id);
@@ -95,9 +94,7 @@ const HotelDetails = () => {
 
     return (
         <div>
-            
             <div className="card">
-
                 <div className="card-header">
                     <BackLink />  <h5 className="card-title text-center">{hotel.name}</h5>
                 </div>
@@ -113,7 +110,7 @@ const HotelDetails = () => {
                     <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {hotel.description}</p>
                     <p className="card-text"> <span className="fas fa-phone-square"/>  {hotel.phoneNumber}</p>
 
-                    {userroles.includes(user.role) && user.address === hotel.address ?
+                    {['HOTEL', 'MANAGER'].includes(user.role) && user.address === hotel.address ?
                     <PricesHotel prices={hotel.prices}/>
                     :
                     <Prices prices={hotel.prices}/>

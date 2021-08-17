@@ -43,6 +43,8 @@ public class HotelServiceImpl implements HotelService {
 	
 	@Autowired
 	private PhotoDao photoDao;
+
+	private final static  String UPLOADING_DIR = "C:\\Users\\Rubén\\IdeaProjects\\hotelapp\\src\\frontend\\public\\images";
 	
 	@Override
 	public Long createHotel(Hotel hotel) throws HotelAlreadyExistsException {
@@ -284,7 +286,7 @@ public class HotelServiceImpl implements HotelService {
 			try {
 				Photo photo = new Photo(file.getOriginalFilename(), hotel.get());
 
-				Files.copy(file.getInputStream(), Paths.get("/home/ruben/Escritorio/hotelApp/hotelapp/src/frontend/public/images" + File.separator + file.getOriginalFilename()),
+				Files.copy(file.getInputStream(), Paths.get(UPLOADING_DIR + File.separator + file.getOriginalFilename()),
 						StandardCopyOption.REPLACE_EXISTING);
 				f = true;
 				photoDao.save(photo);

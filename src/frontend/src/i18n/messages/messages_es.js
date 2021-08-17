@@ -73,7 +73,7 @@ export default {
     'project.room.FindRoomsResult.noRoomsFound': 'No hay habitaciones',
     'project.room.UpdateRoom.title': 'Actualizar habitación',
     'project.room.RemoveRoom.title': 'Eliminar habitación',
-    'project.room.FindRoom.title': 'Buscar habitación',
+    'project.room.FindRoom.title': 'Habitaciones',
     'project.room.RoomTypeSelector': 'Tipos',
 
     'project.reservations.FindReservations.title': 'Reservas',
@@ -87,9 +87,11 @@ export default {
     'project.services.AddToAccount.title': 'Añadir a Cuenta',
     'project.service.UpdateService.title': 'Actualizar Servicio',
     'project.service.AddService.title': 'Añadir Servicio',
+    'project.service.FindServicesResult.noServicesFound':'No hay Servicios',
 
     'project.product.UpdateProduct.title': 'Actualizar Producto',
-    'project.product.AddProduct.title': 'Añadir Producto'
+    'project.product.AddProduct.title': 'Añadir Producto',
+    'project.product.FindProductsResult.noProductsFound':'No hay Productos'
 
 
     

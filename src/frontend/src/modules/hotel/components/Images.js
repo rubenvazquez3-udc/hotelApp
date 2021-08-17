@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
+//const imagenes = require.context('../../../images',true);
 
 const Images = ({images}) => (
 
@@ -9,8 +10,8 @@ const Images = ({images}) => (
 
             {images && images.map(i =>
                 <div className="carousel-item">
-                    <img src={process.env.PUBLIC_URL + `/images/${i.name}`} alt="" className="d-block w-25"/>
-            </div>
+                    <img src={`./images/${i.name}`} alt={`${i.name}`} className="d-block w-25"/>
+                </div>
             )}
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">

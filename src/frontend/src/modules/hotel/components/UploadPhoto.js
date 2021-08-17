@@ -18,25 +18,27 @@ const UploadPhoto = () => {
     const user = useSelector(users.selectors.getUser);
     const hotels = useSelector(selectors.getHotels);
 
-    const [file, setFile] = useState('');
     const [backendErrors, setBackendErrors] = useState(null);
 
     let form;
 
-    const hotel1 = hotels.filter(hotel => hotel.address === user.address);
+    const hotel1 = hotels.hotelResult.items.filter(hotel => hotel.address === user.address);
 
+    let file1 = null;
 
     const handleSubmit = event => {
 
         event.preventDefault();
 
         if (form.checkValidity()) {
-            console.log(file);
 
-            dispatch(actions.uploadPhoto(hotel1[0].id, file),
-                () => history.push('/'),
+            const fd = new FormData();
+            fd.append('file',file1,file1.name);
+
+            dispatch(actions.uploadPhoto(hotel1[0].id, fd,
+                () => history.push(`/hotels/hotel-details/${hotel1[0].id}`),
                 errors => setBackendErrors(errors)
-            );
+            ));
 
         } else {
 
@@ -45,6 +47,11 @@ const UploadPhoto = () => {
 
         }
 
+    }
+
+    const viewData = event => {
+        event.preventDefault();
+        file1 = event.target.files[0];
     }
 
 
@@ -56,8 +63,7 @@ const UploadPhoto = () => {
                     <FormattedMessage id="project.hotels.UploadPhoto.title" />
                 </h5>
                 <div className="card-body">
-                    <form ref={node => form = node} encType="multipart/form-data"
-                          className="needs-validation" noValidate
+                    <form ref={node => form = node} className="needs-validation" noValidate
                           onSubmit={e => handleSubmit(e)}>
 
                         <div className="form-group row">
@@ -66,8 +72,7 @@ const UploadPhoto = () => {
                             </label>
                             <div className="col-md-4">
                                 <input type="file" id="file" className="form-control"
-                                       value={file}
-                                       onChange={e => setFile(e.target.value)}
+                                       onChange={ e => viewData(e)}
                                        autoFocus
                                        required />
                                 <div className="invalid-feedback">

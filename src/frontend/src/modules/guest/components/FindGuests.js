@@ -18,7 +18,7 @@ const FindGuests = () => {
     const hotels = useSelector(hotel.selectors.getHotels);
     const user = useSelector(users.selectors.getUser);
 
-    const hotel1 = hotels.filter(hotel => hotel.address === user.address);
+    const hotel1 = hotels.hotelResult.items.filter(hotel => hotel.address === user.address);
     const hotelid = hotel1[0].id;
 
     useEffect(() => {
