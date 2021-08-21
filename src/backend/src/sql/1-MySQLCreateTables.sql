@@ -2,7 +2,6 @@
 
 DROP TABLE AccountItem;
 DROP TABLE Account;
-DROP TABLE RoomService;
 DROP TABLE RoomReservation;
 DROP TABLE GuestReservation;
 DROP TABLE Photo;
@@ -166,18 +165,6 @@ CREATE TABLE RoomReservation (
         REFERENCES RoomTypeReservation (id)
 ) ENGINE = InnoDB;
 
-CREATE TABLE RoomService (
-    id BIGINT NOT NULL AUTO_INCREMENT,
-    date  DATETIME NOT NULL,
-    status VARCHAR(20) NOT NULL,
-    userId BIGINT NOT NULL,
-    roomId BIGINT NOT NULL,
-    CONSTRAINT RoomServicePK PRIMARY KEY (id),
-    CONSTRAINT RoomServiceUserFK FOREIGN KEY (userId)
-        REFERENCES User (id),
-    CONSTRAINT RoomServiceRoomIdFK FOREIGN KEY (roomId)
-        REFERENCES Room (id)
-) ENGINE = InnoDB;
 
 CREATE TABLE Account (
     id BIGINT NOT NULL AUTO_INCREMENT,

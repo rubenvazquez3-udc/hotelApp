@@ -46,7 +46,7 @@ const HotelDetails = () => {
         return null;
     }
 
-    if (user.role === 'ADMIN') {
+    if (user && user.role === 'ADMIN') {
         adminValues = (
             <div className="card-footer">
                 <div className="form-group row">
@@ -64,7 +64,7 @@ const HotelDetails = () => {
                 </div>
             </div>
         )
-    } else if (user.role === 'MANAGER' && hotel.address === user.address) {
+    } else if (user && user.role === 'MANAGER' && hotel.address === user.address) {
         adminValues = (
                         <div>
                             <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
@@ -76,12 +76,12 @@ const HotelDetails = () => {
                         </div>
             
         )
-    } else if (user.role === 'USER') {
+    } else if (user && user.role === 'USER') {
         adminValues =
             <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/reservations`} >
                 <FormattedMessage id="project.hotels.AddReservation.title" />
             </Link>
-    } else if (user.role === 'HOTEL' && hotel.address === user.address) {
+    } else if (user && user.role === 'HOTEL' && hotel.address === user.address) {
         adminValues = (
             <div>
                 <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
