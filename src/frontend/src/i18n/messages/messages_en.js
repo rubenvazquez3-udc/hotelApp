@@ -41,6 +41,7 @@ export default {
     'project.global.fields.product':'Product',
     'project.global.fields.item': 'Item',
     'project.global.fields.totalPrice': 'Total Price',
+    'project.global.fields.Photo':'Photo',
     'project.global.validator.email': 'Provide a correct e-mail address',
     'project.global.validator.passwordsDoNotMatch': 'Passwords do not match',
     'project.global.validator.required': 'Required field',
