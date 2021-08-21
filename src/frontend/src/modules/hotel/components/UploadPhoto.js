@@ -68,7 +68,7 @@ const UploadPhoto = () => {
 
                         <div className="form-group row">
                             <label htmlFor="room" className="col-md-3 col-form-label">
-                                <FormattedMessage id="project.global.fields.roomNumber" />
+                                <FormattedMessage id="project.global.fields.Photo" />
                             </label>
                             <div className="col-md-4">
                                 <input type="file" id="file" className="form-control"

@@ -43,7 +43,7 @@ const AddPrice = () => {
                     hotel: hotel1[0],
                     type: typename[0]
                 },
-                () => history.push('/'),
+                () => history.push(`/hotels/hotel-details/${hotel1[0].id}`),
                 errors => setBackendErrors(errors)
             ));
 

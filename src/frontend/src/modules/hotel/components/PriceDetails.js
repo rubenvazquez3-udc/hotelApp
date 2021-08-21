@@ -9,8 +9,6 @@ import { BackLink, ConfirmDialog } from '../../common';
 import { FormattedMessage } from 'react-intl';
 
 
-//COMPROBAR QUE FUNCIONA
-
 const PriceDetails = () => {
 
     const dispatch = useDispatch();
@@ -21,8 +19,6 @@ const PriceDetails = () => {
 
     const price = hotel.prices.filter(price => price.id === parseInt(id))[0];
 
-    //const price = useSelector(selectors.getPrice);
-
     const hotelid = hotel.id;
     console.log(price);
     let adminValues = null;
@@ -30,8 +26,8 @@ const PriceDetails = () => {
     const handleDelete = event => {
         event.preventDefault();
 
-        dispatch(actions.removeHotel(hotel,hotel.id,() => console.log(hotel.address), error => console.log(error)));
-        history.push('/')
+        dispatch(actions.removePrice(hotelid,price,() => history.push(`/hotels/hotel-details/${hotelid}`), error => console.log(error)));
+
     }
 
 

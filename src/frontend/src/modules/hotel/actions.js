@@ -115,4 +115,16 @@ export const updatePrice = (price, onSuccess, onErrors) => dispatch =>
         onSuccess();
     }, onErrors);
 
+const removePriceCompleted = priceid => ({
+    type: actionTypes.REMOVE_PRICE_COMPLETED,
+    priceid
+});
+
+export const removePrice = (hotelid, price, onSuccess, onErrors) => dispatch =>
+    backend.hotelService.removePrice(hotelid, price,() => {
+            dispatch(removePriceCompleted(price.id));
+            onSuccess();
+        },
+        onErrors);
+
 

@@ -88,8 +88,8 @@ export const updatePrice = (price, onSuccess, onErrors) =>
 export const findPriceById = (hotelid, priceid, onSuccess, onErrors) =>
     appFetch(`/hotels/${hotelid}/prices/${priceid}`, config('GET'), onSuccess, onErrors);
 
-export const removePrice = (hotelid, priceid, onSuccess, onErrors) =>
-    appFetch(`/hotels/${hotelid}/prices/${priceid}`, config('DELETE'), onSuccess, onErrors);
+export const removePrice = (hotelid , price, onSuccess, onErrors) =>
+    appFetch(`/hotels/${hotelid}/prices/${price.id}`, config('DELETE'), onSuccess, onErrors);
 
 
 
