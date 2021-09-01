@@ -12,7 +12,7 @@ const reservations = ( state = initialState.reservations, action ) => {
     switch (action.type) {
 
         case actionTypes.ADD_RESERVATION_COMPLETED:
-            return [...state, action.reservation];
+            return {criteria:{...state.criteria}, reservations:[...state.reservations.items, action.reservation]};
 
         case actionTypes.FIND_RESERVATIONS_USER_COMPLETED:
             return action.reservations;
@@ -21,9 +21,10 @@ const reservations = ( state = initialState.reservations, action ) => {
             return action.reservations;
 
         case actionTypes.UPDATE_RESERVATION_COMPLETED:
-            let estado = [...state];
+
+            let estado = [...state.reservations.items];
             estado.splice(estado.findIndex(r => r.id === action.reservation.id), 1, action.reservation);
-            return estado;
+            return {criteria: {...state.criteria}, reservations: estado};
 
             case actionTypes.REMOVE_RESERVATION_COMPLETED:
                 let reservations = [...state];

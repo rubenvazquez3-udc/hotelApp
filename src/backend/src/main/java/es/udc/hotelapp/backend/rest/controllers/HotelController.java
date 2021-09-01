@@ -220,7 +220,7 @@ public class HotelController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/hotels/roomtypes")
+	@GetMapping("/roomtypes")
 	public List<RoomTypeDto> findAllRoomTypes() {
 		return toRoomTypeDtos(roomService.findAllRoomTypes());
 	}

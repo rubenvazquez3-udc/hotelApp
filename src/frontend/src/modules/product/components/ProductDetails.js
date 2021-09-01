@@ -54,19 +54,18 @@ const ProductDetails = () => {
 
     if (user.role === 'MANAGER' && product.hotel.address === user.address) {
         adminValues = (
-                <div className="form-group row">
-                    <ul id='admin'>
-                        <li id='managerbutton'>
+
+                    <ul style={{display:"flex", justifyContent:'center'}}>
+                        <li style={{display:"flex"}}>
                             <Link className="nav-link" to={`/products/details/${product.id}/update`}>
-                                <span className="fas fa-edit fa-2x"/>
+                                <span className="fas fa-edit fa-2x" title='Edit'/>
                             </Link>
                         </li>
-                        <li id='managerbutton'>
+                        <li style={{display:"flex"}}>
                             <ConfirmDialog id='removeProduct' icon='eraser fa-3x' headerTitle='Remove Product'
                                 bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
                         </li>
                     </ul>
-                </div>
         )
     } else if (user.role === 'HOTEL' && product.hotel.address === user.address) {
         adminValues =

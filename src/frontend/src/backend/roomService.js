@@ -17,7 +17,7 @@ export const findRooms = ({hotelid, status, type,page}, onSuccess, onErrors) => 
 }
 
 export const findAllRoomTypes = (onSuccess) => 
-    appFetch('/hotels/roomtypes', config('GET'), onSuccess);
+    appFetch('/roomtypes', config('GET'), onSuccess);
 
 
 export const updateRoom = (room, onSuccess, onErrors) => 

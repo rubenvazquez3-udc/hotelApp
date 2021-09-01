@@ -52,14 +52,14 @@ const ServiceDetails = () => {
 
     if (user.role === 'MANAGER' && service.hotel.address === user.address) {
         adminValues = (
-                <div className="form-group row">
-                    <ul id='admin'>
-                        <li id='managerbutton'>
+                <div>
+                    <ul style={{display:"flex", justifyContent:'center'}}>
+                        <li style={{display:"flex"}}>
                             <Link className="nav-link" to={`/services/details/${service.id}/update`}>
-                                <span className="fas fa-edit fa-2x"/>
+                                <span className="fas fa-edit fa-2x" title='Edit'/>
                             </Link>
                         </li>
-                        <li id='managerbutton'>
+                        <li style={{display:"flex"}}>
                             <ConfirmDialog id='removeService' icon='eraser fa-3x' headerTitle='Remove Service'
                                 bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
                         </li>

@@ -221,7 +221,7 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		Optional<AccountItem> existingitem = acc.getItem(sfound.get().getName());
 
-		if (existingitem.isPresent() && existingitem.get().getItemPrice() ==(BigDecimal.valueOf(sfound.get().getPrice()))) {
+		if (existingitem.isPresent()) {
 			existingitem.get().setQuantity(existingitem.get().getQuantity() + quantity);
 		} else {
 			AccountItem item = new AccountItem(acc, quantity, new BigDecimal(sfound.get().getPrice()), sfound.get().getName());
@@ -242,7 +242,7 @@ public class ReservationServiceImpl implements ReservationService {
 		
 		Optional<AccountItem> existingitem = acc.getItem(pfound.get().getName());
 
-		if (existingitem.isPresent() && existingitem.get().getItemPrice() == (BigDecimal.valueOf(pfound.get().getPrice()))) {
+		if (existingitem.isPresent()) {
 			existingitem.get().setQuantity(existingitem.get().getQuantity() + quantity);
 		} else {
 			AccountItem item = new AccountItem(acc, quantity, new BigDecimal(pfound.get().getPrice()), pfound.get().getName());

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { useHistory } from 'react-router-dom';
 
-import { Errors } from '../../common';
+import {Errors} from '../../common';
 import * as actions from '../actions';
 import * as selectors from "../selectors";
 
@@ -29,7 +29,7 @@ const AssignRoom = () => {
 
     let form;
 
-    const hotel1 = hotels.filter(hotel => hotel.address === user.address);
+    const hotel1 = hotels.hotelResult.items.filter(hotel => hotel.address === user.address);
     const hotelid = hotel1[0].id;
     const typename = reservation.roomtype.name;
 
@@ -43,7 +43,7 @@ const AssignRoom = () => {
         
         event.preventDefault();
         
-        const room1 = {...rooms.filter(room => room.id === parseInt(roomid,10))};
+        const room1 = {...rooms.items.filter(room => room.id === parseInt(roomid,10))};
 
         if (form.checkValidity()) {
 
@@ -53,14 +53,10 @@ const AssignRoom = () => {
                 room: room1[0],
                 begin: reservation.inbound,
                 end: reservation.outbound
-            }),
-            alert('Room Assigned successfully'),
-            
-            errors => setBackendErrors(errors)
-            );
+            },
+                    () => history.push('/reservations'),
+                    errors => setBackendErrors(errors)));
 
-            history.push('/reservations');
-            
 
         } else {
 

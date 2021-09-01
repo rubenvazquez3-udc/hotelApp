@@ -48,21 +48,19 @@ const HotelDetails = () => {
 
     if (user && user.role === 'ADMIN') {
         adminValues = (
-            <div className="card-footer">
-                <div className="form-group row">
-                    <ul id='admin'>
-                        <li id='managerbutton'>
+                <div>
+                    <ul style={{display:"flex", justifyContent:'center'}}>
+                        <li style={{display:"flex"}}>
                             <Link className="nav-link" to={`/hotels/hotel-details/${hotel.id}/update`}>
                                 <span className="fas fa-edit fa-2x"/>
                             </Link>
                         </li>
-                        <li id='managerbutton'>
+                        <li style={{display:"flex"}}>
                             <ConfirmDialog id='removeHotel' icon='eraser fa-3x' headerTitle='Remove Hotel'
                                 bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
                         </li>
                     </ul>
                 </div>
-            </div>
         )
     } else if (user && user.role === 'MANAGER' && hotel.address === user.address) {
         adminValues = (
@@ -99,10 +97,10 @@ const HotelDetails = () => {
                     <BackLink />  <h5 className="card-title text-center">{hotel.name}</h5>
                 </div>
                 <div className="card-body">
-                <div className="col-md-5" style={{display:'inline-grid'}}>
+                <div className="col-md-5" style={{float:'left'}}>
                     <Images images={hotel.photos}/>
                 </div>
-                <div className="col-md-7" style={{display:'inline-block'}}>
+                <div className="col-md-7" style={{float:'right'}}>
 
                     <h6 className="card-subtitle"><FormattedMessage id="project.global.fields.address" /> : {hotel.address}</h6>
                     <br/>

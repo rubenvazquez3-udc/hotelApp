@@ -90,9 +90,10 @@ const assignRoomCompleted = () => ({
     type: actionTypes.ASSIGN_ROOM_COMPLETED
 });
 
-export const assignRoom = (roomreservation, onErrors) => dispatch => 
+export const assignRoom = (roomreservation,onSuccess, onErrors) => dispatch =>
     backend.reservationService.assignRoom(roomreservation.reservation.id, roomreservation, reservation =>{
         dispatch(assignRoomCompleted(reservation));
+        onSuccess();
     }, onErrors);
 
 

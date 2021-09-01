@@ -447,52 +447,28 @@ public class ReservationServiceTest {
 		
 		hotelService.addService(s1);
 		
-		reservationService.addToAccount(null, p1.getId(), rt4.getId(), 2); //Añadimos Producto a Cuenta
-		
-		reservationService.addToAccount(null, p1.getId(), rt4.getId(), 2);
-		
+		reservationService.addToAccount(null, p1.getId(), rt4.getId(), 2); //Añadimos Producto
+
 		assertEquals(2, acc2.getItem(p1.getName()).get().getQuantity());
+
+		reservationService.addToAccount(null, p1.getId(), rt4.getId(), 2); //incrementa a cantidad
 		
-		 //Añadimos Producto incrementa a cantidad
-		
-		//assertEquals(4, acc2.getItem(p1.getName()).get().getQuantity());
-		
-		p1.setPrice(3.0);
-		
-		hotelService.updateProduct(p1);
-		
-		reservationService.addToAccount(null, p1.getId(), rt4.getId(), 2); //Añadimos Producto a Cuenta
-		
-		assertEquals(2, acc2.getItem(p1.getName()).get().getQuantity());
-		
-		
-		
-		reservationService.addToAccount(s1.getId(), null, rt4.getId(), 1);
+		assertEquals(4, acc2.getItem(p1.getName()).get().getQuantity());
+
+		reservationService.addToAccount(s1.getId(), null, rt4.getId(), 1); //Añadimos Servicio
 		
 		assertEquals(1, acc2.getItem(s1.getName()).get().getQuantity());
 		
 		reservationService.addToAccount(s1.getId(), null, rt4.getId(), 1);
 		
-		assertEquals(1, acc2.getItem(s1.getName()).get().getQuantity());
-		
-		s1.setPrice(4.0);
-		
-		hotelService.updateService(s1);
-		
-		reservationService.addToAccount(s1.getId(), null, rt4.getId(), 1);
-		
-		assertEquals(1, acc2.getItem(s1.getName()).get().getQuantity());
-		
-		
+		assertEquals(2, acc2.getItem(s1.getName()).get().getQuantity());
+
 		assertEquals(acc2.getItems(), reservationService.findAccount(rt4.getId()).getItems());
 		
 		assertEquals(acc2, reservationService.findAccount(rt4.getId()));
 		
 		assertThrows(InstanceNotFoundException.class, ()-> reservationService.addToAccount(null, p1.getId()*3, rt4.getId(), 3));
-		
 		assertThrows(InstanceNotFoundException.class, ()-> reservationService.addToAccount( (long) 5,null, rt4.getId(), 3));
-		
-				
 
 	}
 	

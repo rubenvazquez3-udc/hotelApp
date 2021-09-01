@@ -17,7 +17,7 @@ const FindReservationsResult = () => {
         return null;
     }
 
-    if (reservationSearch.reservations.items.length === 0) {
+    if (reservationSearch.length === 0) {
         return (
             <div className="alert alert-danger" role="alert" >
                 <FormattedMessage id='project.reservations.FindReservationResult.noReservationsFound' />

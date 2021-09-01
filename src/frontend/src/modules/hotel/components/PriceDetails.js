@@ -45,21 +45,19 @@ const PriceDetails = () => {
 
     if (user.role === 'MANAGER' && hotel.address === user.address) {
             adminValues = (
-                <div className="form-group row">
-                    <ul id='admin'>
-                        <li id='managerbutton'>
-                            <Link className="nav-link" to={`/prices/details/${price.id}/update`}>
-                                <span className="fas fa-edit fa-2x"/>
+
+                    <ul style={{display:"flex", justifyContent:'center'}}>
+                        <li  style={{display:"flex"}}>
+                            <Link className="nav-link" to={`/prices/details/${price.id}/update`} >
+                                <span className="fas fa-edit fa-2x" title='Edit'/>
                             </Link>
                         </li>
-                        <li id='managerbutton'>
+                        <li  style={{display:"flex"}}>
                             <ConfirmDialog id='removePrice' icon='eraser fa-3x' headerTitle='Remove Price'
                                            bodyTitle='Are you sure that you want to remove it?' onConfirm={e => handleDelete(e)} />
                         </li>
                     </ul>
 
-                        </div>
-            
         )
     }
 
@@ -67,13 +65,13 @@ const PriceDetails = () => {
         <div>
             
             <div className="card">
-                <div className="card-body text-center">
+                <div className="card-body">
 
                 <BackLink /> 
 
-                    <h6 className="card-text"><FormattedMessage id="project.global.fields.type" /> : {price.type.name}</h6>
+                    <h6 className="card-text text-center"><FormattedMessage id="project.global.fields.type" /> : {price.type.name}</h6>
                     <br/>
-                    <p className="card-text">  <FormattedMessage id="project.global.fields.price" /> : {price.price}</p>
+                    <p className="card-text text-center">  <FormattedMessage id="project.global.fields.price" /> : {price.price}</p>
                 </div>
 
                 <div className="card-footer text-center">

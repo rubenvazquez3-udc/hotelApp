@@ -18,7 +18,7 @@ const FindGuestResult = () => {
         return null;
     }
 
-    if (guestsSearch.guests.items.length === 0) {
+    if (guestsSearch.length === 0) {
         return (
             <div className="alert alert-danger" role="alert" >
                 <FormattedMessage id='project.guests.FindReservationResult.noGuestsFound' />

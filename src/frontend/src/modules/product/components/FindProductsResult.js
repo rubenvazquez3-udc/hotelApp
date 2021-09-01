@@ -17,7 +17,7 @@ const FindProductsResult = () => {
         return null;
     }
 
-    if (productSearch.products.items.length === 0) {
+    if (productSearch.length === 0) {
         return (
             <div className="alert alert-danger" role="alert" >
                 <FormattedMessage id='project.product.FindProductsResult.noProductsFound' />
