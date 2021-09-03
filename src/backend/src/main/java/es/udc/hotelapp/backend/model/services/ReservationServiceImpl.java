@@ -69,9 +69,6 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException, PermissionException {
-		if (!typeDao.existsByName(rt1.getRoomtype().getName())) {
-			throw new InstanceNotFoundException("project.entities.roomtype", rt1.getRoomtype().getId());
-		}
 		if (!hotelDao.existsByName(rt1.getHotel().getName())) {
 			throw new InstanceNotFoundException("project.entities.hotel", rt1.getHotel().getId());
 		}
@@ -90,9 +87,7 @@ public class ReservationServiceImpl implements ReservationService {
 		if (roomtypereservationfound.isPresent()) {
 
 			actual = roomtypereservationfound.get();
-			if (typeDao.existsByName(rt2.getRoomtype().getName())) {
-				actual.setRoomtype(rt2.getRoomtype());
-			}
+			actual.setRoomtype(rt2.getRoomtype());
 			actual.setRooms(rt2.getRooms());
 			actual.setInbound(rt2.getInbound());
 			actual.setOutbound(rt2.getOutbound());
@@ -176,8 +171,8 @@ public class ReservationServiceImpl implements ReservationService {
 	public void removeReservation(Long reservationid) throws InstanceNotFoundException {
 
 		Optional<RoomTypeReservation> reservationfound = roomtypereservationDao.findById(reservationid);
-
 		if (reservationfound.isPresent()) {
+
 			roomtypereservationDao.delete(reservationfound.get());
 		} else
 			throw new InstanceNotFoundException("project.entities.rooomtypereservation", reservationid);

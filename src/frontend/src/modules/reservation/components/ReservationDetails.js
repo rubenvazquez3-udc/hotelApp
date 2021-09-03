@@ -65,7 +65,7 @@ const ReservationDetails = () => {
             </div>
     }
 
-
+    console.log(user);
     return (
         <div>
 
@@ -81,11 +81,10 @@ const ReservationDetails = () => {
 
                     <p className="card-text"> <FormattedMessage id="project.global.fields.date.out" />: {reservation.outbound}</p>
 
-                    {reservation.user.role !== 'USER' ?
-                        <p className="card-text"> <FormattedMessage id="project.global.fields.firstName"/>: {reservation.user.firstName}</p>
-                    :
-                        <p className="card-text"><FormattedMessage id="project.global.fields.hotelName"/>: {reservation.hotel.name}</p>   
-                    }
+                    <p className="card-text"> <FormattedMessage id="project.global.fields.firstName"/>: {reservation.user.firstName}</p>
+
+                    <p className="card-text"><FormattedMessage id="project.global.fields.hotelName"/>: {reservation.hotel.name}</p>
+
                     <p className="card-text"> <FormattedMessage id="project.global.fields.quantity"/>: {reservation.rooms}</p>
                 </div>
 

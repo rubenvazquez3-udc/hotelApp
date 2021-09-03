@@ -31,7 +31,7 @@ const FindReservationsHotel = () => {
             <div className="formulario">
             <form className="form-inline mt-2 mt-md-0">
     
-                <input id="username" type="text" className="form-control mr-sm-2"
+                <input id="username" type="text" className="form-control mr-sm-2" placeholder='Name'
                     value={userName} onChange={e => setUserName(e.target.value)} />
     
                 <input id="date" type="date" className="form-control mr-sm-2"

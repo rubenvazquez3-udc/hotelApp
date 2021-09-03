@@ -27,7 +27,7 @@ const Header = () => {
                 </ul>
 
                 {user === "ADMIN" ?
-                    <ul className="navbar-nav">
+                    <ul className="nav nav-pills">
                         <li className="nav-item">
                             <Link className="nav-link" to="/users/signup">
                                 <FormattedMessage id="project.users.Admin.title" />
@@ -119,7 +119,7 @@ const Header = () => {
                             </li>
                         </ul>
                         : user === "HOTEL" ?
-                            <ul className="navbar-nav">
+                            <ul className="nav nav-pills">
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/guests">
                                         <FormattedMessage id="project.guest.FindGuest.title" />
@@ -155,8 +155,8 @@ const Header = () => {
                                 </li>
                             </ul>
                             : userName ?
-                                <ul className="navbar-nav">
-                                    <li className="nav-item">
+                                <ul className="nav nav-pills flex-column flex-sm-row">
+                                    <li className="btn btn-light" >
                                         <Link className="nav-link" to="/reservations">
                                             <FormattedMessage id="project.reservations.FindReservations.title" />
                                         </Link>

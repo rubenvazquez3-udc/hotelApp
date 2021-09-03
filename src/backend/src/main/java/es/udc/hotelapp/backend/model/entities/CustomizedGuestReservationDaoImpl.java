@@ -34,7 +34,7 @@ public class CustomizedGuestReservationDaoImpl implements CustomizedGuestReserva
 			if(hotelid != null ) {
 				queryString += " AND ";
 			}
-			queryString += "gr.guest.name = :username";
+			queryString += "gr.guest.name LIKE :username";
 		}
 		
 		queryString += " ORDER BY gr.guest.name";
@@ -46,7 +46,7 @@ public class CustomizedGuestReservationDaoImpl implements CustomizedGuestReserva
 		}
 		
 		if(! username.isEmpty()) {
-			query.setParameter("username", username.toUpperCase());
+			query.setParameter("username", "%"+username.toUpperCase()+"%");
 		}
 		
 		

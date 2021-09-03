@@ -49,8 +49,8 @@ const AddToAccount = ({productId, reservationId, serviceId}) => {
                 className="needs-validation" noValidate
                 onSubmit= {e => handleSubmit(e)}>
                 <div className="form-group row">
-                    <label htmlFor="price" className="offset-md-5 col-md-1 col-form-label">
-                        <FormattedMessage id="project.global.fields.shopping.quantity" />
+                    <label htmlFor="price" className="offset-md-4 col-md-1 col-form-label" style={{display: 'flex'}}>
+                        <FormattedMessage id="project.global.fields.shopping.quantity"/>
                     </label>
                     <div className="col-md-2">
                         <input type="number" id="price" className="form-control" 
@@ -64,7 +64,7 @@ const AddToAccount = ({productId, reservationId, serviceId}) => {
                     </div>
                 </div>
                 <div className="form-group row">
-                    <div className="offset-md-6 col-md-2">
+                    <div className="offset-md-5 col-md-2">
                         <button type="submit" className="btn btn-primary">
                             <FormattedMessage id="project.services.AddToAccount.title" />
                         </button>

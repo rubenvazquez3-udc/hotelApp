@@ -55,7 +55,7 @@ public class CustomizedRoomTypeReservationDaoImpl
 		}
 		
 		if(! username.isEmpty()) {
-			query.setParameter("username", username);
+			query.setParameter("username", "%"+username+"%");
 		}
 		
 		if(! date.isEmpty()) {

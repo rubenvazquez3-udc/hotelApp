@@ -88,7 +88,7 @@ const ServiceDetails = () => {
                     <br/>
                     <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {service.description}</p>
 
-                    { loggedAsUser && reservation &&
+                    { loggedAsUser && reservation && service &&
                         <div>
                             <br/>
                             <AddToAccount  serviceId={service.id} productId={null} reservationId={reservation[0].id}/>

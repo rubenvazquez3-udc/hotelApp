@@ -92,6 +92,7 @@ export default {
 
     'project.product.UpdateProduct.title': 'Update Product',
     'project.product.AddProduct.title': 'Add Product',
-    'project.product.FindProductsResult.noProductsFound':'No Products'
+    'project.product.FindProductsResult.noProductsFound':'No Products',
+    'project.reservations.FindAccountResult.noItemsFound':'Account is empty'
 
 }

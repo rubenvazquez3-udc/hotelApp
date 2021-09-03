@@ -29,16 +29,16 @@ public class RoomServiceImpl implements RoomService {
 	@Override
 	public Long addRoom(Room room) throws RoomAlreadyExistsException, InstanceNotFoundException {
 		Optional<Room> roomfound = roomDao.findByNumber(room.getNumber());
-		boolean type = typeDao.existsByName(room.getType().getName());
-		Optional<RoomType> typeRoom = typeDao.findByName(room.getType().getName());
+		//boolean type = typeDao.existsByName(room.getType().getName());
+		//Optional<RoomType> typeRoom = typeDao.findByName(room.getType().getName());
 		if (roomfound.isPresent() && roomfound.get().getHotel() == room.getHotel()) {
 			throw new RoomAlreadyExistsException(room.getId());
 		}
-		if (!type) {
-			typeDao.save(room.getType());
-		} else {
-		room.setType(typeRoom.get());
-		}
+		//if (!type) {
+		//	typeDao.save(room.getType());
+		//} else {
+		//room.setType(typeRoom.get());
+		//}
 		roomDao.save(room);
 		return room.getId();
 

@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.Room;
 import es.udc.hotelapp.backend.model.services.RoomService;
+import es.udc.hotelapp.backend.model.entities.RoomTypeDao;
 import es.udc.hotelapp.backend.model.entities.RoomType;
 import es.udc.hotelapp.backend.model.entities.Status;
 import es.udc.hotelapp.backend.model.exceptions.HotelAlreadyExistsException;
@@ -35,6 +36,9 @@ public class RoomServiceTest {
 	
 	@Autowired
 	HotelService hotelService;
+
+	@Autowired
+	RoomTypeDao typedao;
 	
 	
 	private Hotel createHotel() {
@@ -47,6 +51,7 @@ public class RoomServiceTest {
 		Hotel h1 = createHotel();
 		hotelService.createHotel(h1);
 		RoomType type = new RoomType("DOBLE");
+		typedao.save(type);
 		Room r1 = new Room(201,type,h1);
 		
 		roomService.addRoom(r1);
@@ -62,6 +67,7 @@ public class RoomServiceTest {
 
 		hotelService.createHotel(h1);
 		RoomType type = new RoomType("DOBLE");
+		typedao.save(type);
 		Room r1 = new Room(201,type,h1);
 		
 		roomService.addRoom(r1);
@@ -76,6 +82,7 @@ public class RoomServiceTest {
 		Hotel h1 = createHotel();
 		hotelService.createHotel(h1);
 		RoomType type = new RoomType("DOBLE");
+		typedao.save(type);
 		Room r1 = new Room(201,type,h1);
 		
 		roomService.addRoom(r1);
@@ -92,6 +99,7 @@ public class RoomServiceTest {
 		hotelService.createHotel(h1);
 		
 		RoomType type = new RoomType("DOBLE");
+		typedao.save(type);
 		Room r1 = new Room(201,type,h1);
 		
 		roomService.addRoom(r1);
@@ -115,6 +123,7 @@ public class RoomServiceTest {
 		hotelService.createHotel(h2);
 		
 		RoomType type = new RoomType("DOBLE");
+		typedao.save(type);
 		Room r1 = new Room(201,type,h1);
 		roomService.addRoom(r1);
 		Room r2 = new Room(202,type,h1);
@@ -142,6 +151,7 @@ public class RoomServiceTest {
 		hotelService.createHotel(h2);
 		
 		RoomType type = new RoomType("DOBLE");
+		typedao.save(type);
 		Room r1 = new Room(201,type,h1);
 		roomService.addRoom(r1);
 		Room r2 = new Room(202,type,h1);
@@ -162,7 +172,9 @@ public class RoomServiceTest {
 		Hotel h1 = createHotel();
 		hotelService.createHotel(h1);
 		RoomType type1 = new RoomType("DOBLE");
+		typedao.save(type1);
 		RoomType type2 = new RoomType("ESEPCIAL");
+		typedao.save(type2);
 		Room r1 = new Room(201,type1,h1);
 		roomService.addRoom(r1);
 		Room r2 = new Room(202,type2,h1);

@@ -89,7 +89,7 @@ const ProductDetails = () => {
                     <br/>
                     <p className="card-text"> <FormattedMessage id="project.global.fields.description" /> : {product.description}</p>
 
-                    { loggedAsUser && reservation &&
+                    { loggedAsUser && reservation && product &&
                         <div>
                             <br/>
 

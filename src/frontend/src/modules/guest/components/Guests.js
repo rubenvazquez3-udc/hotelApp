@@ -23,17 +23,25 @@ const Guests = ({ guests }) => (
                 <th scope="col">
                     <FormattedMessage id='project.global.fields.phone' />
                 </th>
+                <th scope="col">
+                    <FormattedMessage id='project.global.fields.date.in' />
+                </th>
+                <th scope="col">
+                    <FormattedMessage id='project.global.fields.date.out' />
+                </th>
             </tr>
         </thead>
 
         <tbody>
-            {guests.map(guest =>
+            {guests && guests.map(guest =>
                 <tr key={guest.id}>
                     <td>{guest.guest.name}</td>
                     <td>{guest.guest.surname}</td>
                     <td>{guest.guest.dni}</td>
                     <td>{guest.guest.address}</td>
                     <td>{guest.guest.phoneNumber}</td>
+                    <td>{guest.reservation.inbound}</td>
+                    <td>{guest.reservation.outbound}</td>
                 </tr>
             )}
         </tbody>

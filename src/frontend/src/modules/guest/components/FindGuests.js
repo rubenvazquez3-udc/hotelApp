@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { FormattedMessage } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"
 import FindGuestResult from './FindGuestResult';
@@ -39,10 +38,6 @@ const FindGuests = () => {
 
                     <input id="username" type="text" className="form-control mr-sm-2" placeholder='Name'
                         value={username} onChange={e => setUsername(e.target.value)} />
-
-                    <button type="submit" className="btn btn-primary my-2 my-sm-0">
-                        <FormattedMessage id='project.global.buttons.search' />
-                    </button>
                 </form>
             </div>
             <br />
