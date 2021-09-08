@@ -93,7 +93,8 @@ export default {
     'project.product.UpdateProduct.title': 'Actualizar Producto',
     'project.product.AddProduct.title': 'Añadir Producto',
     'project.product.FindProductsResult.noProductsFound':'No hay Productos',
-    'project.reservations.FindAccountResult.noItemsFound':'La cuenta está vacia'
+    'project.reservations.FindAccountResult.noItemsFound':'La cuenta está vacia',
+    'project.hotels.title': 'Gestionar Hotel'
 
 
     
