@@ -20,7 +20,7 @@ public class CustomizedRoomTypeReservationDaoImpl
 
 	
 	@Override
-	public Slice<RoomTypeReservation> find(Long hotelid, String username, String date, int page, int size) { //Paginar
+	public Slice<RoomTypeReservation> find(Long hotelid, String username, String date, int page, int size) {
 		String queryString = "SELECT rt FROM RoomTypeReservation rt";
 		
 		if(hotelid != null || !username.isEmpty() || !date.isEmpty()) {

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
+
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,9 +179,15 @@ public class HotelServiceTest {
 		Block<Service> slice2 = new Block<>(Arrays.asList(s2), false);
 		
 		assertEquals(slice1, hotelService.findServices(h1.getId(),"",0,2));
+		assertEquals(slice1.getItems(), hotelService.findServices(h1.getId(),"", 0, 2).getItems());
+		assertEquals(slice1.getExistMoreItems(), hotelService.findServices(h1.getId(),"", 0, 2).getExistMoreItems());
 		assertEquals(slice1, hotelService.findServices(h1.getId(),"ing",0,2));
 		assertEquals(slice2, hotelService.findServices(h1.getId(),"Catering",0,1));
 		assertEquals(new Block<>(new ArrayList<>(), false), hotelService.findServices(h1.getId(),"Platano",0,1));
+		assertTrue(slice1.equals(slice1));
+		assertFalse(slice2.equals(hotelService.findServices(h1.getId(), "", 0, 2)));
+		
+		assertFalse(slice2.equals(s2));
 	}
 	
 	@Test
@@ -204,6 +210,8 @@ public class HotelServiceTest {
 		assertEquals(slice2, hotelService.findProducts(h1.getId(),"Manzana",0,1));
 
 		assertEquals(new Block<>(new ArrayList<>(), false), hotelService.findProducts(h1.getId(),"Platano",0,1));
+		
+		assertEquals(slice1.hashCode(), hotelService.findProducts(h1.getId(),"",0,2).hashCode());
 		
 	}
 	
@@ -239,6 +247,10 @@ public class HotelServiceTest {
 		Block<Hotel> slice1 = new Block<>(Arrays.asList(h1), false);
 
 		assertEquals(slice1, hotelService.findHotels("","",0,1));
+		
+		assertEquals(slice1, hotelService.findHotels(h1.getName(), "", 0, 1));
+		
+		assertEquals(slice1, hotelService.findHotels(h1.getName(), h1.getAddress(), 0, 1));
 	}
 	
 	@Test
@@ -369,6 +381,29 @@ public class HotelServiceTest {
 		s2.setId((long) 4);
 		
 		assertThrows(InstanceNotFoundException.class, () -> hotelService.updateProduct(s2));
+		
+	}
+	
+	@Test
+	public void testRemoveRoomTypePrice() throws HotelAlreadyExistsException, InstanceNotFoundException{
+		
+		Hotel h1 = createHotel();
+		
+		RoomType type = new RoomType("DOBLE");
+		
+		typedao.save(type);
+		
+		hotelService.createHotel(h1);
+		
+		RoomTypePrice price = new RoomTypePrice(h1,type, new BigDecimal(55.0));
+		
+		hotelService.addPrice(price);
+		
+		assertEquals(price, hotelService.findPriceById(price.getId()));
+		
+		hotelService.removePrice(price.getId());
+		
+		assertThrows(InstanceNotFoundException.class, () -> hotelService.removePrice(price.getId()));
 		
 	}
 }

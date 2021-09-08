@@ -34,7 +34,7 @@ import es.udc.hotelapp.backend.model.entities.ServiceDao;
 import es.udc.hotelapp.backend.model.entities.Status;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
-import es.udc.hotelapp.backend.model.exceptions.PermissionException;
+import es.udc.hotelapp.backend.model.exceptions.ReservationException;
 
 @Service
 @Transactional
@@ -68,13 +68,13 @@ public class ReservationServiceImpl implements ReservationService {
 	PermissionChecker permisionchecker;
 
 	@Override
-	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException, PermissionException {
+	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException, ReservationException {
 		if (!hotelDao.existsByName(rt1.getHotel().getName())) {
 			throw new InstanceNotFoundException("project.entities.hotel", rt1.getHotel().getId());
 		}
 		
 		if(! permisionchecker.checkIfPossibleToBook(rt1.getHotel().getId(), rt1.getInbound().toString(), rt1.getOutbound().toString(), rt1.getRoomtype().getName(), rt1.getRooms())) {
-			throw new PermissionException();
+			throw new ReservationException();
 		}
 		roomtypereservationDao.save(rt1);
 		return rt1;

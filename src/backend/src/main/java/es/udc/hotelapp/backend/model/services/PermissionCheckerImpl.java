@@ -56,24 +56,24 @@ public class PermissionCheckerImpl implements PermissionChecker {
 	public boolean checkIfPossibleToBook(Long hotelid, String in, String out, String type, int quantity) {
 		int page = 0; 
 		int acumulate = 0;
-		Slice <RoomTypeReservation> slice1 = rtrDao.findConflicts(hotelid, type, in, page, 10);
+		Slice <RoomTypeReservation> slice1 = rtrDao.findConflicts(hotelid, type, in, page, 2);
 		
 		acumulate  += countReservations(slice1.getContent());
 		
 		while (slice1.hasNext()) {
 			page ++;
-			slice1 = rtrDao.findConflicts(hotelid, type, in, page, 10);
+			slice1 = rtrDao.findConflicts(hotelid, type, in, page, 2);
 			acumulate += countReservations(slice1.getContent());
 		}
 			
 		page = 0;
 		
-		Slice<RoomTypeReservation> slice2 = rtrDao.findBetweenDates(hotelid, type, in, out, page, 10);
+		Slice<RoomTypeReservation> slice2 = rtrDao.findBetweenDates(hotelid, type, in, out, page, 2);
 		acumulate += countReservations(slice2.getContent());
 		
 		while (slice2.hasNext()) {
 			page ++;
-			slice2 =  rtrDao.findBetweenDates(hotelid, type, in, out, page, 10);
+			slice2 =  rtrDao.findBetweenDates(hotelid, type, in, out, page, 2);
 			acumulate += countReservations(slice2.getContent());
 		}
 		

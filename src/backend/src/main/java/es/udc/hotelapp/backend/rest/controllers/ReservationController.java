@@ -33,7 +33,7 @@ import es.udc.hotelapp.backend.model.entities.RoomReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
-import es.udc.hotelapp.backend.model.exceptions.PermissionException;
+import es.udc.hotelapp.backend.model.exceptions.ReservationException;
 import es.udc.hotelapp.backend.model.services.Block;
 import es.udc.hotelapp.backend.model.services.ReservationService;
 import es.udc.hotelapp.backend.rest.common.ErrorsDto;
@@ -69,7 +69,7 @@ public class ReservationController {
 	
 	@PostMapping("")
 	public RoomTypeReservationDto addReservation(@RequestBody RoomTypeReservationDto rtrDto)
-			throws InstanceNotFoundException, PermissionException, IncorrectReservationException {
+			throws InstanceNotFoundException, ReservationException, IncorrectReservationException {
 
 		RoomTypeReservation typer = toRoomTypeReservation(rtrDto);
 		

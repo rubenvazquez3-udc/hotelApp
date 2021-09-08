@@ -33,12 +33,13 @@ import es.udc.hotelapp.backend.model.entities.User;
 import es.udc.hotelapp.backend.model.entities.UserDao;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
-import es.udc.hotelapp.backend.model.exceptions.PermissionException;
 import es.udc.hotelapp.backend.model.exceptions.ProductAlreadyExistsException;
+import es.udc.hotelapp.backend.model.exceptions.ReservationException;
 import es.udc.hotelapp.backend.model.exceptions.ServiceAlreadyExistsException;
 import es.udc.hotelapp.backend.model.services.Block;
 import es.udc.hotelapp.backend.model.services.HotelService;
 import es.udc.hotelapp.backend.model.services.ReservationService;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -80,7 +81,7 @@ public class ReservationServiceTest {
 	
 	
 	@Test
-	public void testAddFindByIdReservation() throws InstanceNotFoundException, PermissionException {
+	public void testAddFindByIdReservation() throws InstanceNotFoundException, ReservationException {
 		
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		
@@ -113,7 +114,7 @@ public class ReservationServiceTest {
 		assertEquals(rt1, reservationService.findById(rt1.getId())); //Añade Correctamente
 		assertEquals(rt3, reservationService.findById(rt3.getId()));
 		
-		assertThrows(PermissionException.class, () -> reservationService.addReservation(rt4)); //Overbooking
+		assertThrows(ReservationException.class, () -> reservationService.addReservation(rt4)); //Overbooking
 		
 		roomDao.save(r4);
 		roomDao.save(r5);
@@ -127,6 +128,16 @@ public class ReservationServiceTest {
 		roomDao.save(new Room(111, rt1.getRoomtype(), rt1.getHotel()));
 		roomDao.save(new Room(112, rt1.getRoomtype(), rt1.getHotel()));
 		roomDao.save(new Room(113, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(213,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(214,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(215,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(216,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(217,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(218,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(219,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(220,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(223,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
+		roomDao.save(new Room(224,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel()));
 		
 		reservationService.addReservation(rt4); 
 		assertEquals(rt4, reservationService.findById(rt4.getId())); //Añade Correctamente
@@ -168,7 +179,7 @@ public class ReservationServiceTest {
 	}
 
 	@Test
-	public void testUpdateReservation() throws InstanceNotFoundException, PermissionException{
+	public void testUpdateReservation() throws InstanceNotFoundException, ReservationException{
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		
 		Room r1 = new Room(202, rt1.getRoomtype(), rt1.getHotel());
@@ -192,7 +203,7 @@ public class ReservationServiceTest {
 	}
 	
 	@Test
-	public void testFindReservations() throws InstanceNotFoundException, PermissionException {
+	public void testFindReservations() throws InstanceNotFoundException, ReservationException {
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		RoomTypeReservation rt2 = create("mongolo","INDIVIDUAL");
 		rt2.setUser(rt1.getUser());
@@ -207,14 +218,16 @@ public class ReservationServiceTest {
 		reservationService.addReservation(rt1);
 		reservationService.addReservation(rt2);
 		Block<RoomTypeReservation> result = new Block<>(Arrays.asList(rt1,rt2),false);
+		Block<RoomTypeReservation> result3 = new Block<>(Arrays.asList(rt1),false);
 		Block<RoomTypeReservation> result2 = new Block<>(new ArrayList<>(),false);
 
 		assertEquals(result, reservationService.findReservations(null,"","firstName",0,2));
+		assertEquals(result3, reservationService.findReservations(rt1.getHotel().getId(),"2021-07-10","firstName",0,2));
 		assertEquals(result2, reservationService.findReservations(null,"","lastName",0,1));
 	}
 	
 	@Test
-	public void testassignRoom() throws InstanceNotFoundException, IncorrectReservationException, PermissionException {
+	public void testassignRoom() throws InstanceNotFoundException, IncorrectReservationException, ReservationException {
 		RoomTypeReservation rt1 = create("username", "DOUBLE");
 		Room r1 = new Room(202, rt1.getRoomtype(), rt1.getHotel());
 		Room r2 = new Room(212,Status.NO_UTILIZABLE, rt1.getRoomtype(), rt1.getHotel());
@@ -233,6 +246,10 @@ public class ReservationServiceTest {
 		rr1.setEnd(rt1.getOutbound());
 		
 		assertEquals(rr1, reservationService.assignReservation(rr1, rt1.getId())); // Correctamente asignando
+		
+		RoomReservation rr2 = new RoomReservation(r4,rt1,rt1.getInbound(),rt1.getOutbound());
+		
+		assertEquals(rr2, reservationService.assignReservation(rr2,rt1.getId()));
 		
 		
 		RoomType type = new RoomType("Individual");
@@ -259,7 +276,7 @@ public class ReservationServiceTest {
 	}
 	
 	@Test
-	public void testAddguest() throws InstanceNotFoundException, IncorrectReservationException, PermissionException {
+	public void testAddguest() throws InstanceNotFoundException, IncorrectReservationException, ReservationException {
 		RoomTypeReservation rt1 = create("username", "DOUBLE");
 		
 		Room r1 = new Room(202, rt1.getRoomtype(), rt1.getHotel());
@@ -306,7 +323,7 @@ public class ReservationServiceTest {
 	}
 	
 	@Test
-	public void testFindReservationsHotel() throws InstanceNotFoundException, PermissionException {
+	public void testFindReservationsHotel() throws InstanceNotFoundException, ReservationException {
 
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		
@@ -338,7 +355,7 @@ public class ReservationServiceTest {
 	}
 	
 	@Test
-	public void testRemoveReservation() throws InstanceNotFoundException, PermissionException {
+	public void testRemoveReservation() throws InstanceNotFoundException, ReservationException {
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		
 		Room r1 = new Room(202, rt1.getRoomtype(), rt1.getHotel());
@@ -359,7 +376,7 @@ public class ReservationServiceTest {
 	}
 	
 	@Test
-	public void testCreateAccount() throws InstanceNotFoundException, PermissionException, IncorrectReservationException {
+	public void testCreateAccount() throws InstanceNotFoundException, ReservationException, IncorrectReservationException {
 		
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		RoomTypeReservation rt3 = new RoomTypeReservation(rt1.getUser(),rt1.getInbound(),rt1.getOutbound().plusDays(2), 1, rt1.getRoomtype(),rt1.getHotel());
@@ -399,7 +416,7 @@ public class ReservationServiceTest {
 	}
 	
 	@Test
-	public void testFindAllGuestReservations() throws InstanceNotFoundException, PermissionException, IncorrectReservationException {
+	public void testFindAllGuestReservations() throws InstanceNotFoundException, ReservationException, IncorrectReservationException {
 		RoomTypeReservation rt1 = create("username", "DOUBLE");
 		
 		Room r1 = new Room(202, rt1.getRoomtype(), rt1.getHotel());
@@ -420,10 +437,12 @@ public class ReservationServiceTest {
 		Block<GuestReservation> result = new Block<>(Arrays.asList(gr1),false);
 		
 		assertEquals(result, reservationService.findAllGuestReservation(rt1.getHotel().getId(), "", 0, 1));
+		
+		assertEquals(result, reservationService.findAllGuestReservation(rt1.getHotel().getId(), "Pepe", 0, 1));
 	}
 	
 	@Test
-	public void testAddtoAccount() throws InstanceNotFoundException, PermissionException, IncorrectReservationException, ProductAlreadyExistsException, ServiceAlreadyExistsException {
+	public void testAddtoAccount() throws InstanceNotFoundException, ReservationException, IncorrectReservationException, ProductAlreadyExistsException, ServiceAlreadyExistsException {
 		RoomTypeReservation rt1 = create("username","DOUBLE");
 		
 		RoomType t1=new RoomType("INDIVIDUAL");
@@ -450,6 +469,7 @@ public class ReservationServiceTest {
 		reservationService.addToAccount(null, p1.getId(), rt4.getId(), 2); //Añadimos Producto
 
 		assertEquals(2, acc2.getItem(p1.getName()).get().getQuantity());
+		assertEquals(new BigDecimal(4),acc2.getTotalPrice());
 
 		reservationService.addToAccount(null, p1.getId(), rt4.getId(), 2); //incrementa a cantidad
 		

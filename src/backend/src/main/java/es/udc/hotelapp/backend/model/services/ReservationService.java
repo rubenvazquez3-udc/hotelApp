@@ -8,11 +8,11 @@ import es.udc.hotelapp.backend.model.entities.RoomReservation;
 import es.udc.hotelapp.backend.model.entities.RoomTypeReservation;
 import es.udc.hotelapp.backend.model.exceptions.IncorrectReservationException;
 import es.udc.hotelapp.backend.model.exceptions.InstanceNotFoundException;
-import es.udc.hotelapp.backend.model.exceptions.PermissionException;
+import es.udc.hotelapp.backend.model.exceptions.ReservationException;
 
 public interface ReservationService {
 
-	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException, PermissionException;
+	public RoomTypeReservation addReservation(RoomTypeReservation rt1) throws InstanceNotFoundException, ReservationException;
 
 	public Block<RoomTypeReservation> findReservations(Long id, String date, String username, int page, int size);
 	

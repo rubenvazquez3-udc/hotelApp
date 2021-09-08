@@ -1,5 +1,5 @@
 -- Indexes for primary keys have been explicitly created.
-
+DROP TABLE RoomService;
 DROP TABLE AccountItem;
 DROP TABLE Account;
 DROP TABLE RoomReservation;
