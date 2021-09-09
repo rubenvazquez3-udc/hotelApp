@@ -15,7 +15,7 @@ const FindHotelsResult = () => {
         return null;
     }
 
-    if (hotelSearch.hotelResult.items.length === 0) {
+    if (hotelSearch.length === 0) {
         return (
             <div className="alert alert-danger" role="alert">
                 <FormattedMessage id='project.hotels.noHotelsFound' />
@@ -23,6 +23,7 @@ const FindHotelsResult = () => {
 
         )
     }
+
 
     return (
         <div>

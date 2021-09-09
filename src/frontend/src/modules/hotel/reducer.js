@@ -13,15 +13,15 @@ const hotels = (state = initialState.hotels, action) => {
         case actionTypes.GET_HOTELS_COMPLETED:
             return action.hotelResult;
         case actionTypes.ADD_HOTEL_COMPLETED:
-            return [...state, action.authenticatedHotel];
+            return  {criteria: {...state.criteria}, hotelResult: [...state.hotelResult.items, action.authenticatedHotel]};
         case actionTypes.UPDATE_HOTEL_COMPLETED:
-            let hotels = [...state];
+            let hotels = [...state.hotelResult.items];
             hotels.splice(hotels.findIndex(hotel => hotel.id === action.hotel.id), 1, action.hotel);
-            return hotels;
+            return  {criteria: {...state.criteria}, hotelResult: hotels};
         case actionTypes.REMOVE_HOTEL_COMPLETED:
-            let hotels1 = [...state];
+            let hotels1 = [...state.hotelResult.items];
             let result = hotels1.filter(hotel => hotel.id !== action.hotelid);
-            return result;
+            return  {criteria: {...state.criteria}, hotelResult: result};
         default:
             return state;
     }
