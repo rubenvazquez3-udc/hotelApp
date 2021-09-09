@@ -14,6 +14,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.udc.hotelapp.backend.model.entities.Hotel;
+import es.udc.hotelapp.backend.model.entities.Photo;
 import es.udc.hotelapp.backend.model.entities.Product;
 import es.udc.hotelapp.backend.model.entities.RoomType;
 import es.udc.hotelapp.backend.model.entities.RoomTypeDao;
@@ -405,5 +406,18 @@ public class HotelServiceTest {
 		
 		assertThrows(InstanceNotFoundException.class, () -> hotelService.removePrice(price.getId()));
 		
+	}
+	
+	@Test
+	public void testUploadPhoto() throws HotelAlreadyExistsException {
+		
+		Hotel h1 = createHotel();
+		hotelService.createHotel(h1);
+		
+		Photo ph1 = new Photo("readme.txt", h1);
+		
+		hotelService.uploadPhoto("readme.txt", h1.getId());
+		
+		//assertTrue(h1.getPhotos().contains(ph1));
 	}
 }

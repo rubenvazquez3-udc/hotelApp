@@ -49,7 +49,12 @@ import static es.udc.hotelapp.backend.rest.dtos.RoomConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomTypeConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.GuestReservationConversor.*;
 import static es.udc.hotelapp.backend.rest.dtos.RoomTypePriceConversor.*;
-import java.util.ArrayList;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Locale;
 
@@ -64,6 +69,8 @@ public class HotelController {
 	private final static String PRODUCT_ALREADY_EXISTS_EXCEPTION_CODE = "project.exceptions.ProductAlreadyExistsException";
 
 	private final static String ROOM_ALREADY_EXISTS_EXCEPTION_CODE = "project.exceptions.RoomAlreadyExistsException";
+	
+	private final static  String UPLOADING_DIR = "/home/ruben/Escritorio/hotel/hotelapp/src/frontend/public";
 	
 	@Autowired
 	private HotelService hotelService;
@@ -169,13 +176,18 @@ public class HotelController {
 	    if( file.isEmpty()){
 	        return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
-	    boolean f = hotelService.uploadPhoto(file, hotelid);
-
-	    if(f){
-	        return ResponseEntity.noContent().build();
-	    }
-
-	    return (ResponseEntity<?>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
+	    
+	    try {
+			Files.copy(file.getInputStream(), Paths.get(UPLOADING_DIR + File.separator + file.getOriginalFilename()),
+					StandardCopyOption.REPLACE_EXISTING);
+			
+			hotelService.uploadPhoto(file.getOriginalFilename(), hotelid);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return ResponseEntity.noContent().build();
 	}
 
 		/******************************************** ROOMS *****************************************/

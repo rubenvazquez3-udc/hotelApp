@@ -1,9 +1,5 @@
 package es.udc.hotelapp.backend.model.services;
 
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
-
 import es.udc.hotelapp.backend.model.entities.Hotel;
 import es.udc.hotelapp.backend.model.entities.Product;
 import es.udc.hotelapp.backend.model.entities.RoomTypePrice;
@@ -58,7 +54,7 @@ public interface HotelService {
 
 	public void removePrice (Long priceid) throws InstanceNotFoundException;
 
-	public boolean uploadPhoto ( MultipartFile file, Long hotelid);
+	public void uploadPhoto ( String filename, Long hotelid);
 	
 
 }
