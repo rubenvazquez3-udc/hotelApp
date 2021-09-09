@@ -58,27 +58,8 @@ const Header = () => {
                         </li>
                     </ul>
                     : user === "MANAGER" ?
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/hotels/prices">
-                                    <FormattedMessage id="project.hotels.AddPrice.title" />
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/products/add">
-                                    <FormattedMessage id="project.product.AddProduct.title" />
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/services/add">
-                                    <FormattedMessage id="project.service.AddService.title" />
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/hotels/upload-photo">
-                                    <FormattedMessage id="project.hotels.UploadPhoto.title" />
-                                </Link>
-                            </li>
+                        <ul className="nav nav-pills">
+
                             <li className="nav-item">
                                 <Link className="nav-link" to="/guests">
                                     <FormattedMessage id="project.guest.FindGuest.title" />
@@ -94,10 +75,27 @@ const Header = () => {
                                     <FormattedMessage id="project.room.FindRoom.title" />
                                 </Link>
                             </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/users/signup">
-                                    <FormattedMessage id="project.users.Manager.title" />
-                                </Link>
+                            <li className="nav-item dropdown">
+                                <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">
+                                    <FormattedMessage id="project.hotels.title" />
+                                </a>
+                                <div className="dropdown-menu dropdown-menu-right">
+                                    <Link className="dropdown-item" to="/hotels/prices">
+                                        <FormattedMessage id="project.hotels.AddPrice.title" />
+                                    </Link>
+                                    <Link className="dropdown-item" to="/products/add">
+                                        <FormattedMessage id="project.product.AddProduct.title" />
+                                    </Link>
+                                    <Link className="dropdown-item" to="/services/add">
+                                        <FormattedMessage id="project.service.AddService.title" />
+                                    </Link>
+                                    <Link className="dropdown-item" to="/hotels/upload-photo">
+                                        <FormattedMessage id="project.hotels.UploadPhoto.title" />
+                                    </Link>
+                                    <Link className="dropdown-item" to="/users/signup">
+                                        <FormattedMessage id="project.users.Manager.title" />
+                                    </Link>
+                                </div>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="dropdown-toggle nav-link" href="/" data-toggle="dropdown">

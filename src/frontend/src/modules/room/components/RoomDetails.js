@@ -46,7 +46,7 @@ const RoomDetails = () => {
 
     if (user.role === 'MANAGER') {
         adminValues = (
-            <div className="navbar-nav">
+            <div className="navbar-nav" style={{display:"flex", justifyContent:'center'}}>
                 <Link className="nav-link" to={`/hotels/room-details/${room.id}/update`}>
                     <span className="fas fa-edit fa-2x" title='Edit'/>
                 </Link>

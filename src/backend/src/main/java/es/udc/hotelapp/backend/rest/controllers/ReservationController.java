@@ -49,7 +49,7 @@ import es.udc.hotelapp.backend.rest.dtos.RoomTypeReservationDto;
 public class ReservationController {
 	
 	private final static String INCORRECT_RESERVATION_EXCEPTION_CODE = "project.exceptions.IncorrectReservationException";
-
+	private final static String RESERVATION_EXCEPTION_CODE = "project.exceptions.ReservationException";
 	@Autowired
 	private ReservationService reservationService;
 	
@@ -62,6 +62,16 @@ public class ReservationController {
 	public ErrorsDto handleIncorrectReservationException(IncorrectReservationException exception, Locale locale) {
 		String errorMessage = messageSource.getMessage(INCORRECT_RESERVATION_EXCEPTION_CODE, null,
 				INCORRECT_RESERVATION_EXCEPTION_CODE , locale);
+		return new ErrorsDto(errorMessage);
+
+	}
+
+	@ExceptionHandler(ReservationException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseBody
+	public ErrorsDto handleReservationException(ReservationException exception, Locale locale) {
+		String errorMessage = messageSource.getMessage(RESERVATION_EXCEPTION_CODE, null,
+				RESERVATION_EXCEPTION_CODE , locale);
 		return new ErrorsDto(errorMessage);
 
 	}
