@@ -313,6 +313,9 @@ public class ReservationServiceTest {
 		
 		g1.setName("Manolo");
 		g1.setAddress("Lugo");
+		g1.setSurname("Perez");
+		g1.setPhoneNumber("948506834");
+		//g1.setDni("7384948595D");
 		
 		GuestReservation gr4 = new GuestReservation(rt1, g1);
 		

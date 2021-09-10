@@ -66,7 +66,8 @@ public class RoomServiceTest {
 		Hotel h1 = createHotel();
 
 		hotelService.createHotel(h1);
-		RoomType type = new RoomType("DOBLE");
+		RoomType type = new RoomType();
+		type.setName("DOBLE");
 		typedao.save(type);
 		Room r1 = new Room(201,type,h1);
 		

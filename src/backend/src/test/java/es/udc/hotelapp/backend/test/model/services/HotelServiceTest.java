@@ -212,7 +212,19 @@ public class HotelServiceTest {
 
 		assertEquals(new Block<>(new ArrayList<>(), false), hotelService.findProducts(h1.getId(),"Platano",0,1));
 		
+		assertFalse(new Block<>(new ArrayList<>(),false).equals(slice1));
+		
+		assertFalse(new Block<>(new ArrayList<>(),false).equals(null));
+		
+		assertFalse(new Block<>(new ArrayList<>(),true).equals(slice1));
+		
+		assertFalse(new Block<>(null,false).equals(slice1));
+		
+		assertTrue(new Block<>(null, false).equals(new Block<>(null, false)));
+		
 		assertEquals(slice1.hashCode(), hotelService.findProducts(h1.getId(),"",0,2).hashCode());
+		
+		//assertFalse(slice1.hashCode() == slice2.hashCode());
 		
 	}
 	
@@ -294,10 +306,33 @@ public class HotelServiceTest {
 		
 		assertEquals(price, hotelService.findPriceById(price.getId()));
 		
+		RoomType type2 = new RoomType("INDIVIDUAL");
+		
+		typedao.save(type2);
+		
+		price.setType(type2);
+		
+		hotelService.updateRoomTypePrice(price);
+		
+		assertEquals(price, hotelService.findPriceById(price.getId()));
+		
+		Hotel h2 = createHotel();
+		
+		h2.setManager("Pablo Picasso");
+		h2.setAddress("C/ Pantomima, 22");
+		h2.setName("NH Hotels");
+		
+		hotelService.createHotel(h2);
+		
+		price.setHotel(h2);
+		
+		hotelService.updateRoomTypePrice(price);
+		
+		assertEquals(price, hotelService.findPriceById(price.getId()));
+		
 		price.setId(price.getId()* 5);
 		
 		assertThrows(InstanceNotFoundException.class, () -> hotelService.updateRoomTypePrice(price));
-		
 	}
 	
 	@Test
@@ -340,6 +375,9 @@ public class HotelServiceTest {
 		assertEquals(s4,s5);
 		
 		assertThrows(InstanceNotFoundException.class, () -> hotelService.findProduct((long) 16));
+		
+		p1.setHotel(h2);
+
 		
 		
 	}
@@ -415,6 +453,7 @@ public class HotelServiceTest {
 		hotelService.createHotel(h1);
 		
 		Photo ph1 = new Photo("readme.txt", h1);
+		ph1.setName("realme.txt");
 		
 		hotelService.uploadPhoto("readme.txt", h1.getId());
 		
